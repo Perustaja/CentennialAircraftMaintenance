@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using BackEnd.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using CAM.Infrastructure.Data;
 
 namespace CAM.Web
 {
@@ -29,8 +28,11 @@ namespace CAM.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(Configuration.GetConnectionString("ApplicationContext")));
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
+                Configuration.GetConnectionString("ApplicationContext"),
+                assembly => assembly.MigrationsAssembly("CAM.Web")
+                ));
+            // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.ConfigureSwaggerGen(options => options.CustomSchemaIds(x => x.FullName));
             services.AddSwaggerGen(options =>
