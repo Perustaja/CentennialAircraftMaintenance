@@ -1,0 +1,9 @@
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netstandard2.0/CAM.Infrastructure.deps.json
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netstandard2.0/CAM.Infrastructure.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netstandard2.0/CAM.Infrastructure.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.csprojAssemblyReference.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.csproj.CoreCompileInputs.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.AssemblyInfoInputs.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.AssemblyInfo.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netstandard2.0/CAM.Infrastructure.pdb
