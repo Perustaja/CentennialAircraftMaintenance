@@ -35,8 +35,6 @@ namespace CAM.Web.ApiModels
         [Display(Name = "Resolved By")]
         public string ResolvedBy { get; set; }
         public bool IsGroundable { get; set; } = false;
-        // Aircraft 
-        public AircraftDto Aircraft { get; set; }
         // Status
         public StatusDto Status { get; set; }
 

@@ -30,8 +30,5 @@ namespace CAM.Web.ApiModels
         [Display(Name = "Engine 2 Total")]
         public decimal? Engine2Total { get; set; }
         public int? Cycles { get; set; }
-        // Aircraft
-        public AircraftDto Aircraft { get; set; }
-
     }
 }
