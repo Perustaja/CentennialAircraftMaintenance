@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Contains Aircraft data, no times currently.
     /// </summary>
-    public class Aircraft
+    public class AircraftDto
     {
         [Key, Required]
         [StringLength(20)]

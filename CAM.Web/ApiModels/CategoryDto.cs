@@ -6,7 +6,7 @@ namespace CAM.Web.ApiModels
     /// <summary>
     /// Contains data relating to categories used for parts.
     /// </summary>
-    public class Category
+    public class CategoryDto
     {
         public int Id { get; set; }
         [Required]

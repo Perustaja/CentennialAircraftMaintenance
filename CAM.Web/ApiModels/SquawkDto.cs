@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Contains data purely for an organized front-end facing object representing a squawk. 
     /// </summary>
-    public class Squawk
+    public class SquawkDto
     {
         public int Id { get; set; }
         // Aircraft FK

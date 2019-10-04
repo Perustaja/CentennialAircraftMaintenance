@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Contains information linking hours of labor to an Employee
     /// </summary>
-    public class LaborRecord
+    public class LaborRecordDto
     {
         public int Id { get; set; }
         // Discrepancy FK

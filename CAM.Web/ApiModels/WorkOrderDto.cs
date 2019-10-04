@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Used to organize Discrepancies, acting like a container. 
     /// </summary>
-    public class WorkOrder
+    public class WorkOrderDto
     {
         public int Id { get; set; }
         // Main

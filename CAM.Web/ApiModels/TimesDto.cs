@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Contains aircraft time information.
     /// </summary>
-    public class Times
+    public class TimesDto
     {
         [Required]
         [Key, ForeignKey("Aircraft")]

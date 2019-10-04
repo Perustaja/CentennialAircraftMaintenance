@@ -5,7 +5,7 @@ namespace CAM.Web.ApiModels
     /// <summary>
     /// Represents an employee.
     /// </summary>
-    public class Employee
+    public class EmployeeDto
     {
         public int Id { get; set; }
         // Main

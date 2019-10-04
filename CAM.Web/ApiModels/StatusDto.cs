@@ -5,7 +5,7 @@ namespace CAM.Web.ApiModels
     /// <summary>
     /// Contains data used to represent the current status of a squawk.
     /// </summary>
-    public class Status
+    public class StatusDto
     {
 
         public int Id { get; set; }

@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -9,7 +10,7 @@ namespace CAM.Web.ApiModels
     /// Contains information used for maintenance documents and tracking purposes. Its data is independent of 
     /// others, allowing it to serve as a snapshot and be edited as desired.
     /// </summary>
-    public class Discrepancy
+    public class DiscrepancyDto
     {
         public int Id { get; set; }
         // WorkOrder FK

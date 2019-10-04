@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using CAM.Infrastructure.Data;
+using AutoMapper;
 
 namespace CAM.Web
 {
@@ -32,7 +33,7 @@ namespace CAM.Web
                 Configuration.GetConnectionString("ApplicationContext"),
                 assembly => assembly.MigrationsAssembly("CAM.Web")
                 ));
-            // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.ConfigureSwaggerGen(options => options.CustomSchemaIds(x => x.FullName));
             services.AddSwaggerGen(options =>
