@@ -13,7 +13,6 @@ namespace CAM.Web
                 .ForMember(dest => dest.Times, opt => opt.MapFrom(src => src.Times))
                 .ForMember(dest => dest.Squawks, opt => opt.MapFrom(src => src.Squawks))
                 .ReverseMap();
-            
         }
     }
 }

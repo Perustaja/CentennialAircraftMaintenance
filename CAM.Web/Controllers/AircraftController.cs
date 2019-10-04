@@ -29,7 +29,10 @@ namespace CAM.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AircraftDto>>> GetAircraft()
         {
-            var aircraft = await _context.Aircraft.ToListAsync();
+            var aircraft = await _context.Aircraft.AsNoTracking()
+                                        .Include(a => a.Times)
+                                        .Include(a => a.Squawks)
+                                        .ToListAsync();
             return _mapper.Map<List<Aircraft>, List<AircraftDto>>(aircraft);
         }
 

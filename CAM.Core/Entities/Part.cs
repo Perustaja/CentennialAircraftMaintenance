@@ -1,13 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains general item information used for inventory purposes. 
     /// </summary>
-    public class Part
+    public class Part : BaseEntity
     {
         public int Id { get; set; }
         // Category FK

@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Represents an employee.
     /// </summary>
-    public class Employee
+    public class Employee : BaseEntity
     {
         public int Id { get; set; }
         // Main

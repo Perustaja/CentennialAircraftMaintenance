@@ -1,4 +1,3 @@
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -10,9 +9,9 @@ namespace CAM.Web.ApiModels
         public int DiscrepancyId { get; set; }
         public int PartId { get; set; }
         // Discrepancy
-        public Discrepancy Discrepancy { get; set; }
+        public DiscrepancyDto Discrepancy { get; set; }
         // Part
-        public Part Part { get; set; }
+        public PartDto Part { get; set; }
 
     }
 }

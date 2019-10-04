@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
@@ -9,7 +10,7 @@ namespace CAM.Core.Entities
     /// Contains information used for maintenance documents and tracking purposes. Its data is independent of 
     /// others, allowing it to serve as a snapshot and be edited as desired.
     /// </summary>
-    public class Discrepancy
+    public class Discrepancy : BaseEntity
     {
         public int Id { get; set; }
         // WorkOrder FK

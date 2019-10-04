@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Used to organize Discrepancies, acting like a container. 
     /// </summary>
-    public class WorkOrder
+    public class WorkOrder : BaseEntity
     {
         public int Id { get; set; }
         // Main

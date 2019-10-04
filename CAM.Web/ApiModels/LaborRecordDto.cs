@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -17,8 +16,8 @@ namespace CAM.Web.ApiModels
         [Display(Name = "Labor(Hours)")]
         public decimal LaborInHours { get; set; }
         // Discrepancy 
-        public Discrepancy Discrepancy { get; set; }
+        public DiscrepancyDto Discrepancy { get; set; }
         // Employee 
-        public Employee Employee { get; set; }
+        public EmployeeDto Employee { get; set; }
     }
 }

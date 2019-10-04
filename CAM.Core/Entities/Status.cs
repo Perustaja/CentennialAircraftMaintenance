@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains data used to represent the current status of a squawk.
     /// </summary>
-    public class Status
+    public class Status : BaseEntity
     {
 
         public int Id { get; set; }

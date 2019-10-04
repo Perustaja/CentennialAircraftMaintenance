@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -26,9 +25,9 @@ namespace CAM.Web.ApiModels
         public decimal PriceOut { get; set; }
         public int MinimumStock { get; set; }
         // Category 
-        public Category Category { get; set; }
+        public CategoryDto Category { get; set; }
         // Navigation properties
-        public virtual ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public virtual ICollection<DiscrepancyPartDto> DiscrepancyParts { get; set; }
 
     }
 }

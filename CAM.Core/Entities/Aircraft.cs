@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
-namespace CAM.Core.Entities
+namespace CAM.Core.Entities 
 {
     /// <summary>
     /// Contains Aircraft data, no times currently.
     /// </summary>
-    public class Aircraft
+    public class Aircraft : BaseEntity
     {
         [Key, Required]
         [StringLength(20)]

@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains aircraft time information.
     /// </summary>
-    public class Times
+    public class Times : BaseEntity
     {
         [Required]
         [Key, ForeignKey("Aircraft")]

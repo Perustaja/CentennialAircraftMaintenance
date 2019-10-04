@@ -1,12 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains data purely for an organized front-end facing object representing a squawk. 
     /// </summary>
-    public class Squawk
+    public class Squawk : BaseEntity
     {
         public int Id { get; set; }
         // Aircraft FK

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -15,6 +14,6 @@ namespace CAM.Web.ApiModels
         [StringLength(30)]
         public string Name { get; set; }
         // Navigation properties
-        public ICollection<Discrepancy> Discrepancies { get; set; }
+        public ICollection<DiscrepancyDto> Discrepancies { get; set; }
     }
 }

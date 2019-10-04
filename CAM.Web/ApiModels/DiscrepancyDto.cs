@@ -2,7 +2,6 @@ using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -51,10 +50,10 @@ namespace CAM.Web.ApiModels
         public decimal Engine2Total { get; set; }
         public int Cycles { get; set; }
         // WorkOrder 
-        public WorkOrder WorkOrder { get; set; }
+        public WorkOrderDto WorkOrder { get; set; }
         // Navigation properties
-        public virtual ICollection<LaborRecord> LaborRecords { get; set; }
-        public virtual ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public virtual ICollection<LaborRecordDto> LaborRecords { get; set; }
+        public virtual ICollection<DiscrepancyPartDto> DiscrepancyParts { get; set; }
 
     }
 }

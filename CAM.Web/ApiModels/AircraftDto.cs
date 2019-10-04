@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -26,8 +25,8 @@ namespace CAM.Web.ApiModels
         public string SerialNum { get; set; }
         public bool IsTwin { get; set; } = false;
         // Times 
-        public Times Times { get; set; }
+        public TimesDto Times { get; set; }
         // Navigation properties
-        public virtual ICollection<Squawk> Squawks { get; set; }
+        public virtual ICollection<SquawkDto> Squawks { get; set; }
     }
 }

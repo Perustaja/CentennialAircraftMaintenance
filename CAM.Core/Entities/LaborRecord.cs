@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains information linking hours of labor to an Employee
     /// </summary>
-    public class LaborRecord
+    public class LaborRecord : BaseEntity
     {
         public int Id { get; set; }
         // Discrepancy FK

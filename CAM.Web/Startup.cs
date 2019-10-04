@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using CAM.Infrastructure.Data;
 using AutoMapper;
+using Newtonsoft.Json;
 
 namespace CAM.Web
 {
@@ -39,6 +40,13 @@ namespace CAM.Web
             services.AddSwaggerGen(options =>
                 options.SwaggerDoc("v1", new Info { Title = "Centennial Aircraft Maintenance API", Version = "v1" }));
             
+            // Temporary loop reference handling exception for troubleshooting
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

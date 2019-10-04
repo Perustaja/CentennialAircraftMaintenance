@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -32,7 +31,7 @@ namespace CAM.Web.ApiModels
         public decimal? Engine2Total { get; set; }
         public int? Cycles { get; set; }
         // Aircraft
-        public Aircraft Aircraft { get; set; }
+        public AircraftDto Aircraft { get; set; }
 
     }
 }

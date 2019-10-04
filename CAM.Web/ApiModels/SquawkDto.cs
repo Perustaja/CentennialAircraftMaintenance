@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.Entities;
 
 namespace CAM.Web.ApiModels
 {
@@ -37,9 +36,9 @@ namespace CAM.Web.ApiModels
         public string ResolvedBy { get; set; }
         public bool IsGroundable { get; set; } = false;
         // Aircraft 
-        public Aircraft Aircraft { get; set; }
+        public AircraftDto Aircraft { get; set; }
         // Status
-        public Status Status { get; set; }
+        public StatusDto Status { get; set; }
 
     }
 }
