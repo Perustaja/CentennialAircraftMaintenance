@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace CAM.Core.Entities
     /// Contains information used for maintenance documents and tracking purposes. Its data is independent of 
     /// others, allowing it to serve as a snapshot and be edited as desired.
     /// </summary>
-    public class Discrepancy : BaseEntity
+    public class Discrepancy : TimesHolder
     {
         public int Id { get; set; }
         // WorkOrder FK
@@ -39,17 +40,6 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(20)]
         public string Model { get; set; }
-        // Times properties
-        public decimal Hobbs { get; set; }
-        public int AirTime { get; set; }
-        public decimal Tach1 { get; set; }
-        public decimal Tach2 { get; set; }
-        public decimal Prop1 { get; set; }
-        public decimal Prop2 { get; set; }
-        public decimal AircraftTotal { get; set; }
-        public decimal Engine1Total { get; set; }
-        public decimal Engine2Total { get; set; }
-        public int Cycles { get; set; }
         // WorkOrder 
         public WorkOrder WorkOrder { get; set; }
         // Navigation properties

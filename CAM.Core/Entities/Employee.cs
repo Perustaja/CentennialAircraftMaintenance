@@ -6,7 +6,7 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Represents an employee.
     /// </summary>
-    public class Employee : BaseEntity
+    public class Employee
     {
         public int Id { get; set; }
         // Main

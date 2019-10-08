@@ -7,14 +7,15 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains Aircraft data, no times currently.
     /// </summary>
-    public class Aircraft : BaseEntity
+    public class Aircraft
     {
-        [Key, Required]
+        [Key]
         [StringLength(20)]
-        [Display(Name = "Registration Number")]
-        public string Id { get; set; }
+        [Display(Name = "Registration")]
+        public string Id { get ; set; }
         //Main
         [StringLength(100)]
+        [Display(Name = "Image Path")]
         public string ImagePath { get; set; } = "~/img/logo.png";
 
         [Range(1900, 3000)]

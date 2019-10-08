@@ -7,7 +7,7 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains data purely for an organized front-end facing object representing a squawk. 
     /// </summary>
-    public class Squawk : BaseEntity
+    public class Squawk
     {
         public int Id { get; set; }
         // Aircraft FK

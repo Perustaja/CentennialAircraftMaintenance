@@ -8,6 +8,7 @@ namespace CAM.Web.ApiModels
     {
         public int DiscrepancyId { get; set; }
         public int PartId { get; set; }
+        public int Qty { get; set; }
         // Discrepancy
         public DiscrepancyDto Discrepancy { get; set; }
         // Part
