@@ -117,6 +117,8 @@ namespace CAM.Web.Migrations
 
                     b.Property<int>("PartId");
 
+                    b.Property<int>("Qty");
+
                     b.HasKey("DiscrepancyId", "PartId");
 
                     b.HasIndex("PartId");
@@ -251,25 +253,25 @@ namespace CAM.Web.Migrations
                 {
                     b.Property<string>("AircraftId");
 
-                    b.Property<int?>("AirTime");
+                    b.Property<int>("AirTime");
 
-                    b.Property<decimal?>("AircraftTotal");
+                    b.Property<decimal>("AircraftTotal");
 
-                    b.Property<int?>("Cycles");
+                    b.Property<int>("Cycles");
 
-                    b.Property<decimal?>("Engine1Total");
+                    b.Property<decimal>("Engine1Total");
 
-                    b.Property<decimal?>("Engine2Total");
+                    b.Property<decimal>("Engine2Total");
 
-                    b.Property<decimal?>("Hobbs");
+                    b.Property<decimal>("Hobbs");
 
-                    b.Property<decimal?>("Prop1");
+                    b.Property<decimal>("Prop1");
 
-                    b.Property<decimal?>("Prop2");
+                    b.Property<decimal>("Prop2");
 
-                    b.Property<decimal?>("Tach1");
+                    b.Property<decimal>("Tach1");
 
-                    b.Property<decimal?>("Tach2");
+                    b.Property<decimal>("Tach2");
 
                     b.HasKey("AircraftId");
 

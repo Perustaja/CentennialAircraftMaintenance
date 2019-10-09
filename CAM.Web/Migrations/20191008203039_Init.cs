@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAM.Web.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,16 +82,16 @@ namespace CAM.Web.Migrations
                 columns: table => new
                 {
                     AircraftId = table.Column<string>(nullable: false),
-                    Hobbs = table.Column<decimal>(nullable: true),
-                    AirTime = table.Column<int>(nullable: true),
-                    Tach1 = table.Column<decimal>(nullable: true),
-                    Tach2 = table.Column<decimal>(nullable: true),
-                    Prop1 = table.Column<decimal>(nullable: true),
-                    Prop2 = table.Column<decimal>(nullable: true),
-                    AircraftTotal = table.Column<decimal>(nullable: true),
-                    Engine1Total = table.Column<decimal>(nullable: true),
-                    Engine2Total = table.Column<decimal>(nullable: true),
-                    Cycles = table.Column<int>(nullable: true)
+                    Hobbs = table.Column<decimal>(nullable: false),
+                    AirTime = table.Column<int>(nullable: false),
+                    Tach1 = table.Column<decimal>(nullable: false),
+                    Tach2 = table.Column<decimal>(nullable: false),
+                    Prop1 = table.Column<decimal>(nullable: false),
+                    Prop2 = table.Column<decimal>(nullable: false),
+                    AircraftTotal = table.Column<decimal>(nullable: false),
+                    Engine1Total = table.Column<decimal>(nullable: false),
+                    Engine2Total = table.Column<decimal>(nullable: false),
+                    Cycles = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,15 +169,6 @@ namespace CAM.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    WorkOrderId = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateFinalized = table.Column<DateTime>(nullable: false),
-                    IsFinalized = table.Column<bool>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
-                    Year = table.Column<int>(nullable: true),
-                    Model = table.Column<string>(maxLength: 20, nullable: false),
                     Hobbs = table.Column<decimal>(nullable: false),
                     AirTime = table.Column<int>(nullable: false),
                     Tach1 = table.Column<decimal>(nullable: false),
@@ -187,7 +178,16 @@ namespace CAM.Web.Migrations
                     AircraftTotal = table.Column<decimal>(nullable: false),
                     Engine1Total = table.Column<decimal>(nullable: false),
                     Engine2Total = table.Column<decimal>(nullable: false),
-                    Cycles = table.Column<int>(nullable: false)
+                    Cycles = table.Column<int>(nullable: false),
+                    WorkOrderId = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateFinalized = table.Column<DateTime>(nullable: false),
+                    IsFinalized = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
+                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
+                    Year = table.Column<int>(nullable: true),
+                    Model = table.Column<string>(maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,7 +205,8 @@ namespace CAM.Web.Migrations
                 columns: table => new
                 {
                     DiscrepancyId = table.Column<int>(nullable: false),
-                    PartId = table.Column<int>(nullable: false)
+                    PartId = table.Column<int>(nullable: false),
+                    Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
