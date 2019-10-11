@@ -19,7 +19,6 @@ namespace CAM.Web.Migrations
             modelBuilder.Entity("CAM.Core.Entities.Aircraft", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20);
 
                     b.Property<string>("ImagePath")
@@ -61,10 +60,6 @@ namespace CAM.Web.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AirTime");
-
-                    b.Property<string>("AircraftId")
-                        .IsRequired()
-                        .HasMaxLength(20);
 
                     b.Property<decimal>("AircraftTotal");
 
@@ -251,7 +246,9 @@ namespace CAM.Web.Migrations
 
             modelBuilder.Entity("CAM.Core.Entities.Times", b =>
                 {
-                    b.Property<string>("AircraftId");
+                    b.Property<string>("AircraftId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20);
 
                     b.Property<int>("AirTime");
 
@@ -290,6 +287,14 @@ namespace CAM.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WorkOrders");
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.Aircraft", b =>
+                {
+                    b.HasOne("CAM.Core.Entities.Times", "Times")
+                        .WithOne("Aircraft")
+                        .HasForeignKey("CAM.Core.Entities.Aircraft", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
@@ -344,14 +349,6 @@ namespace CAM.Web.Migrations
                     b.HasOne("CAM.Core.Entities.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.Times", b =>
-                {
-                    b.HasOne("CAM.Core.Entities.Aircraft", "Aircraft")
-                        .WithOne("Times")
-                        .HasForeignKey("CAM.Core.Entities.Times", "AircraftId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
