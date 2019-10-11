@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
 using CAM.Infrastructure.Data;
 using CAM.Web.Jobs.TimeScraper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CAM.Web.Jobs
 {
@@ -14,11 +15,13 @@ namespace CAM.Web.Jobs
     /// </summary>
     public class TimesScraperJob : ITimesScraperJob
     {
-        private readonly ILogger<ITimesScraperJob> _logger;
         private readonly ApplicationContext _context;
-        public TimesScraperJob(ApplicationContext context, ILogger<TimesScraperJob> logger)
+        private readonly ITimesScraper _scraper;
+        private readonly ILogger _logger;
+        public TimesScraperJob(ApplicationContext context, ITimesScraper scraper, ILogger<TimesScraperJob> logger)
         {
             _context = context;
+            _scraper = scraper;
             _logger = logger;
         }
         public async Task Run(IJobCancellationToken token)
@@ -28,27 +31,25 @@ namespace CAM.Web.Jobs
         }
         public async Task UpdateTimes()
         {
-            _logger.LogInformation($"{DateTime.Now}: Attempting to start scraping background service.");
             try
             {
-                var scraper = new FspTimesScraper();
-                var times = scraper.Run();
+                _logger.LogInformation($"{DateTime.Now}: Starting times scraping job.");
+                var times = _scraper.Run();
                 foreach (var set in times)
                 {
                     if (_context.Times.Any(e => e.AircraftId == set.AircraftId))
                         _context.Update(set);
                     else
                         _context.Add(set);
-
+                    _logger.LogInformation($"{DateTime.Now}: Scraping job finished, Attempting to save changes.");
                     await _context.SaveChangesAsync();
                 }
             }
             catch
             {
-                _logger.LogError($"{DateTime.Now}: Error running scraper or saving to database. Silently failing.", null);
+                _logger.LogError($"{DateTime.Now}: Scraping job experienced an error and has silently failed.", _scraper);
             }
 
-            _logger.LogInformation($"{DateTime.Now}: Scraping service finished.");
         }
     }
 }

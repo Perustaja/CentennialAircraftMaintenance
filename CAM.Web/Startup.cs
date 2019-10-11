@@ -19,6 +19,7 @@ using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
 using CAM.Web.Jobs;
+using CAM.Web.Jobs.TimeScraper;
 
 namespace CAM.Web
 {
@@ -36,16 +37,16 @@ namespace CAM.Web
         {
             // Main Db Context
             services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
-                Configuration.GetConnectionString("ApplicationContext"),
-                assembly => assembly.MigrationsAssembly("CAM.Web")
-                ));
+                Configuration.GetConnectionString("ApplicationContext")));
             // AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Hangfire
-            // NOTE: The Hangfire connection string ends with a ;. This is because of the SQLite extension checking for one. 
+            // NOTE: The Hangfire connection string ends with a ; in the json file. 
+            // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
             // TimesScraperJob
-            services.AddScoped<ITimesScraperJob, TimesScraperJob>();
+            services.AddScoped<ITimesScraper, FspTimesScraper>();
+            // MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

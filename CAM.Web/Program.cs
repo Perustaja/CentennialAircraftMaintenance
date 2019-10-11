@@ -19,6 +19,7 @@ namespace CAM.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(f => f.AddConsole())
                 .UseStartup<Startup>();
     }
 }

@@ -10,13 +10,14 @@ using SeleniumExtras.WaitHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CAM.Core.Entities;
 using CAM.Core.SharedKernel;
+using CAM.Core.Interfaces;
 
 namespace CAM.Web.Jobs.TimeScraper
 {
     /// <summary>
     /// Contains methods used for scraping times
     /// </summary>
-    public class FspTimesScraper
+    public class FspTimesScraper : ITimesScraper
     {
         /// <summary>
         /// Initializes a ChromeDriver and then navigates to the desired page, scrapes, parses, and returns an ISet of the entity.
