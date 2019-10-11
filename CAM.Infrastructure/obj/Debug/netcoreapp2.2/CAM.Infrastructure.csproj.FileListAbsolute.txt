@@ -1,0 +1,12 @@
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.csprojAssemblyReference.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.csproj.CoreCompileInputs.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.AssemblyInfoInputs.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.AssemblyInfo.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Infrastructure.deps.json
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Infrastructure.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Infrastructure.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Core.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Core.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.csproj.CopyComplete
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.pdb

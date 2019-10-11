@@ -4,7 +4,7 @@ using CAM.Core.Entities;
 namespace CAM.Infrastructure.Data
 {
     /// <summary>
-    /// Core context containing all tables used. See Development directory for an ERD.
+    /// Core context containing all tables used. See root of Web library for ERD.
     /// </summary>
     public class ApplicationContext : DbContext
     {

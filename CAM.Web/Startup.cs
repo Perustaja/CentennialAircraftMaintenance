@@ -17,8 +17,8 @@ using AutoMapper;
 using Newtonsoft.Json;
 using Hangfire;
 using Hangfire.SQLite;
-using CAM.Infrastructure.Jobs;
 using CAM.Core.Interfaces;
+using CAM.Web.Jobs;
 
 namespace CAM.Web
 {

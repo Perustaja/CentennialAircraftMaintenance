@@ -5173,7 +5173,7 @@
       },
       "CAM.Infrastructure/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "CAM.Core": "1.0.0",
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
