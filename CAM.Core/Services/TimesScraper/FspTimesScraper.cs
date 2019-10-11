@@ -12,7 +12,7 @@ using CAM.Core.Entities;
 using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
 
-namespace CAM.Web.Jobs.TimeScraper
+namespace CAM.Core.Services.TimesScraper
 {
     /// <summary>
     /// Contains methods used for scraping times

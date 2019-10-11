@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
+using CAM.Core.Services.TimesScraper;
 using CAM.Infrastructure.Data;
-using CAM.Web.Jobs.TimeScraper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CAM.Web.Jobs
 {
     /// <summary>
-    /// Implementation of ITimesScraperJob
+    /// This job runs the associated scraping job and then saves the parsed results to the Times table.
     /// </summary>
     public class TimesScraperJob : ITimesScraperJob
     {

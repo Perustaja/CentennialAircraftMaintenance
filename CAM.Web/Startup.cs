@@ -19,7 +19,7 @@ using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
 using CAM.Web.Jobs;
-using CAM.Web.Jobs.TimeScraper;
+using CAM.Core.Services.TimesScraper;
 
 namespace CAM.Web
 {

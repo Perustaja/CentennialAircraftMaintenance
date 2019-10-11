@@ -9,7 +9,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace CAM.Web.Jobs.TimeScraper
+namespace CAM.Core.Services.TimesScraper
 {
     /// <summary>
     /// Contains extension methods for use with Selenium
