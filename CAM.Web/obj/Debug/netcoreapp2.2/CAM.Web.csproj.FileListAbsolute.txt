@@ -17,3 +17,17 @@
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.csproj.CopyComplete
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.dll
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/bin/Debug/netcoreapp2.2/CAM.Web.Views.dll
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/bin/Debug/netcoreapp2.2/CAM.Web.Views.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.TagHelpers.input.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.TagHelpers.output.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.RazorCoreGenerate.cache
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/_ViewStart.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_CookieConsentPartial.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_Layout.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_LoginPartial.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_ValidationScriptsPartial.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewImports.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewStart.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.RazorTargetAssemblyInfo.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.Views.pdb

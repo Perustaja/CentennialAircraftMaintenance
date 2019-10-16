@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel.Design;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ using Hangfire.SQLite;
 using CAM.Core.Interfaces;
 using CAM.Web.Jobs;
 using CAM.Core.Services.TimesScraper;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity;
+using CAM.Infrastructure.Data.Identity;
 
 namespace CAM.Web
 {
@@ -36,16 +40,27 @@ namespace CAM.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Main Db Context
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(
-                Configuration.GetConnectionString("ApplicationContext")));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("ApplicationConnection")));
+
+            // Identity Db Context
+            services.AddDbContext<IdentityContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("IdentityConnection")));
+                
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<IdentityContext>();
+
             // AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             // Hangfire
             // NOTE: The Hangfire connection string ends with a ; in the json file. 
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
+
             // TimesScraperJob
             services.AddScoped<ITimesScraper, FspTimesScraper>();
+
             // MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -74,8 +89,8 @@ namespace CAM.Web
             {
                 // Add Area routing convention
                 routes.MapRoute(
-                name: "MyArea",
-                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    name: "MyArea",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                    name: "default",

@@ -4649,7 +4649,6 @@
     ".NETStandard,Version=v2.0": [
       "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
       "Hangfire >= 1.7.6",
-      "Hangfire.Core >= 1.7.6",
       "MSTest.TestFramework >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.0",
       "NETStandard.Library >= 2.0.3",
@@ -4702,10 +4701,6 @@
             "version": "[3.11.0, )"
           },
           "Hangfire": {
-            "target": "Package",
-            "version": "[1.7.6, )"
-          },
-          "Hangfire.Core": {
             "target": "Package",
             "version": "[1.7.6, )"
           },

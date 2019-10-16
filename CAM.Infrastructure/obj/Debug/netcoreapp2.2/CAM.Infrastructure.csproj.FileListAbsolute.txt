@@ -10,3 +10,5 @@
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.csproj.CopyComplete
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.dll
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/obj/Debug/netcoreapp2.2/CAM.Infrastructure.pdb
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Infrastructure.runtimeconfig.json
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Infrastructure/bin/Debug/netcoreapp2.2/CAM.Infrastructure.runtimeconfig.dev.json

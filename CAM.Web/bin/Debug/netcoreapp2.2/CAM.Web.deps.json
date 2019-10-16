@@ -4835,7 +4835,6 @@
         "dependencies": {
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "Hangfire": "1.7.6",
-          "Hangfire.Core": "1.7.6",
           "MSTest.TestFramework": "2.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.2.0",
           "Selenium.Support": "3.141.0",
@@ -4852,14 +4851,11 @@
       "CAM.Infrastructure/1.0.0": {
         "dependencies": {
           "CAM.Core": "1.0.0",
-          "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
-          "Hangfire.AspNetCore": "1.7.6",
-          "Hangfire.Core": "1.7.6",
-          "MSTest.TestFramework": "2.0.0",
+          "Microsoft.AspNetCore.Identity": "2.2.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.2.0",
+          "Microsoft.EntityFrameworkCore.Design": "2.2.6",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.2.0",
-          "Selenium.Support": "3.141.0",
-          "Selenium.WebDriver": "3.141.0",
-          "Selenium.WebDriver.ChromeDriver": "77.0.3865.4000"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.0"
         },
         "runtime": {
           "CAM.Infrastructure.dll": {}
