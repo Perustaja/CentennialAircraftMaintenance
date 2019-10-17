@@ -1,65 +1,217 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/* header styling */
+.logo-header {
+    padding: 5px;
+    vertical-align: baseline;
+}
+.header-text {
+    display: inline;
+}
+/* navbar styling */
+.navstyling {
+    background-color: darkslategray;
+    margin-bottom: 15px;
+    padding: 0rem .3rem;
+}
+.navstyling a {
+    padding: 15px;
+    font-size: 17px;
+    text-decoration: none;
+    text-align: center;
+    color: whitesmoke;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
+.navstyling a:hover {
+    background-color: slategray;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.navbar-dropdown a {
+    background-color: darkslategray;
+    color: whitesmoke;
 }
+.dropdown-menu a:hover{
+    color: whitesmoke;
+    background-color: slategray;
+}
+/* renderbody usage */
+.content-header{
+    text-align: center;
+    margin-bottom: 15px;
+}
+.img-aircraft{
+    object-fit: fill;
+    height: 200px;
+    border-radius: 3px;
+}
+/* forms */
+.form-centered{
+    margin: 0 auto;
+    width: 40vw;
+}
+@media screen and (max-width: 700px){
+    .form-centered{
+        width: 80vw;
+    }
+}
+.field-readonly{
+    font-weight: bold;
+}
+/* footers and controls */
+.control-footer{
+    padding: 11px 10px 30px;
 
-.container {
-  max-width: 960px;
 }
-
-.pricing-header {
-  max-width: 700px;
+/* control-panel and object for usage above tables, etc. */
+.control-panel{
+    margin: 0px 0px 15px 5px;
+    display: flex;
 }
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
+.control-object{
+    width: auto;
+    float: left;
+    margin: 0px 5px 0px 0px;
+    font-size: .9rem;
 }
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.ctrl-btn{
+    vertical-align: -webkit-baseline-middle;
+    font-size: 1rem;
 }
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
+/* custom toggle switch */
+/* The switch - the box around the slider */
+.switch {
   position: relative;
-  min-height: 100%;
+  display: inline-block;
+  border-radius: 1px;
+  width: 50px;
+  height: 25px;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
-.footer {
+
+/* The slider */
+.slider {
   position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
-  overflow: scroll;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: darkslategray;
+}
+
+input:checked + .danger-slider {
+    background-color:  rgb(184, 30, 30);
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px darkslategray;
+}
+
+input:focus + .danger-slider {
+    box-shadow: 0 0 1px rgb(184, 30, 30);
+  }
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/* bootstrap overrides */
+/* remove row's default -15px padding on l and r*/
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+/* nav dropdown menu */
+.dropdown-menu.show {
+    padding: 0px;
+    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.2);
+}
+/* td font-size */
+td { 
+    font-size: 14px;
+}
+/* override option and optgroup fontsize */
+optgroup {
+    font-size: 15px;
+}
+option {
+    font-size: 14px;
+}
+/* datepicker override so it doesn't get hidden under sticky navbar */
+.datepicker {
+    z-index: 2000 !important;
+}
+/* table-danger color override */
+.table-danger{
+    background-color: indianred;
+}
+/* btn-secondary color */
+.btn-secondary{
+    background-color: darkslategray;
+}
+/* card-img-top img sizing */
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+/* self-explanatory card stuff */
+.card-deck{
+    width: 100%;
+}
+.card-title{
+    margin: 0px;
+}
+.card-body{
+    padding: 0px;
+    background-color: whitesmoke;
+}
+.card{
+    box-shadow: 0px 2px 2px 0px darkslategrey;
+}
+.card-title{
+    font-size: 25px;
+    margin-left: 5px;
+    font-weight: 400;
+}
+.card-text{
+    font-size: 15px;
+    margin-left: 5px;
+}
+/* navbar-dark color override, necessary for toggler-icon */
+.navbar-dark .navbar-nav .nav-link{
+    color: whitesmoke;
+}
+.nav-item{
+    padding: 0px 5px;
 }
