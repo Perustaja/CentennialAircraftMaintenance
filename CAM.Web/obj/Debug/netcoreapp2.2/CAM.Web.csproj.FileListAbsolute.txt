@@ -29,5 +29,6 @@
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_ValidationScriptsPartial.g.cshtml.cs
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.RazorTargetAssemblyInfo.cs
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/CAM.Web.Views.pdb
-/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_ViewImports.g.cshtml.cs
-/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Shared/_ViewStart.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Home/Index.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewImports.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewStart.g.cshtml.cs

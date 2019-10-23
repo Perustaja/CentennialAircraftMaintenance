@@ -43,6 +43,7 @@ namespace CAM.Web.Jobs
                         _context.Add(set);
                     _logger.LogInformation($"{DateTime.Now}: Scraping job finished, Attempting to save changes.");
                     await _context.SaveChangesAsync();
+                    _logger.LogInformation($"{DateTime.Now}: Changes successfully saved.");
                 }
             }
             catch

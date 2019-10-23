@@ -10,7 +10,7 @@
 .navstyling {
     background-color: darkslategray;
     margin-bottom: 15px;
-    padding: 0rem .3rem;
+    padding: 0rem 0rem;
 }
 .navstyling a {
     padding: 15px;
@@ -211,7 +211,9 @@ option {
 /* navbar-dark color override, necessary for toggler-icon */
 .navbar-dark .navbar-nav .nav-link{
     color: whitesmoke;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 .nav-item{
-    padding: 0px 5px;
+    padding: 0px 0px;
 }
