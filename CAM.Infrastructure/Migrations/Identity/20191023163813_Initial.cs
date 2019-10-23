@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CAM.Infrastructure.Migrations
+namespace CAM.Infrastructure.Migrations.Identity
 {
-    public partial class InitialIdSchema : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

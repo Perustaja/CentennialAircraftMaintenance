@@ -1,22 +1,23 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
-    /// Represents an employee.
+    /// Aircraft owner, contains personal information including email.
     /// </summary>
-    public class Employee
+    public class Owner
     {
         public int Id { get; set; }
-        // Main
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
-        [StringLength(20)]
-        public string CertificationNum { get; set; }
+        [StringLength(60)]
+        public string Email { get; set; }
+        // Navigation Properties
+        public ICollection<AircraftOwner> AircraftOwners { get; set; }
     }
 }

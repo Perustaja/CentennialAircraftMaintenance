@@ -23,8 +23,13 @@ namespace CAM.Core.Entities
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
         public DateTime DateFinalized { get; set; }
+        [Display(Name = "Awaiting Review")]
+        public bool AwaitingFinalize { get; set; } = false;
         [Display(Name = "Is Finalized")]
         public bool IsFinalized { get; set; } = false;
+        [Display(Name = "Created by")]
+        [StringLength(60)]
+        public string CreatedBy {get; set; }
         // Squawk properties
         [Required]
         public string Description { get; set; }
@@ -39,8 +44,8 @@ namespace CAM.Core.Entities
         // WorkOrder 
         public WorkOrder WorkOrder { get; set; }
         // Navigation properties
-        public virtual ICollection<LaborRecord> LaborRecords { get; set; }
-        public virtual ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public ICollection<LaborRecord> LaborRecords { get; set; }
+        public ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
 
     }
 }

@@ -46,7 +46,7 @@ namespace CAM.Web
             // Identity Db Context
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("IdentityConnection")));
-                
+
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
@@ -63,6 +63,29 @@ namespace CAM.Web
 
             // MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            });
+
+            // Cookies
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,23 +106,26 @@ namespace CAM.Web
                 WorkerCount = 1
             });
 
+            // basic 
             // app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
-                // Add Area routing convention
-                routes.MapRoute(
-                    name: "MyArea",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
                 routes.MapRoute(
                    name: "default",
                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            }); 
+
+            // Authentication
+            app.UseAuthentication();
 
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
             HangfireScheduler.ScheduleRecurringJobs();
+
+
         }
     }
 }

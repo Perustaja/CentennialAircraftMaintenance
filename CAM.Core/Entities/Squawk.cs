@@ -40,6 +40,5 @@ namespace CAM.Core.Entities
         public Aircraft Aircraft { get; set; }
         // Status
         public Status Status { get; set; }
-
     }
 }

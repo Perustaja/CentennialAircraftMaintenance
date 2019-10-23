@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CAM.Infrastructure.Migrations
+namespace CAM.Infrastructure.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20191016201339_InitialIdSchema")]
-    partial class InitialIdSchema
+    [Migration("20191023163813_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
