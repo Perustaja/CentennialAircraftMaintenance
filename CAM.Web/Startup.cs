@@ -24,6 +24,7 @@ using CAM.Core.Services.TimesScraper;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity;
 using CAM.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CAM.Web
 {
@@ -43,11 +44,12 @@ namespace CAM.Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("ApplicationConnection")));
 
-            // Identity Db Context
+            // Identity Db Context and DefaultIdentity
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
+                .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<IdentityContext>();
 
             // AutoMapper
@@ -67,23 +69,31 @@ namespace CAM.Web
             // Identity
             services.Configure<IdentityOptions>(options =>
             {
-                // Lockout settings.
+                // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings.
+                // User settings
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+                // Password settings
+                options.Password.RequireNonAlphanumeric = false;
+
+                // Default signin settings
+                options.SignIn.RequireConfirmedEmail = true;
             });
 
-            // Cookies
+            // Cookie config
             services.ConfigureApplicationCookie(options =>
             {
+                options.Cookie.Name = "CentennialAircraftMaintenance";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
         }
@@ -106,9 +116,9 @@ namespace CAM.Web
                 WorkerCount = 1
             });
 
-            // basic 
             // app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
@@ -117,9 +127,6 @@ namespace CAM.Web
                    name: "default",
                    template: "{controller=Home}/{action=Index}/{id?}");
             }); 
-
-            // Authentication
-            app.UseAuthentication();
 
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });

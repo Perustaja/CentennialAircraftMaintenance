@@ -6,13 +6,20 @@
 .header-text {
     display: inline;
 }
-/* navbar styling */
+/* navbar styling, button selectors are for logout form button to be integrated in dropdown */
 .navstyling {
     background-color: darkslategray;
     margin-bottom: 15px;
     padding: 0rem 0rem;
 }
-.navstyling a {
+.navstyling a{
+    padding: 15px;
+    font-size: 17px;
+    text-decoration: none;
+    text-align: center;
+    color: whitesmoke;
+}
+.navstyling button{
     padding: 15px;
     font-size: 17px;
     text-decoration: none;
@@ -20,14 +27,25 @@
     color: whitesmoke;
 }
 
-.navstyling a:hover {
+.navstyling a:hover{
     background-color: slategray;
 }
-.navbar-dropdown a {
+.navstyling button:hover{
+    background-color: slategray;
+}
+.navbar-dropdown a{
+    background-color: darkslategray;
+    color: whitesmoke;
+}
+.navbar-dropdown button{
     background-color: darkslategray;
     color: whitesmoke;
 }
 .dropdown-menu a:hover{
+    color: whitesmoke;
+    background-color: slategray;
+}
+.dropdown-menu button:hover{
     color: whitesmoke;
     background-color: slategray;
 }
