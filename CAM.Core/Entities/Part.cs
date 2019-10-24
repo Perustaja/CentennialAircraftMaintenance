@@ -8,9 +8,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains general item information used for inventory purposes. 
     /// </summary>
-    public class Part
+    public class Part : BaseEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         // Category FK
         public int CategoryId { get; set; }
         // Main

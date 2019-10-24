@@ -6,9 +6,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains information linking hours of labor to an Employee
     /// </summary>
-    public class LaborRecord
+    public class LaborRecord : BaseEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         // Discrepancy FK
         public int DiscrepancyId { get; set; }
         // Employee FK

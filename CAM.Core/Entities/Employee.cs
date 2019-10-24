@@ -6,9 +6,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Represents an employee.
     /// </summary>
-    public class Employee
+    public class Employee : BaseEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         // Main
         [Required]
         [StringLength(50)]

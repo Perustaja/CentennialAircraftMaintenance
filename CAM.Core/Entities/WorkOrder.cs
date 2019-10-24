@@ -7,9 +7,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Used to organize Discrepancies, acting like a container. 
     /// </summary>
-    public class WorkOrder
+    public class WorkOrder : BaseEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         // Main
         [Required]
         [StringLength(30)]

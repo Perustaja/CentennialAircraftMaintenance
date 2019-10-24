@@ -11,7 +11,7 @@ namespace CAM.Web.ApiModels
     /// Contains information used for maintenance documents and tracking purposes. Its data is independent of 
     /// others, allowing it to serve as a snapshot and be edited as desired.
     /// </summary>
-    public class DiscrepancyDto : TimesHolder
+    public class DiscrepancyDto
     {
         public int Id { get; set; }
         // WorkOrder FK
@@ -36,5 +36,24 @@ namespace CAM.Web.ApiModels
         [Required]
         [StringLength(20)]
         public string Model { get; set; }
+        // Times properties
+        public decimal Hobbs { get; set; }
+        [Display(Name = "Air Time")]
+        public int AirTime { get; set; }
+        [Display(Name = "Tach 1")]
+        public decimal Tach1 { get; set; }
+        [Display(Name = "Tach 2")]
+        public decimal Tach2 { get; set; }
+        [Display(Name = "Prop 1")]
+        public decimal Prop1 { get; set; }
+        [Display(Name = "Prop 2")]
+        public decimal Prop2 { get; set; }
+        [Display(Name = "Aircraft Total")]
+        public decimal AircraftTotal { get; set; }
+        [Display(Name = "Engine 1 Total")]
+        public decimal Engine1Total { get; set; }
+        [Display(Name = "Engine 2 Total")]
+        public decimal Engine2Total { get; set; }
+        public int Cycles { get; set; }
     }
 }

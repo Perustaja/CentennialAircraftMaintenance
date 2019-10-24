@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
     /// <summary>
     /// Aircraft owner, contains personal information including email.
     /// </summary>
-    public class Owner
+    public class Owner : BaseEntity<int>
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }

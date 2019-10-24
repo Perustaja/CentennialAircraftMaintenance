@@ -32,3 +32,4 @@
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Home/Index.g.cshtml.cs
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewImports.g.cshtml.cs
 /home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/_ViewStart.g.cshtml.cs
+/home/perustaja/Dev/CentennialAircraftMaintenance/CAM.Web/obj/Debug/netcoreapp2.2/Razor/Views/Aircraft/Index.g.cshtml.cs
