@@ -4866,7 +4866,6 @@
       "CAM.Infrastructure/1.0.0": {
         "dependencies": {
           "CAM.Core": "1.0.0",
-          "Microsoft.AspNetCore.App": "2.2.6",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.2.0",
           "Microsoft.EntityFrameworkCore.Design": "2.2.6",

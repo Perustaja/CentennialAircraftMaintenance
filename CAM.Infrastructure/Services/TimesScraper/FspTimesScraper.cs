@@ -11,8 +11,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CAM.Core.Entities;
 using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace CAM.Core.Services.TimesScraper
+
+namespace CAM.Infrastructure.Services.TimesScraper
 {
     /// <summary>
     /// Contains methods used for scraping times
@@ -22,11 +24,18 @@ namespace CAM.Core.Services.TimesScraper
         /// <summary>
         /// Initializes a ChromeDriver and then navigates to the desired page, scrapes, parses, and returns an ISet of the entity.
         /// </summary>
+        public FspTimesScraper(IOptions<FspScraperOptions> optionsAccessor)
+        {
+            Options = optionsAccessor.Value;
+        }
+
+        public FspScraperOptions Options { get; } // set via secret manager
+
         public ISet<Times> Run()
         {
             IWebDriver driver = new ChromeDriver();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            Login(driver, Constants.FSP_AIRCRAFT_URL);
+            Login(driver, Options.AircraftUrl);
             var times = ScrapeTimes(driver, wait);
             driver.Quit();
             return times;
@@ -34,12 +43,12 @@ namespace CAM.Core.Services.TimesScraper
         /// <summary>
         /// Logs in using the stored username and password, and then navigates to the desired url.
         /// </summary>
-        public static void Login(IWebDriver driver, string selectedUrl)
+        public void Login(IWebDriver driver, string selectedUrl)
         {
             // navigate to login page and login
-            driver.Navigate().GoToUrl(selectedUrl);
-            driver.FindElement(By.Id("username")).SendKeys(Constants.FSP_LOGIN_USER);
-            driver.FindElement(By.Id("password")).SendKeys(Constants.FSP_LOGIN_PASS + Keys.Enter);
+            driver.Navigate().GoToUrl(Options.LoginUrl);
+            driver.FindElement(By.Id("username")).SendKeys(Options.FspUser);
+            driver.FindElement(By.Id("password")).SendKeys(Options.FspPass + Keys.Enter);
             var url = driver.Url;
             Assert.AreEqual(selectedUrl, url);
         }

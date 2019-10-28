@@ -19,13 +19,12 @@ using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
 using CAM.Web.Jobs;
-using CAM.Core.Services.TimesScraper;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity;
 using CAM.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using CAM.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using CAM.Infrastructure.Services.TimesScraper;
 
 namespace CAM.Web
 {
@@ -61,9 +60,12 @@ namespace CAM.Web
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
 
-            // Email confirmation/password reset 
+            // Email confirmation/password reset with options
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets
+
+            // Fsp login options
+            services.Configure<FspScraperOptions>(Configuration);
 
             // TimesScraperJob
             services.AddScoped<ITimesScraper, FspTimesScraper>();

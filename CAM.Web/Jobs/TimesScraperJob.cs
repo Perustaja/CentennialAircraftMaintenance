@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
-using CAM.Core.Services.TimesScraper;
 using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 

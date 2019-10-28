@@ -6,7 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using CAM.Core.Entities;
 
-namespace CAM.Core.Services.TimesScraper
+namespace CAM.Infrastructure.Services.TimesScraper
 {
     /// <summary>
     /// Contains methods for parsing times
