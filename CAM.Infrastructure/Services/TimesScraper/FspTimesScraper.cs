@@ -40,8 +40,8 @@ namespace CAM.Infrastructure.Services.TimesScraper
             driver.Navigate().GoToUrl(options.LoginUrl);
             driver.FindElement(By.Id("username")).SendKeys(options.FspUser);
             driver.FindElement(By.Id("password")).SendKeys(options.FspPass + Keys.Enter);
-            var url = driver.Url;
-            Assert.AreEqual(options.AircraftUrl, url);
+            driver.Navigate().GoToUrl(options.AircraftUrl);
+            Assert.AreEqual(options.AircraftUrl, driver.Url);
         }
         /// <summary>
         /// Scrapes times, creating a list of the label and a list of the values, and then calls the Parse method. Returns an ISet of an entity.
