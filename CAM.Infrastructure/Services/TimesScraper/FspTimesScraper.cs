@@ -6,13 +6,11 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CAM.Core.Entities;
-using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
 using Microsoft.Extensions.Options;
-
+using CAM.Core.Options;
 
 namespace CAM.Infrastructure.Services.TimesScraper
 {
@@ -24,18 +22,11 @@ namespace CAM.Infrastructure.Services.TimesScraper
         /// <summary>
         /// Initializes a ChromeDriver and then navigates to the desired page, scrapes, parses, and returns an ISet of the entity.
         /// </summary>
-        public FspTimesScraper(IOptions<FspScraperOptions> optionsAccessor)
-        {
-            Options = optionsAccessor.Value;
-        }
-
-        public FspScraperOptions Options { get; } // set via secret manager
-
-        public ISet<Times> Run()
+        public ISet<Times> Run(FspScraperOptions options)
         {
             IWebDriver driver = new ChromeDriver();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            Login(driver, Options.AircraftUrl);
+            Login(driver, options);
             var times = ScrapeTimes(driver, wait);
             driver.Quit();
             return times;
@@ -43,14 +34,14 @@ namespace CAM.Infrastructure.Services.TimesScraper
         /// <summary>
         /// Logs in using the stored username and password, and then navigates to the desired url.
         /// </summary>
-        public void Login(IWebDriver driver, string selectedUrl)
+        public void Login(IWebDriver driver, FspScraperOptions options)
         {
             // navigate to login page and login
-            driver.Navigate().GoToUrl(Options.LoginUrl);
-            driver.FindElement(By.Id("username")).SendKeys(Options.FspUser);
-            driver.FindElement(By.Id("password")).SendKeys(Options.FspPass + Keys.Enter);
+            driver.Navigate().GoToUrl(options.LoginUrl);
+            driver.FindElement(By.Id("username")).SendKeys(options.FspUser);
+            driver.FindElement(By.Id("password")).SendKeys(options.FspPass + Keys.Enter);
             var url = driver.Url;
-            Assert.AreEqual(selectedUrl, url);
+            Assert.AreEqual(options.AircraftUrl, url);
         }
         /// <summary>
         /// Scrapes times, creating a list of the label and a list of the values, and then calls the Parse method. Returns an ISet of an entity.

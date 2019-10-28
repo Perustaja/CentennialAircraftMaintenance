@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
 using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using CAM.Core.Options;
+using Microsoft.Extensions.Options;
 
 namespace CAM.Web.Jobs
 {
@@ -17,11 +19,14 @@ namespace CAM.Web.Jobs
         private readonly ApplicationContext _context;
         private readonly ITimesScraper _scraper;
         private readonly ILogger _logger;
-        public TimesScraperJob(ApplicationContext context, ITimesScraper scraper, ILogger<TimesScraperJob> logger)
+        public FspScraperOptions Options { get; }
+        public TimesScraperJob(ApplicationContext context, ITimesScraper scraper, 
+            ILogger<TimesScraperJob> logger, IOptions<FspScraperOptions> optionsAccessor)
         {
             _context = context;
             _scraper = scraper;
             _logger = logger;
+            Options = optionsAccessor.Value;
         }
         public async Task Run(IJobCancellationToken token)
         {
@@ -33,7 +38,7 @@ namespace CAM.Web.Jobs
             try
             {
                 _logger.LogInformation($"{DateTime.Now}: Starting times scraping job.");
-                var times = _scraper.Run();
+                var times = _scraper.Run(Options);
                 foreach (var set in times)
                 {
                     if (_context.Times.Any(e => e.AircraftId == set.AircraftId))

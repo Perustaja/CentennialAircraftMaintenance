@@ -1,7 +1,7 @@
-namespace CAM.Infrastructure.Services
+namespace CAM.Core.Options
 {
     /// <summary>
-    /// Options for FspScraper with user/pass stored in usersecrets.
+    /// Options for FspScraper with user/pass stored in usersecrets(development).
     /// </summary>
     public class FspScraperOptions
     {

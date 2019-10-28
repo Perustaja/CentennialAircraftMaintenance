@@ -25,6 +25,7 @@ using CAM.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using CAM.Infrastructure.Services;
 using CAM.Infrastructure.Services.TimesScraper;
+using CAM.Core.Options;
 
 namespace CAM.Web
 {
