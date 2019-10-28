@@ -15,7 +15,6 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using CAM.Infrastructure.Data;
 using AutoMapper;
-using Newtonsoft.Json;
 using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
@@ -25,6 +24,8 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity;
 using CAM.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using CAM.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace CAM.Web
 {
@@ -40,11 +41,11 @@ namespace CAM.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Main Db Context
+            // Main DbContext
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("ApplicationConnection")));
 
-            // Identity Db Context and DefaultIdentity
+            // Identity DbContext and options below
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("IdentityConnection")));
 
@@ -60,6 +61,10 @@ namespace CAM.Web
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
 
+            // Email confirmation/password reset 
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets
+
             // TimesScraperJob
             services.AddScoped<ITimesScraper, FspTimesScraper>();
 
@@ -71,7 +76,7 @@ namespace CAM.Web
             {
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
                 // User settings
