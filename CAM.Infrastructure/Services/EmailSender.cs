@@ -1,4 +1,5 @@
 using CAM.Core.Interfaces;
+using CAM.Core.Options;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -25,7 +26,7 @@ namespace CAM.Infrastructure.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("admin@aspen.dev", Options.SendGridUser),
+                From = new EmailAddress("admin@aspenmaintenance.dev", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

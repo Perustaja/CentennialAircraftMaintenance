@@ -1,4 +1,4 @@
-namespace CAM.Infrastructure.Services
+namespace CAM.Core.Options
 {
     /// <summary>
     /// Contains properties for storing SendGrid information to be used in the EmailSender service. 

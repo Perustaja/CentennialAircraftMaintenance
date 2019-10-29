@@ -26,6 +26,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using CAM.Infrastructure.Services;
 using CAM.Infrastructure.Services.TimesScraper;
 using CAM.Core.Options;
+using CAM.Web.Interfaces;
+using CAM.Web.Services;
 
 namespace CAM.Web
 {
@@ -64,6 +66,9 @@ namespace CAM.Web
             // Email confirmation/password reset with options
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets
+
+            // RazorViewToStringRenderer(for email templates)
+            services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 
             // Fsp login options
             services.Configure<FspScraperOptions>(Configuration);
