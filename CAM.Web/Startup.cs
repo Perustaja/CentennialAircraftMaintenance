@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +27,7 @@ using CAM.Infrastructure.Services.TimesScraper;
 using CAM.Core.Options;
 using CAM.Web.Interfaces;
 using CAM.Web.Services;
-
+using Microsoft.Extensions.Hosting;
 namespace CAM.Web
 {
     public class Startup
@@ -52,7 +51,6 @@ namespace CAM.Web
                 options.UseSqlite(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<IdentityContext>();
 
             // AutoMapper
@@ -76,9 +74,6 @@ namespace CAM.Web
             // TimesScraperJob
             services.AddScoped<ITimesScraper, FspTimesScraper>();
 
-            // MVC
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             // Identity
             services.Configure<IdentityOptions>(options =>
             {
@@ -98,6 +93,10 @@ namespace CAM.Web
                 options.SignIn.RequireConfirmedEmail = true;
             });
 
+            // MVC
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             // Cookie config
             services.ConfigureApplicationCookie(options =>
             {
@@ -112,7 +111,7 @@ namespace CAM.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -121,7 +120,7 @@ namespace CAM.Web
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                // app.UseHsts();
+                app.UseHsts();
             }
             // Hangfire JobStorage.Current initialize
             app.UseHangfireServer(new BackgroundJobServerOptions
@@ -129,17 +128,24 @@ namespace CAM.Web
                 WorkerCount = 1
             });
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                   name: "default",
-                   template: "{controller=Home}/{action=Index}/{id?}");
-            }); 
+            app.UseRouting();
+            app.UseEndpoints(routes =>
+                {
+                    routes.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{action}/{id?}",
+                        defaults: new {controller = "home", Action="index" }
+                    );
+                    routes.MapRazorPages();
+                });
+            
+            // Auth
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "7db279d9219ba9c59607f09d1fabad1c164c2759"
+    "signature": ""
   },
   "compilationOptions": {},
   "targets": {
@@ -52,7 +52,7 @@
         "runtime": {
           "lib/netstandard2.0/Hangfire.AspNetCore.dll": {
             "assemblyVersion": "1.7.6.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "1.7.6.0"
           }
         }
       },
@@ -63,7 +63,7 @@
         "runtime": {
           "lib/netstandard2.0/Hangfire.Core.dll": {
             "assemblyVersion": "1.7.6.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "1.7.6.0"
           }
         },
         "resources": {
@@ -92,7 +92,7 @@
         "runtime": {
           "lib/netstandard2.0/Hangfire.SqlServer.dll": {
             "assemblyVersion": "1.7.6.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "1.7.6.0"
           }
         }
       },
@@ -951,7 +951,7 @@
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "assemblyVersion": "4.0.4.0",
-            "fileVersion": "4.0.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
