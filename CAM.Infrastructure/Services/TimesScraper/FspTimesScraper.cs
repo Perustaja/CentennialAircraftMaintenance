@@ -9,7 +9,6 @@ using OpenQA.Selenium.Support.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces;
-using Microsoft.Extensions.Options;
 using CAM.Core.Options;
 
 namespace CAM.Infrastructure.Services.TimesScraper
@@ -20,7 +19,8 @@ namespace CAM.Infrastructure.Services.TimesScraper
     public class FspTimesScraper : ITimesScraper
     {
         /// <summary>
-        /// Initializes a ChromeDriver and then navigates to the desired page, scrapes, parses, and returns an ISet of the entity.
+        /// Initializes Chromedriver and then navigates to the desired page, scrapes, parses, and returns an ISet of the entity.
+        /// This assumes that you have a chromedriver binary set in your path.
         /// </summary>
         public ISet<Times> Run(FspScraperOptions options)
         {

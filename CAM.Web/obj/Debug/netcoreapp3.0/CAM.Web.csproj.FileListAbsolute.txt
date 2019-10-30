@@ -163,9 +163,6 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\CAM.Infrast
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.TagHelpers.input.cache
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.TagHelpers.output.cache
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.RazorCoreGenerate.cache
-C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
-C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Views\Aircraft\Index.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Views\Emails\ConfirmAccount\ConfirmAccount.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Views\Emails\_ViewStart.cshtml.g.cs
@@ -184,3 +181,11 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.Vie
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.csproj.CopyComplete
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.dll
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\CAM.Web.pdb
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\Microsoft.Data.SqlClient.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\Microsoft.Identity.Client.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\System.Runtime.Caching.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
