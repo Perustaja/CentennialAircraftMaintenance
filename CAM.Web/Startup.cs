@@ -28,6 +28,8 @@ using CAM.Core.Options;
 using CAM.Web.Interfaces;
 using CAM.Web.Services;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+
 namespace CAM.Web
 {
     public class Startup
@@ -115,6 +117,16 @@ namespace CAM.Web
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
+                options.Cookie = new CookieBuilder
+                {
+                    IsEssential = true // required for auth to work without explicit user consent; adjust to suit your privacy policy
+                };
+            });
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
         }
 
@@ -127,6 +139,7 @@ namespace CAM.Web
             }
             else
             {
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
