@@ -69,11 +69,15 @@ namespace CAM.Web
             // RazorViewToStringRenderer(for email templates)
             services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 
+            // IConfirmationEmailGenerator and Sender(for clean confirmation emails across controllers)
+            services.AddScoped<IConfirmationEmailGenerator, ConfirmationEmailGenerator>();
+            services.AddScoped<IConfirmationEmailSender, ConfirmationEmailSender>();
+
             // Fsp login options
             services.Configure<FspScraperOptions>(Configuration);
 
             // TimesScraperJob
-            services.AddScoped<ITimesScraper, FspTimesScraper>();
+            services.AddSingleton<ITimesScraper, FspTimesScraper>();
 
             // Identity
             services.Configure<IdentityOptions>(options =>
@@ -89,14 +93,16 @@ namespace CAM.Web
 
                 // Password settings
                 options.Password.RequireNonAlphanumeric = false;
-
-                // Default signin settings
-                options.SignIn.RequireConfirmedEmail = true;
             });
 
-            // MVC
+            // MVC + Razor
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorPagesOptions(options => 
+                {
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage/");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
 
             // Cookie config
             services.ConfigureApplicationCookie(options =>
@@ -104,8 +110,9 @@ namespace CAM.Web
                 options.Cookie.Name = "CentennialAircraftMaintenance";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });

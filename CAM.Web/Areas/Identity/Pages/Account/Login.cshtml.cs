@@ -100,7 +100,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt(have you verified your email?).");
                     return Page();
                 }
             }
@@ -119,7 +119,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                ModelState.AddModelError(string.Empty, "Incorrect login information.");
             }
 
             var userId = await _userManager.GetUserIdAsync(user);

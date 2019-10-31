@@ -2,10 +2,11 @@ namespace CAM.Web.Views.Emails.ConfirmAccount
 {
     public class ConfirmAccountEmailViewModel
     {
-        public ConfirmAccountEmailViewModel(string url)
+        public ConfirmAccountEmailViewModel(string confirmUrl)
         {
-            ConfirmAccountUrl = url;
+            ConfirmAccountUrl= confirmUrl;
         }
         public string ConfirmAccountUrl { get; set; }
+
     }
 }

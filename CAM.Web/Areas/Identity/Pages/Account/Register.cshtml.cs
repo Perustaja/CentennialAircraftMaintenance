@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
 using CAM.Web.Interfaces;
 using CAM.Web.Views.Emails.ConfirmAccount;
+using CAM.Web.Views.Shared;
 
 namespace CAM.Web.Areas.Identity.Pages.Account
 {
@@ -21,21 +22,18 @@ namespace CAM.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
-        private readonly IRazorViewToStringRenderer _razorViewToStringRenderer;
+        private readonly IConfirmationEmailSender _confirmationEmailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            IRazorViewToStringRenderer razorRenderer)
+            IConfirmationEmailSender confirmationEmailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
-            _razorViewToStringRenderer = razorRenderer;
+            _confirmationEmailSender = confirmationEmailSender;
         }
 
         [BindProperty]
@@ -76,7 +74,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation($"{user.Email} created a new account.");
+                    _logger.LogInformation($"{DateTime.Now}: User account created by {user.Email}");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
@@ -85,13 +83,10 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
                     
-                    // Populate email template before sending
-                    var confirmAccountEmailViewModel = new ConfirmAccountEmailViewModel(HtmlEncoder.Default.Encode(callbackUrl));
-                    var body = await _razorViewToStringRenderer.RenderViewToStringAsync("/Views/Emails/ConfirmAccount/ConfirmAccount.cshtml", confirmAccountEmailViewModel);
+                    // Uses the ConfirmationEmailSender service which uses an underlying EmailSender.
+                    await _confirmationEmailSender.SendConfirmationEmailAsync(Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Centennial Aircraft Maintenance: Verify Email Address",
-                        body);
-                    _logger.LogInformation($"Confirmation email sent to {user.Email}.");
+                    _logger.LogInformation($"{DateTime.Now}: Confirmation email sent to {user.Email}.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
