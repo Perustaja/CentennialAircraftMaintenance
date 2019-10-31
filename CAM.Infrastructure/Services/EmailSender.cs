@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CAM.Infrastructure.Services
 {
+    /// <summary>
+    /// Sends emails via SendGrid using AuthMessageSenderOptions.
+    /// </summary>
     public class EmailSender : IEmailSender
     {
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
@@ -26,7 +29,7 @@ namespace CAM.Infrastructure.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("admin@aspenmaintenance.dev", Options.SendGridUser),
+                From = new EmailAddress("no-reply@aspenmaintenance.dev", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
