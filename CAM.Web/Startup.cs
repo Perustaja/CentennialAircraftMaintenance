@@ -95,6 +95,7 @@ namespace CAM.Web
 
                 // Password settings
                 options.Password.RequireNonAlphanumeric = false;
+
             });
 
             // MVC + Razor
@@ -105,28 +106,29 @@ namespace CAM.Web
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage/");
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
+            // Cookie policy
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             // Cookie config
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "CentennialAircraftMaintenance";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
                 options.LoginPath = $"/Identity/Account/Login";
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromHours(10);
                 options.Cookie = new CookieBuilder
                 {
                     IsEssential = true // required for auth to work without explicit user consent; adjust to suit your privacy policy
                 };
-            });
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => false;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
         }
 
@@ -152,8 +154,12 @@ namespace CAM.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseRouting();
+
+            // Auth BEFORE ENDPOINTS
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(routes =>
                 {
                     routes.MapControllerRoute(
@@ -163,10 +169,7 @@ namespace CAM.Web
                     );
                     routes.MapRazorPages();
                 });
-            
-            // Auth
-            app.UseAuthentication();
-            app.UseAuthorization();
+
 
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
