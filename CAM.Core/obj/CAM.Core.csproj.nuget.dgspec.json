@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {}
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
+        "projectUniqueName": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
         "projectName": "CAM.Core",
-        "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
+        "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
         "packagesPath": "C:\\Users\\Perustaja\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\obj\\",
+        "outputPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

@@ -6,3 +6,11 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.
 C:\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.dll
 C:\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.pdb
 C:\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.csprojAssemblyReference.cache
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\bin\Debug\netstandard2.1\CAM.Core.deps.json
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\bin\Debug\netstandard2.1\CAM.Core.dll
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\bin\Debug\netstandard2.1\CAM.Core.pdb
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.csprojAssemblyReference.cache
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.AssemblyInfoInputs.cache
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.AssemblyInfo.cs
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.dll
+C:\Data\Dev\CentennialAircraftMaintenance\CAM.Core\obj\Debug\netstandard2.1\CAM.Core.pdb

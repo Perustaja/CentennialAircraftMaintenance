@@ -8876,11 +8876,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
       "projectName": "CAM.Infrastructure",
-      "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
+      "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Perustaja\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\obj\\",
+      "outputPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -8901,8 +8901,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
-              "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
+            "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
+              "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
             }
           }
         }

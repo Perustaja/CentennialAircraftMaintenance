@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj": {}
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj": {}
   },
   "projects": {
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
+        "projectUniqueName": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
         "projectName": "CAM.Core",
-        "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
+        "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj",
         "packagesPath": "C:\\Users\\Perustaja\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\obj\\",
+        "outputPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -91,14 +91,14 @@
         }
       }
     },
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj": {
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
         "projectName": "CAM.Infrastructure",
-        "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
+        "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Perustaja\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\obj\\",
+        "outputPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -119,8 +119,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
-                "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
+              "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
+                "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
               }
             }
           }
@@ -194,14 +194,14 @@
         }
       }
     },
-    "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj": {
+    "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj",
+        "projectUniqueName": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj",
         "projectName": "CAM.Web",
-        "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj",
+        "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\CAM.Web.csproj",
         "packagesPath": "C:\\Users\\Perustaja\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\obj\\",
+        "outputPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -222,11 +222,11 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
-                "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
+              "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj": {
+                "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Core\\CAM.Core.csproj"
               },
-              "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj": {
-                "projectPath": "C:\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj"
+              "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj": {
+                "projectPath": "C:\\Data\\Dev\\CentennialAircraftMaintenance\\CAM.Infrastructure\\CAM.Infrastructure.csproj"
               }
             }
           }
