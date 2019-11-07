@@ -14449,6 +14449,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Shared\\_LoginPageLayout.cshtml",
+      "TargetPath": "Views\\Shared\\_LoginPageLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
       "FileKind": "mvc"
@@ -14466,6 +14471,11 @@
     {
       "FilePath": "Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\Manage\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {

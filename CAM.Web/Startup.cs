@@ -160,14 +160,14 @@ namespace CAM.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(routes =>
+            app.UseEndpoints(endpoints =>
                 {
-                    routes.MapControllerRoute(
+                    endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller}/{action}/{id?}",
                         defaults: new {controller = "home", Action="index" }
                     );
-                    routes.MapRazorPages();
+                    endpoints.MapRazorPages();
                 });
 
 

@@ -190,7 +190,6 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\wi
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\AccessDenied.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\ConfirmEmail.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\ConfirmEmailChange.cshtml.g.cs
@@ -216,7 +215,6 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\SetPassword.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\ShowRecoveryCodes.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml.g.cs
-C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_Layout.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml.g.cs
@@ -228,3 +226,7 @@ C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_Layout.cshtml.g.cs
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Areas\Identity\Pages\Account\Manage\_ViewStart.cshtml.g.cs
+C:\Dev\CentennialAircraftMaintenance\CAM.Web\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_LoginPageLayout.cshtml.g.cs

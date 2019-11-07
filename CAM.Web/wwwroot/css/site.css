@@ -1,5 +1,16 @@
+/* page styling */
+Html, body{
+	height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.theme-aspen {
+    background-color: darkslategray;
+    color: whitesmoke;
+}
 /* header styling */
-.logo-header {
+.logo {
     padding: 5px;
     vertical-align: baseline;
 }
@@ -162,6 +173,41 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+/* login */
+.login-container-parent {
+display: table;
+height: 100%;
+margin: 0 auto;
+}
+.login-container {
+display: table-cell;
+vertical-align: middle;
+margin: auto;
+background-clip: content-box;
+border-radius: 2px;
+filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.5));
+background-color: whitesmoke;
+color: black;
+padding: 10px;
+}
+
+.login-logo-wrapper {
+padding: 5px;
+text-align: center;
+}
+
+.login-header {
+text-align:center;
+font-size:200%;
+color: darkslategray;
+font-weight: 400;
+}
+.login-lead {
+    text-align: center;
+}
+.login-trail {
+
 }
 /* bootstrap overrides */
 /* remove row's default -15px padding on l and r*/
