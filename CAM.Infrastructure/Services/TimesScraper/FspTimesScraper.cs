@@ -37,10 +37,9 @@ namespace CAM.Infrastructure.Services.TimesScraper
         public void Login(IWebDriver driver, FspScraperOptions options)
         {
             // navigate to login page and login, then navigate to desired page and verify we're at the right url
-            driver.Navigate().GoToUrl(options.LoginUrl);
+            driver.Navigate().GoToUrl(options.AircraftUrl); // this will automatically open the login page and redirect after login
             driver.FindElement(By.Id("username")).SendKeys(options.FspUser);
             driver.FindElement(By.Id("password")).SendKeys(options.FspPass + Keys.Enter);
-            driver.Navigate().GoToUrl(options.AircraftUrl);
             Assert.AreEqual(options.AircraftUrl, driver.Url);
         }
         /// <summary>
