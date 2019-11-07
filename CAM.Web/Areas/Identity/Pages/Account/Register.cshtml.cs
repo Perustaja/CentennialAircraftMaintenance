@@ -67,7 +67,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
@@ -95,6 +95,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+            ModelState.Clear(); // Prevent triggering validation fields on redirect
             }
 
             // If we got this far, something failed, redisplay form
