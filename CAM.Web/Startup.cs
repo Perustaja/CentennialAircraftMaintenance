@@ -29,6 +29,7 @@ using CAM.Web.Interfaces;
 using CAM.Web.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace CAM.Web
 {
@@ -99,7 +100,7 @@ namespace CAM.Web
             });
 
             // MVC + Razor
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages()
                 .AddRazorPagesOptions(options => 
                 {

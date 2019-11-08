@@ -175,6 +175,10 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* login */
+#loginForm {
+    min-width: 600px;
+    max-width: 800px;
+}
 .login-container-parent {
 display: table;
 height: 100%;
@@ -185,7 +189,7 @@ display: table-cell;
 vertical-align: middle;
 margin: auto;
 background-clip: content-box;
-border-radius: 2px;
+border-radius: 4px;
 filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.5));
 background-color: whitesmoke;
 color: black;
@@ -200,14 +204,15 @@ text-align: center;
 .login-header {
 text-align:center;
 font-size:200%;
-color: darkslategray;
+font-weight: 400;
+color: black;
 font-weight: 400;
 }
 .login-lead {
     text-align: center;
 }
 .login-trail {
-
+    text-align: center;
 }
 /* bootstrap overrides */
 /* remove row's default -15px padding on l and r*/
