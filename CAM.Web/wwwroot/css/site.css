@@ -4,9 +4,9 @@ Html, body{
     margin:0px;
     padding:0px;
 }
-
 .theme-aspen {
-    background-color: darkslategray;
+    background-image: url("../img/portalbackground.jpg");
+    background-size: cover;
     color: whitesmoke;
 }
 /* header styling */
@@ -74,6 +74,9 @@ Html, body{
 .form-centered{
     margin: 0 auto;
     width: 40vw;
+}
+.form-group-last{
+    margin-bottom: 2.5rem;
 }
 @media screen and (max-width: 700px){
     .form-centered{
@@ -175,11 +178,9 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* login */
-#loginForm {
-    min-width: 600px;
-    max-width: 800px;
-}
+
 .login-container-parent {
+opacity: .98;
 display: table;
 height: 100%;
 margin: 0 auto;
@@ -189,15 +190,20 @@ display: table-cell;
 vertical-align: middle;
 margin: auto;
 background-clip: content-box;
-border-radius: 4px;
 filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.5));
-background-color: whitesmoke;
+background-color: white;
 color: black;
 padding: 10px;
 }
-
+.login-form-container {
+min-width: 600px;
+max-width: 800px;
+}
+.login-form {
+margin: auto;
+}
 .login-logo-wrapper {
-padding: 5px;
+padding: 15px;
 text-align: center;
 }
 
@@ -206,7 +212,7 @@ text-align:center;
 font-size:200%;
 font-weight: 400;
 color: black;
-font-weight: 400;
+letter-spacing: .5px;
 }
 .login-lead {
     text-align: center;
@@ -244,9 +250,12 @@ option {
 .table-danger{
     background-color: indianred;
 }
-/* btn-secondary color */
+/* btn-x color overrides*/
 .btn-secondary{
     background-color: darkslategray;
+}
+.btn-light{
+    background-color: rgb(151, 149, 149);
 }
 /* card-img-top img sizing */
 .card-img-top {
