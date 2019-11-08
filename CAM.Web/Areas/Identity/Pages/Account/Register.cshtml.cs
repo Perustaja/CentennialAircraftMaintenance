@@ -95,7 +95,6 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            ModelState.Clear(); // Prevent triggering validation fields on redirect
             }
 
             // If we got this far, something failed, redisplay form
