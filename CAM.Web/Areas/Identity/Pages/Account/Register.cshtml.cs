@@ -84,8 +84,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
                     
                     // Uses the ConfirmationEmailSender service which uses an underlying EmailSender.
-                    await _confirmationEmailSender.SendConfirmationEmailAsync(Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
+                    await _confirmationEmailSender.SendConfirmationEmailAsync(Input.Email, callbackUrl); // NOTE: Encoding takes place in _EmailButtonPartial.cshtml to prevent html escaping
                     _logger.LogInformation($"{DateTime.Now}: Confirmation email sent to {user.Email}.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

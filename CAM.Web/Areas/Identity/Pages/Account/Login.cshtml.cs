@@ -105,6 +105,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
+        // Saved for reference, not used
         // public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         // {
         //     if (!ModelState.IsValid)
