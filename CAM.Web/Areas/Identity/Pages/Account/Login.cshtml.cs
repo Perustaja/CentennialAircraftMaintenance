@@ -65,7 +65,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("");
+            returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -89,10 +89,6 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
@@ -109,33 +105,33 @@ namespace CAM.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+        // public async Task<IActionResult> OnPostSendVerificationEmailAsync()
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return Page();
+        //     }
 
-            var user = await _userManager.FindByEmailAsync(Input.Email);
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Incorrect login information.");
-            }
+        //     var user = await _userManager.FindByEmailAsync(Input.Email);
+        //     if (user == null)
+        //     {
+        //         ModelState.AddModelError(string.Empty, "Incorrect login information.");
+        //     }
 
-            var userId = await _userManager.GetUserIdAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+        //     var userId = await _userManager.GetUserIdAsync(user);
+        //     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        //     var callbackUrl = Url.Page(
+        //         "/Account/ConfirmEmail",
+        //         pageHandler: null,
+        //         values: new { userId = userId, code = code },
+        //         protocol: Request.Scheme);
+        //     await _emailSender.SendEmailAsync(
+        //         Input.Email,
+        //         "Confirm your email",
+        //         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
-            return Page();
-        }
+        //     ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+        //     return Page();
+        // }
     }
 }

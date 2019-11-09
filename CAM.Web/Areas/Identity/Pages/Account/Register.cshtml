@@ -8,6 +8,7 @@
     <div class="col-md-10 login-form">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div class="form-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -22,7 +23,12 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-secondary col-12 form-group-last">Register</button>
+            <div class="form-group">
+            <button type="submit" class="btn btn-secondary col-12">Register</button>
+            </div>
+            <div class="form-group form-group-last">
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-light col-12">Already registered? Login here</a>
+            </div>
         </form>
     </div>
     </div>

@@ -10,6 +10,7 @@
         <section>
             <form id="account" method="post">
                 <div class="form-group">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -33,10 +34,10 @@
                     <button type="submit" class="btn btn-secondary col-12">Log in</button>
                 </div>
                 <div class="form-group">
-                    <button asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-light col-12">Register</button>
+                    <a asp-page="./Register" class="btn btn-light col-12">Register</a>
                 </div>
                 <div class="form-group form-group-last">
-                    <button id="forgot-password" asp-page="./ForgotPassword" class="btn btn-light col-12">Forgot your password?</button>
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="btn btn-light col-12">Forgot your password?</a>
                 </div>
             </form>
         </section>
