@@ -1,8 +1,15 @@
-/* important */
+/* important asp.net core specifics */
 .validation-summary-valid span {
- display: none; 
+    display: none; 
+}
+/* main overrides, see bootstrap overrides section last */
+a{
+    color: darkslategray;
 }
 
+a:hover{
+    color: rgb(48, 45, 45);
+}
 /* page styling */
 Html, body{
 	height:100%;
@@ -255,13 +262,17 @@ option {
 .table-danger{
     background-color: indianred;
 }
-/* btn-x color overrides*/
+/* btn-x color, pills, etc. overrides*/
 .btn-secondary{
     background-color: darkslategray;
 }
 .btn-light{
     background-color: rgb(151, 149, 149);
 }
+.nav-pills .nav-link.active{
+    background-color: darkslategray;
+}
+
 /* card-img-top img sizing */
 .card-img-top {
     width: 100%;
