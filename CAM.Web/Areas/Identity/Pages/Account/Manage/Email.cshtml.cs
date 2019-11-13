@@ -134,7 +134,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account.Manage
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
                 
-            await _emailSender.SendConfirmationEmailAsync(email, HtmlEncoder.Default.Encode(code));
+            await _emailSender.SendConfirmationEmailAsync(email, HtmlEncoder.Default.Encode(callbackUrl));
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
