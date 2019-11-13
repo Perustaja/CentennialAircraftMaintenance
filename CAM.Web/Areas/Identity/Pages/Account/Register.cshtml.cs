@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using CAM.Core.Interfaces;
-using CAM.Web.Interfaces;
-using CAM.Web.Views.Emails.ConfirmAccount;
-using CAM.Web.Views.Shared;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 namespace CAM.Web.Areas.Identity.Pages.Account
 {
@@ -22,18 +21,18 @@ namespace CAM.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IConfirmationEmailSender _confirmationEmailSender;
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IConfirmationEmailSender confirmationEmailSender)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _confirmationEmailSender = confirmationEmailSender;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -77,14 +76,14 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation($"{DateTime.Now}: User account created by {user.Email}");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
                     
-                    // Uses the ConfirmationEmailSender service which uses an underlying EmailSender.
-                    await _confirmationEmailSender.SendConfirmationEmailAsync(Input.Email, callbackUrl); // NOTE: Encoding takes place in _EmailButtonPartial.cshtml to prevent html escaping
+                    await _emailSender.SendConfirmationEmailAsync(Input.Email, HtmlEncoder.Default.Encode(callbackUrl)); 
                     _logger.LogInformation($"{DateTime.Now}: Confirmation email sent to {user.Email}.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

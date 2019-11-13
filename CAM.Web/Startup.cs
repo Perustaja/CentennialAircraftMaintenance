@@ -26,7 +26,6 @@ using CAM.Infrastructure.Services;
 using CAM.Infrastructure.Services.TimesScraper;
 using CAM.Core.Options;
 using CAM.Web.Interfaces;
-using CAM.Web.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
@@ -65,16 +64,9 @@ namespace CAM.Web
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
 
-            // Email confirmation/password reset with options
+            // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets
-
-            // RazorViewToStringRenderer(for email templates)
-            services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
-
-            // IConfirmationEmailGenerator and Sender(for clean confirmation emails across controllers)
-            services.AddScoped<IConfirmationEmailGenerator, ConfirmationEmailGenerator>();
-            services.AddScoped<IConfirmationEmailSender, ConfirmationEmailSender>();
 
             // Fsp login options
             services.Configure<FspScraperOptions>(Configuration);

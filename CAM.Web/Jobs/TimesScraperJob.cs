@@ -41,12 +41,14 @@ namespace CAM.Web.Jobs
                 var times = _scraper.Run(Options);
                 foreach (var set in times)
                 {
+                    _logger.LogInformation($"{DateTime.Now}: Scraping job finished, Attempting to save changes.");
+
                     if (_context.Times.Any(e => e.AircraftId == set.AircraftId))
                         _context.Update(set);
                     else
                         _context.Add(set);
-                    _logger.LogInformation($"{DateTime.Now}: Scraping job finished, Attempting to save changes.");
                     await _context.SaveChangesAsync();
+                    
                     _logger.LogInformation($"{DateTime.Now}: Changes successfully saved.");
                 }
             }
