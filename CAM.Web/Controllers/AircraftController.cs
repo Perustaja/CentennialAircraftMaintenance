@@ -4,6 +4,7 @@ using System.Linq;
 using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CAM.Web.Controllers
 {

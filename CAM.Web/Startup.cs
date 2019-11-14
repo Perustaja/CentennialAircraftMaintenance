@@ -29,6 +29,8 @@ using CAM.Web.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace CAM.Web
 {
@@ -54,6 +56,7 @@ namespace CAM.Web
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>()
+                .AddRoles<IdentityRole>()
                 .AddDefaultTokenProviders();
 
             // AutoMapper
@@ -77,6 +80,12 @@ namespace CAM.Web
             // Identity
             services.Configure<IdentityOptions>(options =>
             {
+                // Password settings
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 10;
@@ -86,19 +95,27 @@ namespace CAM.Web
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-                // Password settings
-                options.Password.RequireNonAlphanumeric = false;
-
+                // SignIn settings
+                options.SignIn.RequireConfirmedEmail = true;
             });
 
             // MVC + Razor
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews(config => 
+            {
+                // Default to requiring authorization
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter());
+            })
+            .AddRazorRuntimeCompilation();
+
             services.AddRazorPages()
-                .AddRazorPagesOptions(options => 
-                {
-                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage/");
-                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
+                    .AddRazorPagesOptions(options => 
+                    {
+                        options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage/");
+                        options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                    });
             // Cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
