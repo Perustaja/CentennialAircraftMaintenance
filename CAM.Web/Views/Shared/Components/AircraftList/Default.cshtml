@@ -1,0 +1,5 @@
+@model CAM.Web.ViewModels.Shared.AircraftListViewModel
+
+    @foreach (var item in Model.Ids) {
+    <option value="@item">@(Html.DisplayFor(i => item))</option>
+    }

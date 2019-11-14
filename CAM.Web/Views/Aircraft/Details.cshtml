@@ -1,0 +1,35 @@
+@model CAM.Core.Entities.Aircraft
+@{
+    ViewData["Title"] = "Aircraft Details";
+}
+<h3 class="content-header">Aircraft Details</h3>
+<div class="row" style="margin: 0px 30px 0px 30px;">
+    <div class="card-deck">
+        <div class="col-md-3 col-sm-3" style="padding-right: 0px;">
+            <div class="card">
+                <img class="card-img-top" src="@(Url.Content(String.Format("~/img/aircraft/{0}", Model.ImagePath)))">
+                <div class="card-body">
+                    <h5 class="card-title">@(Html.DisplayFor(i => Model.Id))</h5>
+                    <span class="card-text text-muted">@(Html.DisplayFor(i => Model.Model))</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-9" style="padding-left: 0px;">
+            <dl class="row">
+            <dt class="col-sm-2">Tail Number:</dt>
+            <dd class="col-sm-10">@(Html.DisplayFor(m => Model.Id))</dd>
+            <dt class="col-sm-2">Model:</dt>
+            <dd class="col-sm-10">@(Html.DisplayFor(m => Model.Model))</dd>
+            <dt class="col-sm-2">Year:</dt>
+            <dd class="col-sm-10">@(Html.DisplayFor(m => Model.Year))</dd>
+            <dt class="col-sm-2">Serial Number:</dt>
+            <dd class="col-sm-10">@(Html.DisplayFor(m => Model.SerialNum))</dd>
+            </dl>
+            <!-- bottom control footer -->
+            <div class="control-footer">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Index" class="btn btn-secondary btn-sm">Back to Aircraft</a>
+            </div>
+        </div>
+    </div>
+</div>

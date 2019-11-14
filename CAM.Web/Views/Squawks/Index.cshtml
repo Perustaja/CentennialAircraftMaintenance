@@ -1,0 +1,65 @@
+@model CAM.Web.ViewModels.Squawks.SquawksIndexViewModel
+@{
+    ViewData["Title"] = "Squawks";
+}
+@functions{
+    //returns table-danger class if aicraft is grounded, for <td> styling
+    public string getClassIfGrounded(bool Grounded){return Grounded ? "table-danger" : null;}
+}
+<!-- top controls -->
+<div class="control-panel">
+    <div>
+        <!-- RegistrationNums dropdown list -->
+        <form asp-action="Index" method="get">
+        <select class="custom-select control-object" name="searchReg">
+        <option value="All">All Aircraft</option>
+        @foreach (var item in Model.Ids) {
+        var isSelected = item == (string)ViewData["AircraftParam"] ? true : false;
+        <option value="@item" selected="@isSelected">@(Html.DisplayFor(i => item))</option>
+        }
+        </select>
+        <!-- Status dropdown list -->
+        <select class="custom-select control-object" name="searchStatus">
+            @{
+                var isSelected2 = (string)ViewData["StatusParam"] == "Closed" ? true : false;
+            }
+            <option value="Open">Open Squawks</option>
+            <option value="Closed" selected="@isSelected2">Closed Squawks</option>
+        </select>
+        <input type="submit" value="Filter Squawks" class="btn btn-sm btn-secondary ctrl-btn"/>
+        <a asp-action="Create" class="btn btn-secondary btn-sm ctrl-btn">New Squawk</a>
+        </form>
+    </div>
+</div>
+<!-- squawk table -->
+<table class="table sortable" id="mainTable">
+    <thead class="thead-light">
+    <tr>
+        <th onclick="sortTable(0)">Date</th>
+        <th class="sorttable_nosort">Aircraft</th>
+        <th class="sorttable_nosort">Discrepancy</th>
+        <th class="sorttable_nosort">Status</th>
+        <th class="sorttable_nosort">Options</th>
+    </tr>
+    </thead>
+    <tbody class="searchable">
+@foreach (var item in Model.Squawks) {
+    <tr>
+        <td class="@getClassIfGrounded(item.Grounded)">@(Html.DisplayFor(i => item.DateCreated))</td>
+        <td class="@getClassIfGrounded(item.Grounded)">@(Html.DisplayFor(i => item.RegistrationNum))</td>
+        <td class="@getClassIfGrounded(item.Grounded)">@(Html.DisplayFor(i => item.Discrepancy))</td>
+        <td class="@getClassIfGrounded(item.Grounded)">@(Html.DisplayFor(i => item.Status))</td>
+        <td class="@getClassIfGrounded(item.Grounded)">
+                      <div class="dropdown dropleft float-left">
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">Options</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">View Details</a>
+                    <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Edit Squawk</a>
+                    <a class="dropdown-item" href="#">Create Discrepancy</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

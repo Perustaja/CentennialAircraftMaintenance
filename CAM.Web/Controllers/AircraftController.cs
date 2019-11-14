@@ -1,25 +1,53 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
-using CAM.Infrastructure.Data;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
+using CAM.Infrastructure.Data;
 
 namespace CAM.Web.Controllers
 {
     public class AircraftController : Controller
     {
-        private readonly ApplicationContext _context;
-        public AircraftController(ApplicationContext context)
+        private readonly ApplicationContext _applicationContext;
+        public AircraftController(ApplicationContext applicationContext)
         {
-            _context = context;
+            _applicationContext = applicationContext;
         }
-
-        // GET aircraft/index/{searchReg?}
+        // GET aicraft/index/searchReg?
         public async Task<IActionResult> Index(string searchReg)
         {
-            return View(await _context.Aircraft.ToListAsync());
+            var aircraft = from a in _applicationContext.Aircraft
+                            select a;
+            if (!String.IsNullOrEmpty(searchReg))
+            {
+                aircraft = aircraft.Where(a => a.Id.Contains(searchReg.ToUpper()));
+            }
+            return View(await aircraft.AsNoTracking().ToListAsync());
         }
+        // GET aircraft/details/id
+        public async Task<IActionResult> Details(string id)
+        {
+            // null check on id
+            if (id == null) {return NotFound();}
+            // grab aircraft with id matching id arg
+            var aircraft = await _applicationContext.Aircraft.FirstOrDefaultAsync(a => a.Id == id);
+            // null check the grabbed aircraft, if id is non-existent it will be default(null)
+            if (aircraft == null) {return NotFound();}
+            return View(aircraft);
+        }
+        // GET aircraft/edit/id
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null) {return NotFound();}
+            var aircraft = await _applicationContext.Aircraft.FindAsync(id);
+            if (aircraft == null) {return NotFound();}
+            return View(aircraft);
+        }
+
     }
 }

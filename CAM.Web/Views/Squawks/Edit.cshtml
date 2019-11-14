@@ -1,0 +1,113 @@
+@model CAM.Web.ViewModels.Squawks.SquawksEditViewModel
+@{
+    ViewData["Title"] = "Edit Squawk";
+}
+<div>
+    <h3 class="content-header">Edit Squawk</h3>
+    <hr />
+</div>
+<div>
+        <form asp-action="Edit" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Squawk.Id" />
+            <!-- DateCreated input element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.DateCreated" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <input asp-for="Squawk.DateCreated" type="text" class="form-control" data-provide="datepicker"/>
+                    <span asp-validation-for="Squawk.DateCreated" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- Pilot input element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.Pilot" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                <input asp-for="Squawk.Pilot" class="form-control" placeholder="Pilot's name"/>
+                <span asp-validation-for="Squawk.Pilot" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- RegistrationNum select element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.RegistrationNum" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                <select asp-for="Squawk.RegistrationNum" class="form-control custom-select">
+                    <!-- RegistrationNum list with selected element -->
+                    @foreach (var item in Model.RegistrationNums)
+                    {
+                    var isSelected = item == Model.Squawk.RegistrationNum ? true : false;
+                    <option value="@item" selected="@isSelected">@(Html.DisplayFor(i => item))</option>
+                    }
+                </select>
+                <span asp-validation-for="Squawk.RegistrationNum" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- Discrepancy textarea element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.Discrepancy" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <textarea rows="6" asp-for="Squawk.Discrepancy" class="form-control" placeholder="Describe the issue"></textarea>
+                    <span asp-validation-for="Squawk.Discrepancy" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- Grounded input toggle switch -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.Grounded" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4 switch">
+                    <label class="switch">
+                    <input asp-for="Squawk.Grounded" type="checkbox"/>
+                    <span class="slider danger-slider"></span>
+                    </label>
+                    <span asp-validation-for="Squawk.Grounded" class="text-danger"></span>
+                </div>
+            </div>
+            <hr>
+            <!-- Status select element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.Status" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <select asp-for="Squawk.Status" class="control-form custom-select">
+                        <optgroup label="Open">
+                            <option selected value="Awaiting review">Awaiting review</option>
+                            <option value="Verified, awaiting parts">Verified, awaiting parts</option>
+                            <option value="Verified, will wait until inspection to fix">Verified, will wait until inspection to fix</option>
+                        </optgroup>
+                        <optgroup label="Closed">
+                            <option value="Inspected, approved for flight">Inspected, approved for flight</option>
+                            <option value="Issue was verified and fixed">Issue was verified and fixed</option>
+                            <option value="Unable to verify issue">Unable to verify issue</option>
+                        </optgroup>
+                    </select>
+                    <span asp-validation-for="Squawk.Status" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- Resolution textarea element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.Resolution" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <textarea rows="6" asp-for="Squawk.Resolution" class="form-control" placeholder="Describe the resolution"></textarea>
+                    <span asp-validation-for="Squawk.Resolution" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- DateResolved input element  -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.DateResolved" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <input asp-for="Squawk.DateResolved" type="text" class="form-control" data-provide="datepicker" />
+                    <span asp-validation-for="Squawk.DateResolved" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- ResolvedBy input element -->
+            <div class="form-group row justify-content-center">
+                <label asp-for="Squawk.ResolvedBy" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <input asp-for="Squawk.ResolvedBy" class="form-control" placeholder="Resolver's name" />
+                    <span asp-validation-for="Squawk.DateResolved" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- footer controls -->
+            <div class="form-group row justify-content-center">
+                <input type="submit" value="Save" class="btn btn-secondary btn-sm" />
+                <a asp-action="Index" class="btn btn-dark btn-sm" style="margin-left:15px;">Back to Squawks</a>
+            </div>
+        </form>
+</div>
