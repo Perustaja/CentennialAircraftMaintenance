@@ -28,7 +28,10 @@ namespace CAM.Infrastructure.Services
         {
             return ExecuteConfirmation(Options.SendGridKey, email, confirmationUrl);
         }
-
+        public Task SendPasswordResetEmailAsync(string email, string passResetUrl)
+        {
+            return ExecutePasswordReset(Options.SendGridKey, email, passResetUrl);
+        }
         public Task Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
@@ -47,7 +50,8 @@ namespace CAM.Infrastructure.Services
             return client.SendEmailAsync(msg);
         }
         /// <summary>
-        /// Utilizes transactional templates and the SendGrid dynamic content API to create the end email.
+        /// Utilizes transactional templates and the SendGrid dynamic content API to create/send an account 
+        /// confirmation url.
         /// </summary>
         public Task ExecuteConfirmation(string apiKey, string email, string confirmationUrl)
         {
@@ -71,6 +75,31 @@ namespace CAM.Infrastructure.Services
 
             return client.SendEmailAsync(msg);
         }
+        /// <summary>
+        /// Utilizes transactional templates and the SendGrid dynamic content API to create/send
+        /// a password reset email.
+        /// </summary>
+        public Task ExecutePasswordReset(string apiKey, string email, string passResetUrl)
+        {
+            var dynamicTemplateData = new PasswordResetTemplateData()
+            {
+                PassResetUrl = passResetUrl
+            };
 
+            var client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage()
+            {
+                TemplateId = "d-b42fcf5f2418464fb32a1178fdd53ad3",
+                From = new EmailAddress("no-reply@aspenmaintenance.dev", Options.SendGridUser),
+            };
+            msg.SetTemplateData(dynamicTemplateData);
+            msg.AddTo(new EmailAddress(email));
+
+            // Disable click tracking.
+            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
+            msg.SetClickTracking(false, false);
+
+            return client.SendEmailAsync(msg);
+        }
     }
 }

@@ -35,6 +35,9 @@ namespace CAM.Core.Entities
         [StringLength(1000)]
         public string Resolution { get; set; }
         // Aircraft properties
+        [StringLength(20)]
+        [Display(Name = "Registration")]
+        public string AircraftId { get; set; }
         [Range(1900, 3000)]
         public int? Year { get; set; }
         [Required]

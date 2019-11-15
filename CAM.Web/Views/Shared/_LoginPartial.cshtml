@@ -5,8 +5,10 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    var user = await UserManager.GetUserAsync(User);
+
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#"data-toggle="dropdown">@User.Identity.Name</a> 
+        <a class="nav-link dropdown-toggle" href="#"data-toggle="dropdown">@user.FirstName @user.LastName</a> 
             <div class="dropdown-menu navbar-dropdown">
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >Account</a>
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >

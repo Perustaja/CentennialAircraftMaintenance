@@ -16,6 +16,7 @@ namespace CAM.Core.Entities
         [StringLength(20)]
         [Display(Name = "Registration Number")]
         public string AircraftId { get; set; }
+        [Display(Name = "Hobbs Time")]
         public decimal Hobbs { get; set; }
         [Display(Name = "Air Time")]
         public int AirTime { get; set; }
