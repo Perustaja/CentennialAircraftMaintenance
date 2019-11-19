@@ -46,7 +46,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
-            
+
             [Required]
             [StringLength(20, ErrorMessage = "The {0} cannot be more than {1} characters long.")]
             [Display(Name = "First Name")]
