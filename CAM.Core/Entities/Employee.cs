@@ -16,6 +16,9 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+        [StringLength(2)]
+        public string Initials => $"{FirstName[0]}{LastName[0]}".ToUpper();
+        
         [StringLength(20)]
         public string CertificationNum { get; set; }
     }

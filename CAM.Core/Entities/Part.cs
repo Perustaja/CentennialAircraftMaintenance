@@ -28,7 +28,7 @@ namespace CAM.Core.Entities
         // Category 
         public Category Category { get; set; }
         // Navigation properties
-        public ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public List<DiscrepancyPart> DiscrepancyParts { get; set; }
 
     }
 }

@@ -31,6 +31,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace CAM.Web
 {
@@ -100,7 +102,7 @@ namespace CAM.Web
             });
 
             // MVC + Razor
-            services.AddControllersWithViews(config => 
+            services.AddControllersWithViews(config =>
             {
                 // Default to requiring authorization
                 var policy = new AuthorizationPolicyBuilder()
@@ -111,7 +113,7 @@ namespace CAM.Web
             .AddRazorRuntimeCompilation();
 
             services.AddRazorPages()
-                    .AddRazorPagesOptions(options => 
+                    .AddRazorPagesOptions(options =>
                     {
                         options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage/");
                         options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
@@ -175,7 +177,7 @@ namespace CAM.Web
                     endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller}/{action}/{id?}",
-                        defaults: new {controller = "home", Action="index" }
+                        defaults: new { controller = "home", Action = "index" }
                     );
                     endpoints.MapRazorPages();
                 });

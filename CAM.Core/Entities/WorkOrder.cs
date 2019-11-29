@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CAM.Core.SharedKernel;
@@ -14,7 +15,13 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(30)]
         public string Name { get; set; }
+        [Display(Name = "Date Created")]
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; }
+        [Display(Name = "Date Finalized")]
+        [DataType(DataType.Date)]
+        public DateTime DateFinalized { get; set; }
         // Navigation properties
-        public ICollection<Discrepancy> Discrepancies { get; set; }
+        public List<Discrepancy> Discrepancies { get; set; }
     }
 }

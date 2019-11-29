@@ -65,8 +65,8 @@ namespace CAM.Core.Entities
         // WorkOrder 
         public WorkOrder WorkOrder { get; set; }
         // Navigation properties
-        public ICollection<LaborRecord> LaborRecords { get; set; }
-        public ICollection<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public List<LaborRecord> LaborRecords { get; set; }
+        public List<DiscrepancyPart> DiscrepancyParts { get; set; }
 
     }
 }

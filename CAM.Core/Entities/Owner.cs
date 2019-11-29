@@ -19,6 +19,6 @@ namespace CAM.Core.Entities
         [StringLength(60)]
         public string Email { get; set; }
         // Navigation Properties
-        public ICollection<AircraftOwner> AircraftOwners { get; set; }
+        public List<AircraftOwner> AircraftOwners { get; set; }
     }
 }

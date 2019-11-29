@@ -32,7 +32,7 @@ namespace CAM.Core.Entities
         // Times 
         public Times Times { get; set; }
         // Navigation properties
-        public ICollection<Squawk> Squawks { get; set; }
-        public ICollection<AircraftOwner> AircraftOwners { get; set; }
+        public List<Squawk> Squawks { get; set; }
+        public List<AircraftOwner> AircraftOwners { get; set; }
     }
 }
