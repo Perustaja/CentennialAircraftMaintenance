@@ -24,7 +24,11 @@ namespace CAM.Infrastructure.Services.TimesScraper
         /// </summary>
         public ISet<Times> Run(FspScraperOptions options)
         {
-            IWebDriver driver = new ChromeDriver();
+            // Run in headless mode - requires version 59 or greater
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("headless");
+
+            IWebDriver driver = new ChromeDriver(chromeOptions);
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             Login(driver, options);
             var times = ScrapeTimes(driver, wait);
