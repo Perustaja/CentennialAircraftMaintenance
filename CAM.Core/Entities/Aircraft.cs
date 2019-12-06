@@ -19,7 +19,7 @@ namespace CAM.Core.Entities
         //Main
         [StringLength(100)]
         [Display(Name = "Image Path")]
-        public string ImagePath { get; set; } = "default.png";
+        public string ImagePath => $"{Id.ToUpper()}.jpg";
 
         [Range(1900, 3000)]
         public int? Year { get; set; }

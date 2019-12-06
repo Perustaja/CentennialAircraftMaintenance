@@ -22,28 +22,21 @@
 </head>
 <body>
     <div class="container-fluid p-0">
-        <!-- temp alert -->
-        <div class="alert alert-dark alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            This site is still under development, please report any errors here
-        </div>
-        <!-- header -->
-        <img src="~/img/logo.png" class="logo"/>
         <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark navstyling sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark navstyling">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/home/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/aircraft/">Aircraft</a></li>
+                <li class="nav-item"><a class="nav-link" href="/maintenance/">Maintenance</a></li>
                 <li class="nav-item"><a class="nav-link" href="/inventory/">Inventory</a></li>
                 <!-- Maintenance dropdown, class navbar-dropdown contains non-bootstrap styling -->
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Maintenance</a> 
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Aircraft</a> 
                     <div class="dropdown-menu navbar-dropdown">
-                    <a class="dropdown-item" href="/worders/">Work Orders</a>
+                    <a class="dropdown-item" href="/aircraft/">Fleet</a>
                     <a class="dropdown-item" href="/squawks/">Squawks</a>
                     <a class="dropdown-item" href="/reminders/">Reminders</a>
                     </div>    

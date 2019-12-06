@@ -29,6 +29,13 @@ Html, body{
 .header-text {
     display: inline;
 }
+/* panels */
+.panel-body {
+    margin: 1rem;
+    padding: 20px;
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
 /* navbar styling, button selectors are for logout form button to be integrated in dropdown */
 .navstyling {
     background-color: darkslategray;
@@ -71,6 +78,26 @@ Html, body{
 .dropdown-menu button:hover{
     color: whitesmoke;
     background-color: slategray;
+}
+/* Subnav element */
+.subnav-container {
+
+}
+.subnav-container li{
+    margin-right: 30px;
+}
+.subnav-link{
+
+}
+
+.subnav-link a{
+    color: rgb(99, 96, 96);
+    text-decoration: underline;
+    font-size: 17px;
+}
+/* list-inline */
+.list-inline li{
+    display: inline-block;
 }
 /* renderbody usage */
 .content-header{
@@ -315,4 +342,7 @@ option {
 }
 .nav-item{
     padding: 0px 0px;
+}
+.nav-link.dropdown-toggle {
+    min-width: 125px;
 }

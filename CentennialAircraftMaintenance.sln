@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAM.Infrastructure", "CAM.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAM.Web", "CAM.Web\CAM.Web.csproj", "{E40BD8C8-1AC1-439F-9851-E3D78909DF87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAM.Tests", "CAM.Tests\CAM.Tests.csproj", "{55ECAED5-733C-42E1-918E-FE3BC362434F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{E40BD8C8-1AC1-439F-9851-E3D78909DF87}.Release|x64.Build.0 = Release|Any CPU
 		{E40BD8C8-1AC1-439F-9851-E3D78909DF87}.Release|x86.ActiveCfg = Release|Any CPU
 		{E40BD8C8-1AC1-439F-9851-E3D78909DF87}.Release|x86.Build.0 = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|x64.Build.0 = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Debug|x86.Build.0 = Debug|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|x64.ActiveCfg = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|x64.Build.0 = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|x86.ActiveCfg = Release|Any CPU
+		{55ECAED5-733C-42E1-918E-FE3BC362434F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
