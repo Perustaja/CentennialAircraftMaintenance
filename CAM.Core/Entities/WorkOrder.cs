@@ -21,7 +21,5 @@ namespace CAM.Core.Entities
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
         public DateTime DateFinalized { get; set; }
-        // Navigation properties
-        public List<Discrepancy> Discrepancies { get; set; }
     }
 }

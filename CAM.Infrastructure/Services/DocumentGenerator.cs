@@ -13,7 +13,7 @@ namespace CAM.Infrastructure.Services
         ///<summary>
         /// Generates the documents and spreadsheets necessary after being passed a WorkOrder.
         ///</summary>
-        public void GenerateWorkOrder(WorkOrder workOrder)
+        public void GenerateWorkOrder(WorkOrder workOrder, List<Discrepancy> discreps)
         {
             // Initialize with path and filestream
             var newFile = $"~/Documents/WorkOrder{workOrder.Id}.xlsx";
@@ -21,7 +21,7 @@ namespace CAM.Infrastructure.Services
             using (var fs = new FileStream(newFile, FileMode.Create, FileAccess.Write))
             {
                 IWorkbook workbook = new XSSFWorkbook();
-                workbook.CreateDiscrepancySheets(workOrder.Discrepancies);
+                workbook.CreateDiscrepancySheets(discreps);
 
                 workbook.Write(fs);
             }
