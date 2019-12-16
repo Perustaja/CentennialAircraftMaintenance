@@ -121,8 +121,8 @@ namespace CAM.Web
             {
                 options.Cookie.Name = "CentennialAircraftMaintenance";
                 options.Cookie.HttpOnly = true;
-                options.LoginPath = $"/Account/Login";
-                options.LogoutPath = $"/Account/Logout";
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Account/AccessDenied";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
