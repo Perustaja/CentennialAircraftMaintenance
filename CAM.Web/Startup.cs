@@ -1,38 +1,25 @@
-﻿using System.ComponentModel.Design;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Swagger;
 using CAM.Infrastructure.Data;
 using AutoMapper;
 using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
 using CAM.Web.Jobs;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity;
 using CAM.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using CAM.Infrastructure.Services;
 using CAM.Infrastructure.Services.TimesScraper;
 using CAM.Core.Options;
-using CAM.Web.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
 
 namespace CAM.Web
 {
@@ -118,8 +105,8 @@ namespace CAM.Web
             services.AddRazorPages()
                     .AddRazorPagesOptions(options =>
                     {
-                        options.Conventions.AuthorizeAreaFolder("Identity", "Identity/Account/Manage/");
-                        options.Conventions.AuthorizeAreaPage("Identity", "Identity/Account/Logout");
+                        options.Conventions.AuthorizeAreaFolder("Identity", "/Identity/Account/Manage/");
+                        options.Conventions.AuthorizeAreaPage("Identity", "/Identity/Account/Logout");
                     });
             // Cookie policy
             services.Configure<CookiePolicyOptions>(options =>
