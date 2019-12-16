@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace CAM.Infrastructure.Services.EmailTemplateData
+namespace CAM.Infrastructure.EmailTemplateData
 {
     public class ConfirmationTemplateData
     {

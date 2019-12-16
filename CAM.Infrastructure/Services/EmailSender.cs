@@ -1,6 +1,6 @@
 using CAM.Core.Interfaces;
 using CAM.Core.Options;
-using CAM.Infrastructure.Services.EmailTemplateData;
+using CAM.Infrastructure.EmailTemplateData;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
