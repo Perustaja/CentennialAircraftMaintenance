@@ -20,7 +20,7 @@ namespace CAM.Web.Jobs
         private readonly ITimesScraper _scraper;
         private readonly ILogger _logger;
         public FspScraperOptions Options { get; }
-        public TimesScraperJob(ApplicationContext context, ITimesScraper scraper, 
+        public TimesScraperJob(ApplicationContext context, ITimesScraper scraper,
             ILogger<TimesScraperJob> logger, IOptions<FspScraperOptions> optionsAccessor)
         {
             _context = context;
@@ -37,19 +37,22 @@ namespace CAM.Web.Jobs
         {
             try
             {
-                _logger.LogInformation($"{DateTime.Now}: Starting times scraping job.");
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+                stopwatch.Start();
+                _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Starting times scraping job.");
                 var times = _scraper.Run(Options);
+                _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Scraping job finished, Attempting to save changes.");
+
                 foreach (var set in times)
                 {
-                    _logger.LogInformation($"{DateTime.Now}: Scraping job finished, Attempting to save changes.");
-
                     if (_context.Times.Any(e => e.AircraftId == set.AircraftId))
                         _context.Update(set);
                     else
                         _context.Add(set);
                     await _context.SaveChangesAsync();
-                    
-                    _logger.LogInformation($"{DateTime.Now}: Changes successfully saved.");
+
+                    _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Database changes successfully saved.");
                 }
             }
             catch
