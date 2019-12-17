@@ -33,17 +33,6 @@ namespace CAM.Infrastructure.Data
                 .HasOne(bc => bc.Part)
                 .WithMany(c => c.DiscrepancyParts)
                 .HasForeignKey(bc => bc.PartId);
-            // Many-to-many relationship between Aircraft and Owner
-            modelBuilder.Entity<AircraftOwner>()
-                .HasKey(bc => new { bc.AircraftId, bc.OwnerId });
-            modelBuilder.Entity<AircraftOwner>()
-                .HasOne(bc => bc.Aircraft)
-                .WithMany(b => b.AircraftOwners)
-                .HasForeignKey(bc => bc.AircraftId);
-            modelBuilder.Entity<AircraftOwner>()
-                .HasOne(bc => bc.Owner)
-                .WithMany(c => c.AircraftOwners)
-                .HasForeignKey(bc => bc.OwnerId);
         }
     }
 }

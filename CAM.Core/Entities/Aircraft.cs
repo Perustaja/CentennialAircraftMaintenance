@@ -33,6 +33,5 @@ namespace CAM.Core.Entities
         public Times Times { get; set; }
         // Navigation properties
         public List<Squawk> Squawks { get; set; }
-        public List<AircraftOwner> AircraftOwners { get; set; }
     }
 }
