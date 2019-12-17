@@ -1,13 +1,11 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CAM.Infrastructure.Data;
+using CAM.Infrastructure.Data.DbSetExtensions;
 
 namespace CAM.Web.Controllers
 {
@@ -35,7 +33,7 @@ namespace CAM.Web.Controllers
             // null check on id
             if (id == null) {return NotFound();}
             // grab aircraft with id matching id arg
-            var aircraft = await _applicationContext.Aircraft.FirstOrDefaultAsync(a => a.Id == id);
+            var aircraft = await _applicationContext.Aircraft.GetByIdAsync(id);
             // null check the grabbed aircraft, if id is non-existent it will be default(null)
             if (aircraft == null) {return NotFound();}
             return View(aircraft);
@@ -44,7 +42,7 @@ namespace CAM.Web.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null) {return NotFound();}
-            var aircraft = await _applicationContext.Aircraft.FindAsync(id);
+            var aircraft = await _applicationContext.Aircraft.GetByIdAsync(id);
             if (aircraft == null) {return NotFound();}
             return View(aircraft);
         }
