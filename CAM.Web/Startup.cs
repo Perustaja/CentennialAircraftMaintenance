@@ -67,8 +67,8 @@ namespace CAM.Web
             services.AddSingleton<ITimesScraper, FspTimesScraper>();
 
             // DocumentGenerator
-            services.AddTransient<IDocumentGenerator, DocumentGenerator>();
-            
+            services.AddScoped<IDocumentGenerator, DocumentGenerator>();
+
             // Identity
             services.Configure<IdentityOptions>(options =>
             {
@@ -164,6 +164,11 @@ namespace CAM.Web
 
             app.UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(
+                    name: "maintenance",
+                    pattern: "maintenance/{controller}/{action}/{id?}",
+                    defaults: new { controller = "workorders", Action = "index" }
+                );
                     endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller}/{action}/{id?}",

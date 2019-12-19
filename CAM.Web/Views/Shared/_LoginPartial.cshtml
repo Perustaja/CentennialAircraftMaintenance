@@ -10,7 +10,7 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#"data-toggle="dropdown">@user.FirstName @user.LastName</a> 
             <div class="dropdown-menu navbar-dropdown">
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" >Account</a>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
                     <button  type="submit" class="dropdown-item">Logout</button>
                 </form>
