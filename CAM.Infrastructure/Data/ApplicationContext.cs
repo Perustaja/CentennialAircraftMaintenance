@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using CAM.Core.Entities;
+using CAM.Core.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CAM.Infrastructure.Data
 {
     /// <summary>
-    /// Core context containing entities. See root of Web library for ERD.
+    /// Core context containing entities. See root for ERD.
     /// </summary>
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext, IDataContext
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
         public DbSet<Aircraft> Aircraft { get; set; }
@@ -20,6 +22,7 @@ namespace CAM.Infrastructure.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Times> Times { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Many-to-many relationship between Discrepancy and Part
@@ -33,6 +36,31 @@ namespace CAM.Infrastructure.Data
                 .HasOne(bc => bc.Part)
                 .WithMany(c => c.DiscrepancyParts)
                 .HasForeignKey(bc => bc.PartId);
+        }
+
+        private IDbContextTransaction _transaction;
+
+        public async void BeginTransaction()
+        {
+            _transaction = await Database.BeginTransactionAsync();
+        }
+
+        public async void Commit()
+        {
+            try
+            {
+                await SaveChangesAsync();
+            }
+            finally
+            {
+                await _transaction.DisposeAsync();
+            }
+        }
+
+        public async void Rollback()
+        {
+            await _transaction.RollbackAsync();
+            await _transaction.DisposeAsync();
         }
     }
 }
