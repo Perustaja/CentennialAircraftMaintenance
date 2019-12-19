@@ -8,6 +8,9 @@ using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using CAM.Core.Options;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using CAM.Core.Entities;
+using OpenQA.Selenium;
 
 namespace CAM.Web.Jobs
 {
@@ -31,19 +34,30 @@ namespace CAM.Web.Jobs
         public async Task Run(IJobCancellationToken token)
         {
             token.ThrowIfCancellationRequested();
-            await UpdateTimes();
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            try
+            {
+                stopwatch.Start();
+                _logger.LogInformation($"{DateTime.Now}: Starting times scraping job.");
+                var times = _scraper.Run(Options);
+                _logger.LogInformation($"{DateTime.Now}: Scraping job finished in {stopwatch.Elapsed} seconds, Attempting to save changes.");
+                await UpdateTimes(times);
+            }
+            catch (WebDriverException e)
+            {
+                Console.WriteLine($"{DateTime.Now}: WebDriver unable to start. Please ensure Chromium version 59 or greater is installed and is in your PATH environment variable. {e.Message}");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{DateTime.Now}: Scraping job experienced an error or a cancellation request and has terminated. {e}");
+            }
+
         }
-        public async Task UpdateTimes()
+        public async Task UpdateTimes(ISet<Times> times)
         {
             try
             {
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-                stopwatch.Start();
-                _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Starting times scraping job.");
-                var times = _scraper.Run(Options);
-                _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Scraping job finished, Attempting to save changes.");
-
                 foreach (var set in times)
                 {
                     if (_context.Times.Any(e => e.AircraftId == set.AircraftId))
@@ -52,12 +66,12 @@ namespace CAM.Web.Jobs
                         _context.Add(set);
                     await _context.SaveChangesAsync();
 
-                    _logger.LogInformation($"{stopwatch.ElapsedMilliseconds}: Database changes successfully saved.");
+                    _logger.LogInformation($"{DateTime.Now}: Database changes successfully saved.");
                 }
             }
             catch
             {
-                _logger.LogError($"{DateTime.Now}: Scraping job experienced an error and has silently failed.", _scraper);
+                _logger.LogError($"{DateTime.Now}: Scraper failed to save changes to database.");
             }
 
         }
