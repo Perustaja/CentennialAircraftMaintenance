@@ -14,8 +14,11 @@ namespace CAM.Core.Entities
     {
         public override int Id { get; set; }
         // WorkOrder FK
-        public int WorkOrderId { get; set; }
+        public int? WorkOrderId { get; set; }
         // Main
+        [StringLength(15)]
+        public string Title { get; set; }
+
         [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
         public DateTime DateCreated { get; set; }
@@ -62,8 +65,6 @@ namespace CAM.Core.Entities
         [Display(Name = "Engine 2 Total")]
         public decimal Engine2Total { get; set; }
         public int Cycles { get; set; }
-        // WorkOrder 
-        public WorkOrder WorkOrder { get; set; }
         // Navigation properties
         public List<LaborRecord> LaborRecords { get; set; }
         public List<DiscrepancyPart> DiscrepancyParts { get; set; }

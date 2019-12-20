@@ -20,4 +20,8 @@
     <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CAM.Web\CAM.Web.csproj" />
+  </ItemGroup>
+
 </Project>
