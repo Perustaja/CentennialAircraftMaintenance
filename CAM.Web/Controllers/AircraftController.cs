@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CAM.Infrastructure.Data;
-using CAM.Infrastructure.Data.DbSetExtensions;
 using CAM.Core.Entities;
+using CAM.Infrastructure.Data.Queries;
 
 namespace CAM.Web.Controllers
 {

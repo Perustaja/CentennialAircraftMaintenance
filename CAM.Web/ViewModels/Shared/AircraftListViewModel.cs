@@ -8,5 +8,6 @@ namespace CAM.Web.ViewModels.Shared
         [StringLength(20)]
         [Display(Name = "Registration")]
         public List<string> Ids { get ; set; }
+        public List<bool> Selected { get; set; }
     }
 }

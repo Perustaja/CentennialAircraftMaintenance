@@ -1,13 +1,12 @@
 using CAM.Infrastructure.Data;
+using CAM.Infrastructure.Data.Queries;
 using CAM.Web.ViewModels.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Aspen.Views.Squawks.Components
+namespace CAM.Web.ViewComponents
 {
     public class AircraftListViewComponent : ViewComponent
     {
@@ -16,12 +15,20 @@ namespace Aspen.Views.Squawks.Components
         {
             _applicationContext = applicationContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string selected)
         {
-            AircraftListViewModel aircraftListViewModel = new AircraftListViewModel
+            var aircraftListViewModel = new AircraftListViewModel()
             {
-                Ids = await _applicationContext.Aircraft.Select(a => a.Id).ToListAsync()
+                Ids = new List<string>(),
+                Selected = new List<bool>()
             };
+
+            foreach (var entity in await _applicationContext.Aircraft.GetListAllAsync())
+            {
+                aircraftListViewModel.Ids.Add(entity.Id);
+                aircraftListViewModel.Selected.Add(entity.Id == selected);
+            }
+            
             return View(aircraftListViewModel);
         }
     }

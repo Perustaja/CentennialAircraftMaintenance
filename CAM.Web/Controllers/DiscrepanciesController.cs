@@ -1,3 +1,4 @@
+using System;
 using CAM.Core.Interfaces;
 using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,12 @@ namespace CAM.Web.Controllers
             _documentGenerator = docGen;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string status, string regNum)
         {
+            ViewData["Selection"] = (String.IsNullOrWhiteSpace(regNum)) ? "All Aircraft" : regNum;
+            ViewData["Status"] = (String.IsNullOrWhiteSpace(status)) ? "Open" : status;
+            
+            
             return View();
         }
     }

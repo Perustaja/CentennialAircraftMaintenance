@@ -21,10 +21,18 @@
             <div class="input-group">
                 <form asp-action="index" method="get" class="form-inline">
                     <div class="form-group mb-2">
-                        <input type="text" name="search" class="form-control" placeholder="Search discrepancies" autocomplete="false"/>
+                        <select type="text" name="regNum" class="form-control mr-1">
+                            <option value="All">All Aircraft</option>
+                            @await Component.InvokeAsync("AircraftList")
+                        </select>
+                        
+                        <select type="text" name="status" class="form-control mr-1">
+                            <option value="Open">Open</option>
+                            <option value="Closed">Closed</option>
+                        </select>
                     </div>
                     <div class="form-group ml-1 mb-2">
-                    <input type="submit" value="Search" class="btn btn-secondary" />
+                    <input type="submit" value="Filter" class="btn btn-secondary" />
                     </div>
                 </form>
             </div>
