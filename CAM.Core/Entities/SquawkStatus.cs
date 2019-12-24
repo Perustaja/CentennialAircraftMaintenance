@@ -6,7 +6,7 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains data used to represent the current status of a squawk.
     /// </summary>
-    public class Status : BaseEntity<int>
+    public class SquawkStatus : BaseEntity<int>
     {
         public override int Id { get; set; }
         // Main

@@ -15,6 +15,9 @@ namespace CAM.Core.Entities
         public override int Id { get; set; }
         // WorkOrder FK
         public int? WorkOrderId { get; set; }
+        // WorkStatus FK
+        public int WorkStatusId { get; set; }
+
         // Main
         [StringLength(15)]
         public string Title { get; set; }
@@ -24,11 +27,7 @@ namespace CAM.Core.Entities
         public DateTime DateCreated { get; set; }
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
-        public DateTime DateFinalized { get; set; }
-        [Display(Name = "Awaiting Review")]
-        public bool AwaitingFinalize { get; set; } = false;
-        [Display(Name = "Is Finalized")]
-        public bool IsFinalized { get; set; } = false;
+        public DateTime? DateFinalized { get; set; }
         [Display(Name = "Created by")]
         [StringLength(60)]
         public string CreatedBy { get; set; }
@@ -68,6 +67,6 @@ namespace CAM.Core.Entities
         // Navigation properties
         public List<LaborRecord> LaborRecords { get; set; }
         public List<DiscrepancyPart> DiscrepancyParts { get; set; }
-
+        public WorkStatus WorkStatus { get; set; }
     }
 }

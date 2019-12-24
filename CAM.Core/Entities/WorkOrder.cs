@@ -27,10 +27,5 @@ namespace CAM.Core.Entities
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
         public DateTime DateFinalized { get; set; }
-
-        [Display(Name = "Awaiting Review")]
-        public bool AwaitingFinalize { get; set; } = false;
-        [Display(Name = "Is Finalized")]
-        public bool IsFinalized { get; set; } = false;
     }
 }
