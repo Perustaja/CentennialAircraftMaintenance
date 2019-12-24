@@ -49,7 +49,12 @@ namespace CAM.Web
                 .AddDefaultTokenProviders();
 
             // AutoMapper
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(config =>
+            {
+                config.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
+            },
+            AppDomain.CurrentDomain.GetAssemblies());
+
 
             // Hangfire
             // NOTE: The Hangfire connection string ends with a ; in the json file. 
@@ -108,6 +113,7 @@ namespace CAM.Web
                         options.Conventions.AuthorizeAreaFolder("Identity", "/Identity/Account/Manage/");
                         options.Conventions.AuthorizeAreaPage("Identity", "/Identity/Account/Logout");
                     });
+            
             // Cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -177,12 +183,9 @@ namespace CAM.Web
                     endpoints.MapRazorPages();
                 });
 
-
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
             HangfireScheduler.ScheduleRecurringJobs();
-
-
         }
     }
 }

@@ -1,45 +1,42 @@
+using System.Collections;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using CAM.Core.SharedKernel;
 using CAM.Core.Entities;
+using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 
-namespace CAM.Web.ViewModels.Discrepancies
+namespace CAM.Web.ViewModels
 {
-    public class DiscrepanciesIndexViewModel
+    [AutoMap(typeof(Discrepancy), ReverseMap = true)]
+    public class DiscrepancyViewModel
     {
         public int Id { get; set; }
-        
-        [StringLength(20)]
+
+        // Main
+        [StringLength(15)]
         public string Title { get; set; }
 
         [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true ,DataFormatString = Constants.DATE_FORMAT)]
         public DateTime DateCreated { get; set; }
 
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true ,DataFormatString = Constants.DATE_FORMAT)]
         public DateTime DateFinalized { get; set; }
-
-        [Display(Name = "Awaiting Review")]
-        public bool AwaitingFinalize { get; set; } = false;
-
-        [Display(Name = "Is Finalized")]
-        public bool IsFinalized { get; set; } = false;
 
         [Display(Name = "Created by")]
         [StringLength(60)]
         public string CreatedBy { get; set; }
 
-        // Squawk properties
-        [Required]
-        public string Description { get; set; }
-
-        [StringLength(1000)]
-        public string Resolution { get; set; }
-
         // Aircraft properties
         [StringLength(20)]
         [Display(Name = "Registration")]
         public string AircraftId { get; set; }
+        // WorkStatus
+        public WorkStatusViewModel WorkStatusViewModel { get; set; }
     }
 }

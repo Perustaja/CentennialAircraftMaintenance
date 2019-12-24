@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace CAM.Web.ViewComponents
 {
-    public class AircraftListViewComponent : ViewComponent
+    public class WorkStatusListViewComponent : ViewComponent
     {
         private readonly ApplicationContext _applicationContext;
-        public AircraftListViewComponent(ApplicationContext applicationContext)
+        public WorkStatusListViewComponent(ApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
         }
         public async Task<IViewComponentResult> InvokeAsync(string selected)
         {
-            var aircraftListViewModel = new AircraftListViewModel()
+            var workStatusListViewModel = new WorkStatusListViewModel()
             {
-                Ids = new List<string>(),
+                Descriptions = new List<string>(),
                 Selected = new List<bool>()
             };
 
-            foreach (var aircraft in await _applicationContext.Aircraft.GetListAllAsync())
+            foreach (var status in await _applicationContext.WorkStatuses.GetListAllAsync())
             {
-                aircraftListViewModel.Ids.Add(aircraft.Id);
-                aircraftListViewModel.Selected.Add(aircraft.Id == selected);
+                workStatusListViewModel.Descriptions.Add(status.Description);
+                workStatusListViewModel.Selected.Add(status.Description.ToLower() == selected);
             }
             
-            return View(aircraftListViewModel);
+            return View(workStatusListViewModel);
         }
     }
 }
