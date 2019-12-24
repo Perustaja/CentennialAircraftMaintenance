@@ -15,6 +15,9 @@ namespace CAM.Infrastructure.Data.Queries
         /// <summary>
         /// Performs a lookup, returning the first element with an id matching the given id, or default.
         /// </summary>
+        /// <typeparam name="inclTracking"> 
+        ///Whether or not to include tracking, defaults to false for performance
+        /// </typeparam>
         public async static Task<T> GetByIdAsync<T, U>(
             this DbSet<T> set, U id, bool inclTracking = false)
             where T : BaseEntity<U>
@@ -25,21 +28,29 @@ namespace CAM.Infrastructure.Data.Queries
                 return await set.Where(e => e.Id.Equals(id)).AsNoTracking().FirstOrDefaultAsync();
 
         }
+
         /// <summary>
         /// Returns all of the entities from the DbSet as a List.
         /// </summary>
+        /// <typeparam name="inclTracking"> 
+        ///Whether or not to include tracking, defaults to false for performance
+        /// </typeparam>
         public async static Task<List<T>> GetListAllAsync<T>(
             this DbSet<T> set, bool inclTracking = false)
-            where T : BaseEntity<string>
+            where T : class
         {
             if (inclTracking)
                 return await set.ToListAsync();
             else
                 return await set.AsNoTracking().ToListAsync();
         }
+
         /// <summary>
         /// Performs a lookup, returning the first element with an id containing the given string, or default.
         /// </summary>
+        /// <typeparam name="inclTracking"> 
+        ///Whether or not to include tracking, defaults to false for performance
+        /// </typeparam>
         public async static Task<List<T>> GetListAsync<T>(
             this DbSet<T> set, string exp, bool inclTracking = false)
             where T : BaseEntity<string>
@@ -49,7 +60,5 @@ namespace CAM.Infrastructure.Data.Queries
             else
                 return await set.Where(e => e.Id.Contains(exp)).AsNoTracking().ToListAsync();
         }
-
-
     }
 }

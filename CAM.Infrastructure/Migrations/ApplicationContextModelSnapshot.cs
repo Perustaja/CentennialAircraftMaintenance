@@ -74,9 +74,6 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<decimal>("AircraftTotal")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("AwaitingFinalize")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT")
                         .HasMaxLength(60);
@@ -102,9 +99,6 @@ namespace CAM.Infrastructure.Migrations
 
                     b.Property<decimal>("Hobbs")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsFinalized")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -134,10 +128,15 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<int?>("WorkOrderId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("WorkStatusId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("Year")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("WorkStatusId");
 
                     b.ToTable("Discrepancies");
                 });
@@ -300,7 +299,7 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("Squawks");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.Status", b =>
+            modelBuilder.Entity("CAM.Core.Entities.SquawkStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +313,7 @@ namespace CAM.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses");
+                    b.ToTable("SquawkStatuses");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Times", b =>
@@ -368,17 +367,11 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
-                    b.Property<bool>("AwaitingFinalize")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateFinalized")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsFinalized")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -390,6 +383,21 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("WorkOrders");
                 });
 
+            modelBuilder.Entity("CAM.Core.Entities.WorkStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkStatuses");
+                });
+
             modelBuilder.Entity("CAM.Core.Entities.Aircraft", b =>
                 {
                     b.HasOne("CAM.Core.Entities.Times", "Times")
@@ -397,6 +405,13 @@ namespace CAM.Infrastructure.Migrations
                         .HasForeignKey("CAM.Core.Entities.Aircraft", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
+                {
+                    b.HasOne("CAM.Core.Entities.WorkStatus", "WorkStatus")
+                        .WithMany()
+                        .HasForeignKey("WorkStatusId");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.DiscrepancyPart", b =>
@@ -446,7 +461,7 @@ namespace CAM.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CAM.Core.Entities.Status", "Status")
+                    b.HasOne("CAM.Core.Entities.SquawkStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)

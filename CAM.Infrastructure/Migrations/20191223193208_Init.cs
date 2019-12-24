@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAM.Infrastructure.Migrations
 {
-    public partial class Development : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,40 +18,6 @@ namespace CAM.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Discrepancies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    WorkOrderId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(maxLength: 15, nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateFinalized = table.Column<DateTime>(nullable: false),
-                    AwaitingFinalize = table.Column<bool>(nullable: false),
-                    IsFinalized = table.Column<bool>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
-                    Description = table.Column<string>(nullable: false),
-                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: true),
-                    Year = table.Column<int>(nullable: true),
-                    Model = table.Column<string>(maxLength: 20, nullable: false),
-                    Hobbs = table.Column<decimal>(nullable: false),
-                    AirTime = table.Column<int>(nullable: false),
-                    Tach1 = table.Column<decimal>(nullable: false),
-                    Tach2 = table.Column<decimal>(nullable: false),
-                    Prop1 = table.Column<decimal>(nullable: false),
-                    Prop2 = table.Column<decimal>(nullable: false),
-                    AircraftTotal = table.Column<decimal>(nullable: false),
-                    Engine1Total = table.Column<decimal>(nullable: false),
-                    Engine2Total = table.Column<decimal>(nullable: false),
-                    Cycles = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Discrepancies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +36,7 @@ namespace CAM.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Statuses",
+                name: "SquawkStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -80,7 +46,7 @@ namespace CAM.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Statuses", x => x.Id);
+                    table.PrimaryKey("PK_SquawkStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,13 +79,24 @@ namespace CAM.Infrastructure.Migrations
                     Title = table.Column<string>(maxLength: 15, nullable: false),
                     AircraftId = table.Column<string>(maxLength: 20, nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    DateFinalized = table.Column<DateTime>(nullable: false),
-                    AwaitingFinalize = table.Column<bool>(nullable: false),
-                    IsFinalized = table.Column<bool>(nullable: false)
+                    DateFinalized = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(maxLength: 15, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,6 +121,124 @@ namespace CAM.Infrastructure.Migrations
                         name: "FK_Parts_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Aircraft",
+                columns: table => new
+                {
+                    Id = table.Column<string>(maxLength: 20, nullable: false),
+                    Year = table.Column<int>(nullable: true),
+                    Model = table.Column<string>(maxLength: 20, nullable: false),
+                    SerialNum = table.Column<string>(maxLength: 30, nullable: true),
+                    IsTwin = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Aircraft", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Aircraft_Times_Id",
+                        column: x => x.Id,
+                        principalTable: "Times",
+                        principalColumn: "AircraftId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Discrepancies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    WorkOrderId = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(maxLength: 15, nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateFinalized = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
+                    Description = table.Column<string>(nullable: false),
+                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
+                    AircraftId = table.Column<string>(maxLength: 20, nullable: true),
+                    Year = table.Column<int>(nullable: true),
+                    Model = table.Column<string>(maxLength: 20, nullable: false),
+                    Hobbs = table.Column<decimal>(nullable: false),
+                    AirTime = table.Column<int>(nullable: false),
+                    Tach1 = table.Column<decimal>(nullable: false),
+                    Tach2 = table.Column<decimal>(nullable: false),
+                    Prop1 = table.Column<decimal>(nullable: false),
+                    Prop2 = table.Column<decimal>(nullable: false),
+                    AircraftTotal = table.Column<decimal>(nullable: false),
+                    Engine1Total = table.Column<decimal>(nullable: false),
+                    Engine2Total = table.Column<decimal>(nullable: false),
+                    Cycles = table.Column<int>(nullable: false),
+                    WorkStatusId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discrepancies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discrepancies_WorkStatuses_WorkStatusId",
+                        column: x => x.WorkStatusId,
+                        principalTable: "WorkStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Squawks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    Pilot = table.Column<string>(maxLength: 30, nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(maxLength: 1000, nullable: false),
+                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
+                    DateResolved = table.Column<DateTime>(nullable: true),
+                    ResolvedBy = table.Column<string>(maxLength: 30, nullable: true),
+                    IsGroundable = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Squawks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Squawks_Aircraft_AircraftId",
+                        column: x => x.AircraftId,
+                        principalTable: "Aircraft",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Squawks_SquawkStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "SquawkStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiscrepancyParts",
+                columns: table => new
+                {
+                    DiscrepancyId = table.Column<int>(nullable: false),
+                    PartId = table.Column<int>(nullable: false),
+                    Qty = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscrepancyParts", x => new { x.DiscrepancyId, x.PartId });
+                    table.ForeignKey(
+                        name: "FK_DiscrepancyParts_Discrepancies_DiscrepancyId",
+                        column: x => x.DiscrepancyId,
+                        principalTable: "Discrepancies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DiscrepancyParts_Parts_PartId",
+                        column: x => x.PartId,
+                        principalTable: "Parts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -175,84 +270,10 @@ namespace CAM.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Aircraft",
-                columns: table => new
-                {
-                    Id = table.Column<string>(maxLength: 20, nullable: false),
-                    Year = table.Column<int>(nullable: true),
-                    Model = table.Column<string>(maxLength: 20, nullable: false),
-                    SerialNum = table.Column<string>(maxLength: 30, nullable: true),
-                    IsTwin = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Aircraft", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Aircraft_Times_Id",
-                        column: x => x.Id,
-                        principalTable: "Times",
-                        principalColumn: "AircraftId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DiscrepancyParts",
-                columns: table => new
-                {
-                    DiscrepancyId = table.Column<int>(nullable: false),
-                    PartId = table.Column<int>(nullable: false),
-                    Qty = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DiscrepancyParts", x => new { x.DiscrepancyId, x.PartId });
-                    table.ForeignKey(
-                        name: "FK_DiscrepancyParts_Discrepancies_DiscrepancyId",
-                        column: x => x.DiscrepancyId,
-                        principalTable: "Discrepancies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DiscrepancyParts_Parts_PartId",
-                        column: x => x.PartId,
-                        principalTable: "Parts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Squawks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    Pilot = table.Column<string>(maxLength: 30, nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(maxLength: 1000, nullable: false),
-                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
-                    DateResolved = table.Column<DateTime>(nullable: true),
-                    ResolvedBy = table.Column<string>(maxLength: 30, nullable: true),
-                    IsGroundable = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Squawks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Squawks_Aircraft_AircraftId",
-                        column: x => x.AircraftId,
-                        principalTable: "Aircraft",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Squawks_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Discrepancies_WorkStatusId",
+                table: "Discrepancies",
+                column: "WorkStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DiscrepancyParts_PartId",
@@ -312,10 +333,13 @@ namespace CAM.Infrastructure.Migrations
                 name: "Aircraft");
 
             migrationBuilder.DropTable(
-                name: "Statuses");
+                name: "SquawkStatuses");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "WorkStatuses");
 
             migrationBuilder.DropTable(
                 name: "Times");
