@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using CAM.Core.SharedKernel;
 
-namespace CAM.Core.Entities
+namespace CAM.Core.Entities.DiscrepancyAggregate
 {
     /// <summary>
     /// Contains information used for maintenance documents and tracking purposes. Its data is independent of 
-    /// others, allowing it to serve as a snapshot and be edited as desired.
+    /// others, allowing it to serve as a snapshot and be edited as desired. A discrepancy can exist
+    /// without a workorder, and so this may violate some DDD rules.
     /// </summary>
     public class Discrepancy : BaseEntity<int>
     {
@@ -66,7 +67,9 @@ namespace CAM.Core.Entities
         public int Cycles { get; set; }
         // Navigation properties
         public List<LaborRecord> LaborRecords { get; set; }
-        public List<DiscrepancyPart> DiscrepancyParts { get; set; }
         public WorkStatus WorkStatus { get; set; }
+        // Required by EF 
+        public List<DiscrepancyPart> DiscrepancyParts { get; set; }
+
     }
 }

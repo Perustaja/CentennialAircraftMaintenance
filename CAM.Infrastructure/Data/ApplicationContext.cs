@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
+using CAM.Core.Entities.DiscrepancyAggregate;
 
 namespace CAM.Infrastructure.Data
 {
@@ -12,7 +13,7 @@ namespace CAM.Infrastructure.Data
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
         public DbSet<Aircraft> Aircraft { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<PartCategory> PartCategories { get; set; }
         public DbSet<Discrepancy> Discrepancies { get; set; }
         public DbSet<DiscrepancyPart> DiscrepancyParts { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -20,10 +21,9 @@ namespace CAM.Infrastructure.Data
         public DbSet<Part> Parts { get; set; }
         public DbSet<Squawk> Squawks { get; set; }
         public DbSet<SquawkStatus> SquawkStatuses { get; set; }
-        public DbSet<WorkStatus> WorkStatuses { get; set; }
         public DbSet<Times> Times { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
-
+        public DbSet<WorkStatus> WorkStatuses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Many-to-many relationship between Discrepancy and Part

@@ -5,6 +5,7 @@ using NPOI.XSSF.UserModel;
 using CAM.Core.Interfaces;
 using CAM.Core.Entities;
 using CAM.Infrastructure.Services.DocGen.Spreadsheets.Extensions;
+using CAM.Core.Entities.DiscrepancyAggregate;
 
 namespace CAM.Infrastructure.Services
 {

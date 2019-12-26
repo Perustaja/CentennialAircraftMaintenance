@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using CAM.Core.SharedKernel;
 
-namespace CAM.Core.Entities
+namespace CAM.Core.Entities.DiscrepancyAggregate
 {
     /// <summary>
     /// Contains information linking hours of labor to an Employee
@@ -16,9 +16,6 @@ namespace CAM.Core.Entities
         // Main
         [Display(Name = "Labor(Hours)")]
         public decimal LaborInHours { get; set; }
-        // Discrepancy 
-        public Discrepancy Discrepancy { get; set; }
-        // Employee 
         public Employee Employee { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using CAM.Core.SharedKernel;
 
-namespace CAM.Core.Entities
+namespace CAM.Core.Entities.DiscrepancyAggregate
 {
     /// <summary>
     /// Represents the join table for Discrepancy and Part
@@ -10,10 +10,8 @@ namespace CAM.Core.Entities
         public int DiscrepancyId { get; set; }
         public int PartId { get; set; }
         public int Qty { get; set; }
-        // Discrepancy
+        // Required by EF
         public Discrepancy Discrepancy { get; set; }
-        // Part
         public Part Part { get; set; }
-
     }
 }

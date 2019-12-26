@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using CAM.Core.SharedKernel;
+using CAM.Core.Entities.DiscrepancyAggregate;
 
 namespace CAM.Core.Entities
 {
@@ -26,8 +27,8 @@ namespace CAM.Core.Entities
         public decimal PriceOut { get; set; }
         public int MinimumStock { get; set; }
         // Category 
-        public Category Category { get; set; }
-        // Navigation properties
+        public PartCategory Category { get; set; }
+        // Required by EF
         public List<DiscrepancyPart> DiscrepancyParts { get; set; }
 
     }

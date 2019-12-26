@@ -1,11 +1,7 @@
-using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using CAM.Core.SharedKernel;
-using CAM.Core.Entities;
 using AutoMapper;
-using AutoMapper.Configuration.Annotations;
+using CAM.Core.Entities.DiscrepancyAggregate;
 
 namespace CAM.Web.ViewModels
 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CAM.Core.Entities.DiscrepancyAggregate;
 using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
@@ -27,5 +28,6 @@ namespace CAM.Core.Entities
         [Display(Name = "Date Finalized")]
         [DataType(DataType.Date)]
         public DateTime DateFinalized { get; set; }
+        public List<Discrepancy> Discrepancies { get; set; }
     }
 }
