@@ -10,7 +10,6 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         public int DiscrepancyId { get; set; }
         public int PartId { get; set; }
         public int Qty { get; set; }
-        // Required by EF
         public Discrepancy Discrepancy { get; set; }
         public Part Part { get; set; }
     }

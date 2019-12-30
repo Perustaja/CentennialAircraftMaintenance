@@ -42,23 +42,7 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("Aircraft");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(30);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +68,7 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateFinalized")
+                    b.Property<DateTime?>("DateFinalized")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -128,7 +112,7 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<int?>("WorkOrderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("WorkStatusId")
+                    b.Property<int>("WorkStatusId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Year")
@@ -136,12 +120,14 @@ namespace CAM.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("WorkOrderId");
+
                     b.HasIndex("WorkStatusId");
 
                     b.ToTable("Discrepancies");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyPart", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.DiscrepancyPart", b =>
                 {
                     b.Property<int>("DiscrepancyId")
                         .HasColumnType("INTEGER");
@@ -157,6 +143,30 @@ namespace CAM.Infrastructure.Migrations
                     b.HasIndex("PartId");
 
                     b.ToTable("DiscrepancyParts");
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.LaborRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DiscrepancyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("LaborInHours")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiscrepancyId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("LaborRecords");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Employee", b =>
@@ -182,30 +192,6 @@ namespace CAM.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.LaborRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DiscrepancyId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("LaborInHours")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DiscrepancyId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("LaborRecords");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Part", b =>
@@ -247,6 +233,22 @@ namespace CAM.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.PartCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PartCategories");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Squawk", b =>
@@ -370,7 +372,7 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateFinalized")
+                    b.Property<DateTime?>("DateFinalized")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -378,7 +380,12 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
+                    b.Property<int>("WorkStatusId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WorkStatusId");
 
                     b.ToTable("WorkOrders");
                 });
@@ -407,16 +414,22 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", b =>
                 {
+                    b.HasOne("CAM.Core.Entities.WorkOrder", null)
+                        .WithMany("Discrepancies")
+                        .HasForeignKey("WorkOrderId");
+
                     b.HasOne("CAM.Core.Entities.WorkStatus", "WorkStatus")
                         .WithMany()
-                        .HasForeignKey("WorkStatusId");
+                        .HasForeignKey("WorkStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyPart", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.DiscrepancyPart", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.Discrepancy", "Discrepancy")
+                    b.HasOne("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", "Discrepancy")
                         .WithMany("DiscrepancyParts")
                         .HasForeignKey("DiscrepancyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -429,9 +442,9 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.LaborRecord", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.LaborRecord", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.Discrepancy", "Discrepancy")
+                    b.HasOne("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", null)
                         .WithMany("LaborRecords")
                         .HasForeignKey("DiscrepancyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,7 +459,7 @@ namespace CAM.Infrastructure.Migrations
 
             modelBuilder.Entity("CAM.Core.Entities.Part", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.Category", "Category")
+                    b.HasOne("CAM.Core.Entities.PartCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -464,6 +477,15 @@ namespace CAM.Infrastructure.Migrations
                     b.HasOne("CAM.Core.Entities.SquawkStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.WorkOrder", b =>
+                {
+                    b.HasOne("CAM.Core.Entities.WorkStatus", "WorkStatus")
+                        .WithMany()
+                        .HasForeignKey("WorkStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -38,6 +38,7 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         [StringLength(1000)]
         public string Resolution { get; set; }
         // Aircraft properties
+        [Required]
         [StringLength(20)]
         [Display(Name = "Registration")]
         public string AircraftId { get; set; }
