@@ -1,5 +1,6 @@
+@model IEnumerable<CAM.Web.ViewModels.WorkOrders.WorkOrdersIndexViewModel>
 @{
-    ViewData["Title"] = "Maintenance - WorkOrders";
+    ViewData["Title"] = "Maintenance - Workorders";
 }
 <div class="panel-body">
     <div class="subnav-container">
@@ -12,26 +13,46 @@
             </li>
         </ul>
     </div>
-    <table class = "table table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Creation Date</th>
-                <th scope="col">Work Order ID</th>
-                <th scope="col">Aircraft</th>
-                <th scope="col">Description</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td scope="col">12/29/2019</th>
-                <td scope="col">99999</th>
-                <td scope="col">N9999X</th>
-                <td scope="col">100 Hour Inspection</th>
-                <td scope="col"><i class="fas fa-print"></i></th>
-            </tr>
-        </tbody>
-    </table>
+    <div class="control-panel">
+        <div class="btn-toolbar justify-content-between">
+            <div class="btn-group mb-2">
+                <a class="btn btn-secondary" asp-controller="WorkOrders" asp-action="New">Create New</a>
+            </div>        
+
+            <div class="input-group">
+                <form asp-action="index" method="get" class="form-inline">
+                    <div class="form-group mb-2">
+                        <select type="text" name="regNum" class="form-control mr-1">
+                            <option value="All">All Aircraft</option>
+                            @await Component.InvokeAsync("AircraftList", (string)ViewData["RegistrationNum"])
+                        </select>
+                        
+                        <select type="text" name="status" class="form-control mr-1">
+                            @await Component.InvokeAsync("WorkStatusList", (string)ViewData["WorkStatus"])
+                        </select>
+                    </div>
+                    <div class="form-group ml-1 mb-2">
+                    <input type="submit" value="Filter" class="btn btn-secondary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class = "table" cellspacing="0" width="100%">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Aircraft</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.DisplayForModel()
+            </tbody>
+        </table>
+    </div>
     </div>
     </div>
 </div>

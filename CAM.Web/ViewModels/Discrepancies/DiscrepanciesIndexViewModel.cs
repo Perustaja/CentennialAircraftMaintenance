@@ -1,17 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using CAM.Core.Entities.DiscrepancyAggregate;
 
-namespace CAM.Web.ViewModels
+namespace CAM.Web.ViewModels.Discrepancies
 {
     [AutoMap(typeof(Discrepancy), ReverseMap = true)]
-    public class DiscrepancyViewModel
+    public class DiscrepanciesIndexViewModel
     {
         public int Id { get; set; }
 
-        // Main
-        [StringLength(15)]
         public string Title { get; set; }
 
         [Display(Name = "Date Created")]
@@ -25,14 +24,12 @@ namespace CAM.Web.ViewModels
         public DateTime DateFinalized { get; set; }
 
         [Display(Name = "Created by")]
-        [StringLength(60)]
         public string CreatedBy { get; set; }
 
-        // Aircraft properties
-        [StringLength(20)]
         [Display(Name = "Registration")]
         public string AircraftId { get; set; }
-        // WorkStatus
+
+        [SourceMember(nameof(Discrepancy.WorkStatus))]
         public WorkStatusViewModel WorkStatusViewModel { get; set; }
     }
 }

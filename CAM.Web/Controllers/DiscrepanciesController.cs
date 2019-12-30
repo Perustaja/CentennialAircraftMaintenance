@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using CAM.Infrastructure.Data.Queries;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using CAM.Web.ViewModels;
 using AutoMapper;
-using CAM.Core.Entities;
+using CAM.Web.ViewModels.Discrepancies;
 
 namespace CAM.Web.Controllers
 {
@@ -25,16 +24,18 @@ namespace CAM.Web.Controllers
             _documentGenerator = docGen;
             _mapper = mapper;
         }
-        public async Task<IActionResult> IndexAsync(string status, string regNum)
+        public async Task<IActionResult> Index(string status, string regNum)
         {
             ViewData["RegistrationNum"] = (!String.IsNullOrWhiteSpace(regNum)) ? regNum : "";
             ViewData["WorkStatus"] = (!String.IsNullOrWhiteSpace(status)) ? status : "";
-            if (String.IsNullOrEmpty(status))
-                status = "open";
 
-            var discrepancies = await _applicationContext.Discrepancies.GetListAllAsync();
+            var argStatus = status ?? "open";
+            if (String.IsNullOrEmpty(regNum) || regNum == "All")
+                regNum = "N";
+            
+            var discrepancies = await _applicationContext.Discrepancies.GetBySearchParams(regNum, argStatus);
 
-            var viewModel = _mapper.Map<List<DiscrepancyViewModel>>(discrepancies);
+            var viewModel = _mapper.Map<List<DiscrepanciesIndexViewModel>>(discrepancies);
 
             return View(viewModel);
         }

@@ -23,7 +23,7 @@ namespace CAM.Web.ViewComponents
                 Selected = new List<bool>()
             };
 
-            foreach (var status in await _applicationContext.WorkStatuses.GetListAllAsync())
+            foreach (var status in await _applicationContext.WorkStatuses.GenericListAllAsync())
             {
                 workStatusListViewModel.Descriptions.Add(status.Description);
                 workStatusListViewModel.Selected.Add(status.Description.ToLower() == selected);
