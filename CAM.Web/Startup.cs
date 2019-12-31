@@ -20,6 +20,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using CAM.Core.Interfaces.Repositories;
+using CAM.Infrastructure.Data.Repositories;
 
 namespace CAM.Web
 {
@@ -60,6 +62,11 @@ namespace CAM.Web
             // NOTE: The Hangfire connection string ends with a ; in the json file. 
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
+
+            // Repositories
+            services.AddScoped<IAircraftRepository, AircraftRepository>();
+            services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
+            services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
 
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();

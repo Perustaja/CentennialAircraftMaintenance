@@ -1,5 +1,6 @@
+using CAM.Core.Entities;
+using CAM.Core.Interfaces.Repositories;
 using CAM.Infrastructure.Data;
-using CAM.Infrastructure.Data.Queries;
 using CAM.Web.ViewModels.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,9 +12,13 @@ namespace CAM.Web.ViewComponents
     public class WorkStatusListViewComponent : ViewComponent
     {
         private readonly ApplicationContext _applicationContext;
-        public WorkStatusListViewComponent(ApplicationContext applicationContext)
+        private readonly IAsyncRepository<WorkStatus, int> _genericRepository;
+        public WorkStatusListViewComponent(
+            ApplicationContext applicationContext,
+            IAsyncRepository<WorkStatus, int> genericRepository)
         {
             _applicationContext = applicationContext;
+            _genericRepository = genericRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync(string selected)
         {
@@ -23,7 +28,7 @@ namespace CAM.Web.ViewComponents
                 Selected = new List<bool>()
             };
 
-            foreach (var status in await _applicationContext.WorkStatuses.GenericListAllAsync())
+            foreach (var status in await _genericRepository.GenericListAllAsync())
             {
                 workStatusListViewModel.Descriptions.Add(status.Description);
                 workStatusListViewModel.Selected.Add(status.Description.ToLower() == selected);

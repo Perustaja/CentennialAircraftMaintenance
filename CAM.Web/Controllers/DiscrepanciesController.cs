@@ -2,25 +2,29 @@ using System;
 using CAM.Core.Interfaces;
 using CAM.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using CAM.Infrastructure.Data.Queries;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using CAM.Web.ViewModels.Discrepancies;
+using CAM.Core.Interfaces.Repositories;
 
 namespace CAM.Web.Controllers
 {
     public class DiscrepanciesController : Controller
     {
         private readonly ApplicationContext _applicationContext;
+        private readonly IDiscrepancyRepository _discrepancyRepository;
         private readonly IDocumentGenerator _documentGenerator;
+
         private readonly IMapper _mapper;
         public DiscrepanciesController(
-            ApplicationContext appContext, 
+            ApplicationContext appContext,
+            IDiscrepancyRepository discrepancyRepository,
             IDocumentGenerator docGen,
             IMapper mapper)
         {
             _applicationContext = appContext;
+            _discrepancyRepository = discrepancyRepository;
             _documentGenerator = docGen;
             _mapper = mapper;
         }
@@ -33,11 +37,16 @@ namespace CAM.Web.Controllers
             if (String.IsNullOrEmpty(regNum) || regNum == "All")
                 regNum = "N";
             
-            var discrepancies = await _applicationContext.Discrepancies.GetBySearchParams(regNum, argStatus);
+            var discrepancies = await _discrepancyRepository.GetBySearchParamsAsync(regNum, argStatus);
 
             var viewModel = _mapper.Map<List<DiscrepanciesIndexViewModel>>(discrepancies);
 
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> New()
+        {
+            return View();
         }
     }
 }

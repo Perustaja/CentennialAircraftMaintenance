@@ -4,16 +4,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CAM.Infrastructure.Data;
 using CAM.Core.Entities;
-using CAM.Infrastructure.Data.Queries;
+using CAM.Core.Interfaces.Repositories;
 
 namespace CAM.Web.Controllers
 {
     public class AircraftController : Controller
     {
         private readonly ApplicationContext _applicationContext;
-        public AircraftController(ApplicationContext applicationContext)
+        private readonly IAircraftRepository _aircraftRepository;
+        public AircraftController(
+            ApplicationContext applicationContext, 
+            IAircraftRepository aircraftRepository)
         {
             _applicationContext = applicationContext;
+            _aircraftRepository = aircraftRepository;
         }
         
         // GET aicraft/index/searchReg?
@@ -23,11 +27,11 @@ namespace CAM.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchReg))
             {
-                aircraft = await _applicationContext.Aircraft.GetListAsync(searchReg.ToUpper());
+                aircraft = await _aircraftRepository.GetListAsync(searchReg.ToUpper());
             }
             else
             {
-                aircraft = await _applicationContext.Aircraft.GetListAllAsync();
+                aircraft = await _aircraftRepository.GetListAllAsync();
             }
             return View(aircraft);
         }
@@ -36,7 +40,7 @@ namespace CAM.Web.Controllers
         {
             if (id == null) {return NotFound();}
 
-            var aircraft = await _applicationContext.Aircraft.GetByIdAsync(id);
+            var aircraft = await _aircraftRepository.GetByIdAsync(id);
 
             if (aircraft == null) {return NotFound();}
             return View(aircraft);
@@ -46,7 +50,7 @@ namespace CAM.Web.Controllers
         {
             if (id == null) {return NotFound();}
 
-            var aircraft = await _applicationContext.Aircraft.GetByIdAsync(id);
+            var aircraft = await _aircraftRepository.GetByIdAsync(id);
 
             if (aircraft == null) {return NotFound();}
             return View(aircraft);

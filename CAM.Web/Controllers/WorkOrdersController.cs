@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CAM.Core.Interfaces;
+using CAM.Core.Interfaces.Repositories;
 using CAM.Infrastructure.Data;
-using CAM.Infrastructure.Data.Queries;
 using CAM.Web.ViewModels.WorkOrders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +13,19 @@ namespace CAM.Web.Controllers
     public class WorkOrdersController : Controller
     {
         private readonly ApplicationContext _applicationContext;
+        private readonly IWorkOrderRepository _workOrderRepository;
         private readonly IDocumentGenerator _documentGenerator;
         private readonly IMapper _mapper;
 
         public WorkOrdersController(
             ApplicationContext appContext,
+            IWorkOrderRepository workOrderRepository,
             IDocumentGenerator docGen,
             IMapper mapper)
         {
             _applicationContext = appContext;
             _documentGenerator = docGen;
+            _workOrderRepository = workOrderRepository;
             _mapper = mapper;
         }
 
@@ -35,7 +38,7 @@ namespace CAM.Web.Controllers
             if (String.IsNullOrEmpty(regNum) || regNum == "All")
                 regNum = "N";
             
-            var discrepancies = await _applicationContext.WorkOrders.GetBySearchParams(regNum, argStatus);
+            var discrepancies = await _workOrderRepository.GetBySearchParamsAsync(regNum, argStatus);
 
             var viewModel = _mapper.Map<List<WorkOrdersIndexViewModel>>(discrepancies);
 
