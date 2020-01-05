@@ -8,9 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CAM.Infrastructure.Data.Repositories
 {
-    public class WorkOrderRepository : BaseEfRepository<WorkOrder, int>, IWorkOrderRepository
+    public class WorkOrderRepository : IWorkOrderRepository
     {
-        public WorkOrderRepository(ApplicationContext applicationContext) : base(applicationContext) { }
+        private readonly ApplicationContext _applicationContext;
+
+        public WorkOrderRepository(ApplicationContext applicationContext)
+        {
+            _applicationContext = applicationContext;
+        }
+        
         public async Task<WorkOrder> GetByIdAsync(int id, bool inclTracking = false)
         {
             if (inclTracking)

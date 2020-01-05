@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAM.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,7 +138,7 @@ namespace CAM.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     WorkStatusId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 15, nullable: false),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: true),
+                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateFinalized = table.Column<DateTime>(nullable: true)
                 },
@@ -192,31 +192,26 @@ namespace CAM.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    WorkOrderId = table.Column<int>(nullable: true),
+                    AircraftId = table.Column<string>(nullable: true),
                     WorkStatusId = table.Column<int>(nullable: false),
+                    WorkOrderId = table.Column<int>(nullable: true),
+                    SquawkId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(maxLength: 15, nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Resolution = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateFinalized = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
-                    Description = table.Column<string>(nullable: false),
-                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: true),
-                    Year = table.Column<int>(nullable: true),
-                    Model = table.Column<string>(maxLength: 20, nullable: false),
-                    Hobbs = table.Column<decimal>(nullable: false),
-                    AirTime = table.Column<int>(nullable: false),
-                    Tach1 = table.Column<decimal>(nullable: false),
-                    Tach2 = table.Column<decimal>(nullable: false),
-                    Prop1 = table.Column<decimal>(nullable: false),
-                    Prop2 = table.Column<decimal>(nullable: false),
-                    AircraftTotal = table.Column<decimal>(nullable: false),
-                    Engine1Total = table.Column<decimal>(nullable: false),
-                    Engine2Total = table.Column<decimal>(nullable: false),
-                    Cycles = table.Column<int>(nullable: false)
+                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discrepancies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discrepancies_Aircraft_AircraftId",
+                        column: x => x.AircraftId,
+                        principalTable: "Aircraft",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Discrepancies_WorkOrders_WorkOrderId",
                         column: x => x.WorkOrderId,
@@ -282,6 +277,11 @@ namespace CAM.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Discrepancies_AircraftId",
+                table: "Discrepancies",
+                column: "AircraftId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discrepancies_WorkOrderId",
@@ -350,13 +350,13 @@ namespace CAM.Infrastructure.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Aircraft");
-
-            migrationBuilder.DropTable(
                 name: "SquawkStatuses");
 
             migrationBuilder.DropTable(
                 name: "PartCategories");
+
+            migrationBuilder.DropTable(
+                name: "Aircraft");
 
             migrationBuilder.DropTable(
                 name: "WorkOrders");

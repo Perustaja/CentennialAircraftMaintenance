@@ -113,7 +113,7 @@ namespace CAM.Infrastructure.DocGen.Spreadsheets.Extensions
             cell.CellStyle = labelStyle;
 
             // value
-            string hobbs = discrep.Times.Hobbs > 1 ? discrep.Times.Hobbs.ToString() : "N/A";
+            string hobbs = discrep.Aircraft.Times.Hobbs > 1 ? discrep.Aircraft.Times.Hobbs.ToString() : "N/A";
 
             cell = row.CreateCell(10);
             cell.SetCellValue(RichText.CreateRichTextString(
@@ -131,7 +131,7 @@ namespace CAM.Infrastructure.DocGen.Spreadsheets.Extensions
             cell.CellStyle = labelStyle;
 
             // value
-            string tach = discrep.Times.Tach1 > 0 ? discrep.Times.Tach1.ToString() : "N/A";
+            string tach = discrep.Aircraft.Times.Tach1 > 0 ? discrep.Aircraft.Times.Tach1.ToString() : "N/A";
 
             cell = row.CreateCell(12);
             cell.SetCellValue(RichText.CreateRichTextString(
@@ -152,7 +152,7 @@ namespace CAM.Infrastructure.DocGen.Spreadsheets.Extensions
             // value
             cell = row.CreateCell(15);
             cell.SetCellValue(RichText.CreateRichTextString(
-                $"{discrep.Times.AircraftTotal}",
+                $"{discrep.Aircraft.Times.AircraftTotal}",
                 valueFont
             ));
             cell.CellStyle = valueStyle;

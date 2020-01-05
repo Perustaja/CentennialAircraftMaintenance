@@ -48,22 +48,12 @@ namespace CAM.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AirTime")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("AircraftId")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<decimal>("AircraftTotal")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT")
                         .HasMaxLength(60);
-
-                    b.Property<int>("Cycles")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
@@ -72,38 +62,13 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Engine1Total")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Engine2Total")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Hobbs")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<decimal>("Prop1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Prop2")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Resolution")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(1000);
-
-                    b.Property<decimal>("Tach1")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Tach2")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("SquawkId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT")
@@ -115,10 +80,9 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<int>("WorkStatusId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Year")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AircraftId");
 
                     b.HasIndex("WorkOrderId");
 
@@ -366,6 +330,7 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AircraftId")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
@@ -416,6 +381,10 @@ namespace CAM.Infrastructure.Migrations
 
             modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", b =>
                 {
+                    b.HasOne("CAM.Core.Entities.Aircraft", "Aircraft")
+                        .WithMany()
+                        .HasForeignKey("AircraftId");
+
                     b.HasOne("CAM.Core.Entities.WorkOrder", null)
                         .WithMany("Discrepancies")
                         .HasForeignKey("WorkOrderId");

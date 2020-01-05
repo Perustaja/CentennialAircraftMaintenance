@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CAM.Core.Entities;
 using CAM.Core.Entities.DiscrepancyAggregate;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Interfaces.Repositories
 {

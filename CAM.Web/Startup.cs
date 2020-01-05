@@ -67,6 +67,7 @@ namespace CAM.Web
             services.AddScoped<IAircraftRepository, AircraftRepository>();
             services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
             services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
+            services.AddScoped<IWorkStatusRepository, WorkStatusRepository>();
 
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();

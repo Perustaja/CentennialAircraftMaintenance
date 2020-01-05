@@ -1,0 +1,11 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CAM.Core.Entities;
+
+namespace CAM.Core.Interfaces.Repositories
+{
+    public interface IWorkStatusRepository
+    {
+        Task<List<WorkStatus>> GetListAllAsync(bool inclTracking = true);
+    }
+}

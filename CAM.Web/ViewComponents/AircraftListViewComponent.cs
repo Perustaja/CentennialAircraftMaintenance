@@ -12,13 +12,13 @@ namespace CAM.Web.ViewComponents
     public class AircraftListViewComponent : ViewComponent
     {
         private readonly ApplicationContext _applicationContext;
-        private readonly IAsyncRepository<Aircraft, string> _genericRepository;
+        private readonly IAircraftRepository _aircraftRepository;
         public AircraftListViewComponent(
             ApplicationContext applicationContext, 
-            IAsyncRepository<Aircraft, string> genericRepository)
+            IAircraftRepository aircraftRepository)
         {
             _applicationContext = applicationContext;
-            _genericRepository = genericRepository;
+            _aircraftRepository = aircraftRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync(string selected)
         {
@@ -28,7 +28,7 @@ namespace CAM.Web.ViewComponents
                 Selected = new List<bool>()
             };
 
-            foreach (var aircraft in await _genericRepository.GenericListAllAsync(false))
+            foreach (var aircraft in await _aircraftRepository.GetListAllAsync(false))
             {
                 aircraftListViewModel.Ids.Add(aircraft.Id);
                 aircraftListViewModel.Selected.Add(aircraft.Id == selected);

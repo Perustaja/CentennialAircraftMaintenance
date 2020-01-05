@@ -7,9 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CAM.Infrastructure.Data.Repositories
 {
-    public class AircraftRepository : BaseEfRepository<Aircraft, string>, IAircraftRepository
+    public class AircraftRepository : IAircraftRepository
     {
-        public AircraftRepository(ApplicationContext applicationContext) : base(applicationContext) {}
+        private readonly ApplicationContext _applicationContext;
+
+        public AircraftRepository(ApplicationContext applicationContext)
+        {
+            _applicationContext = applicationContext;
+        }
         public async Task<Aircraft> GetByIdAsync(string id, bool inclTracking = true)
         {
             if (inclTracking)

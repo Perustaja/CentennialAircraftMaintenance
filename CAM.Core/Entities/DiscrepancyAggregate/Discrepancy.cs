@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using CAM.Core.SharedKernel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CAM.Core.Entities.DiscrepancyAggregate
 {
@@ -15,23 +16,25 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         {
             // Required by EF
         }
-        public Discrepancy(string aircraftId, int? workOrderId, int workStatusId, int? squawkId, 
-            string title, string createdBy)
+        public Discrepancy(string aircraftId, int? workOrderId, int workStatusId, int? squawkId,
+            string title, string description, string createdBy)
         {   // checks are performed with viewmodel attributes before this
             AircraftId = aircraftId;
             WorkOrderId = workOrderId;
             WorkStatusId = workStatusId;
             SquawkId = squawkId;
             Title = title;
+            Description = description;
             CreatedBy = createdBy;
+            DateCreated = DateTime.Today;
         }
         public override int Id { get; set; }
 
         public string AircraftId { get; private set; }
 
-        public int? WorkOrderId { get; private set; }
-
         public int WorkStatusId { get; private set; }
+
+        public int? WorkOrderId { get; private set; }
 
         public int? SquawkId { get; private set; }
 
@@ -51,7 +54,7 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         [StringLength(60)]
         public string CreatedBy { get; private set; }
         // Navigation properties
-        public Times Times { get; set; }
+        public Aircraft Aircraft { get; set; }
         public List<LaborRecord> LaborRecords { get; set; }
         public WorkStatus WorkStatus { get; set; }
         public List<DiscrepancyPart> DiscrepancyParts { get; set; }
