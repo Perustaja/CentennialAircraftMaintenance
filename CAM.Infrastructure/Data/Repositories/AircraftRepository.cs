@@ -17,19 +17,16 @@ namespace CAM.Infrastructure.Data.Repositories
         }
         public async Task<Aircraft> GetByIdAsync(string id, bool inclTracking = true)
         {
+            Aircraft result;
+            var queryable = _applicationContext.Set<Aircraft>()
+                .Include(e => e.Times)
+                .Include(e => e.Squawks);
+
             if (inclTracking)
-                return await _applicationContext.Set<Aircraft>()
-                    .Where(e => e.Id == id)
-                    .Include(e => e.Times)
-                    .Include(e => e.Squawks)
-                    .FirstOrDefaultAsync();
+                result = await queryable.FirstOrDefaultAsync();
             else
-                return await _applicationContext.Set<Aircraft>()
-                    .Where(e => e.Id == id)
-                    .Include(e => e.Times)
-                    .Include(e => e.Squawks)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync();
+                result = await queryable.AsNoTracking().FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<List<Aircraft>> GetListAllAsync(bool inclTracking = true)
@@ -45,15 +42,15 @@ namespace CAM.Infrastructure.Data.Repositories
 
         public async Task<List<Aircraft>> GetListAsync(string searchString, bool inclTracking = true)
         {
+            List<Aircraft> result;
+            var queryable = _applicationContext.Set<Aircraft>()
+                .Where(e => e.Id.Contains(searchString));
+
             if (inclTracking)
-                return await _applicationContext.Set<Aircraft>()
-                    .Where(e => e.Id.Contains(searchString))
-                    .ToListAsync();
+                result = await queryable.ToListAsync();
             else
-                return await _applicationContext.Set<Aircraft>()
-                    .Where(e => e.Id.Contains(searchString))
-                    .AsNoTracking()
-                    .ToListAsync();
+                result = await queryable.AsNoTracking().ToListAsync();
+            return result;
         }
     }
 }

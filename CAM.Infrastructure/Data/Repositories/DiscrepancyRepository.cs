@@ -18,44 +18,36 @@ namespace CAM.Infrastructure.Data.Repositories
         }
         public async Task<Discrepancy> GetByIdAsync(int id, bool inclTracking = true)
         {
+            Discrepancy result;
+            var queryable = _applicationContext.Set<Discrepancy>()
+                    .Where(e => e.WorkOrderId == null && e.Id == id)
+                    .Include(e => e.LaborRecords)
+                    .Include(e => e.DiscrepancyParts)
+                        .ThenInclude(d => d.Part)
+                    .Include(e => e.WorkStatus);
+
             if (inclTracking)
-                return await _applicationContext.Set<Discrepancy>()
-                    .Where(e => e.WorkOrderId == null && e.Id == id)
-                    .Include(e => e.LaborRecords)
-                    .Include(e => e.DiscrepancyParts)
-                        .ThenInclude(d => d.Part)
-                    .Include(e => e.WorkStatus)
-                    .FirstOrDefaultAsync();
+                result = await queryable.FirstOrDefaultAsync();
             else
-                return await _applicationContext.Set<Discrepancy>()
-                    .Where(e => e.WorkOrderId == null && e.Id == id)
-                    .Include(e => e.LaborRecords)
-                    .Include(e => e.DiscrepancyParts)
-                        .ThenInclude(d => d.Part)
-                    .Include(e => e.WorkStatus)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync();
+                result = await queryable.AsNoTracking().FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<List<Discrepancy>> GetListAllAsync(bool inclTracking = true)
         {
+            List<Discrepancy> result;
+            var queryable = _applicationContext.Set<Discrepancy>()
+                    .Where(e => e.WorkOrderId == null)
+                    .Include(e => e.LaborRecords)
+                    .Include(e => e.DiscrepancyParts)
+                        .ThenInclude(d => d.Part)
+                    .Include(e => e.WorkStatus);
+            
             if (inclTracking)
-                return await _applicationContext.Set<Discrepancy>()
-                    .Where(e => e.WorkOrderId == null)
-                    .Include(e => e.LaborRecords)
-                    .Include(e => e.DiscrepancyParts)
-                        .ThenInclude(d => d.Part)
-                    .Include(e => e.WorkStatus)
-                    .ToListAsync();
+                result = await queryable.ToListAsync();
             else
-                return await _applicationContext.Set<Discrepancy>()
-                    .Where(e => e.WorkOrderId == null)
-                    .Include(e => e.LaborRecords)
-                    .Include(e => e.DiscrepancyParts)
-                        .ThenInclude(d => d.Part)
-                    .Include(e => e.WorkStatus)
-                    .AsNoTracking()
-                    .ToListAsync();
+                result = await queryable.AsNoTracking().ToListAsync();
+            return result;
         }
 
         public async Task<List<Discrepancy>> GetBySearchParamsAsync(string regNum, string status)

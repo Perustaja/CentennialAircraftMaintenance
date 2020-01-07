@@ -1,0 +1,8 @@
+@model CAM.Web.ViewModels.Inventory.InventoryIndexViewModel
+<tr>
+    <td scope="col">@Html.DisplayFor(m => Model.PartNumber)</td>
+    <td scope="col">@Html.DisplayFor(m => Model.Name)</td>
+    <td scope="col">@Html.DisplayFor(m => Model.PartCategoryViewModel.Name)</td>
+    <td scope="col">$@Html.DisplayFor(m => Model.PriceIn)</td>
+    <td scope="col">@Html.DisplayFor(m => Model.CurrentStock)</td>
+</tr>

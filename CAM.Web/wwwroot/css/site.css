@@ -258,7 +258,7 @@ letter-spacing: .5px;
 }
 /* nav dropdown menu */
 
-.dropdown-menu{
+.nav-item .dropdown-menu{
     width: 100%;
     min-width: 8rem;
 }

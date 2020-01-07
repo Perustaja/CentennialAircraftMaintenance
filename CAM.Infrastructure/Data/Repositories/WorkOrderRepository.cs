@@ -16,33 +16,31 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             _applicationContext = applicationContext;
         }
-        
+
         public async Task<WorkOrder> GetByIdAsync(int id, bool inclTracking = false)
         {
+            WorkOrder result;
+            var queryable = _applicationContext.Set<WorkOrder>()
+                .Where(e => e.Id == id);
+
             if (inclTracking)
-                return await _applicationContext.Set<WorkOrder>()
-                    .Where(e => e.Id == id)
-                    .FirstOrDefaultAsync();
+                result = await queryable.FirstOrDefaultAsync();
             else
-                return await _applicationContext.Set<WorkOrder>()
-                .Where(e => e.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+                result = await queryable.AsNoTracking().FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task<List<WorkOrder>> GetListAllAsync(bool inclTracking = true)
         {
+            List<WorkOrder> result;
+            var queryable = _applicationContext.Set<WorkOrder>()
+                .Include(e => e.Discrepancies)
+                .Include(e => e.WorkStatus);
             if (inclTracking)
-                return await _applicationContext.Set<WorkOrder>()
-                    .Include(e => e.Discrepancies)
-                    .Include(e => e.WorkStatus)
-                    .ToListAsync();
+                result = await queryable.AsNoTracking().ToListAsync();
             else
-                return await _applicationContext.Set<WorkOrder>()
-                    .Include(e => e.Discrepancies)
-                    .Include(e => e.WorkStatus)
-                    .AsNoTracking()
-                    .ToListAsync();
+                result = await queryable.ToListAsync();
+            return result;
         }
 
         public async Task<List<WorkOrder>> GetBySearchParamsAsync(string regNum, string status)

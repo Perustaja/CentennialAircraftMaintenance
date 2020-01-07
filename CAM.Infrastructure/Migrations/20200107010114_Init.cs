@@ -89,21 +89,23 @@ namespace CAM.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CategoryId = table.Column<int>(nullable: false),
+                    PartCategoryId = table.Column<int>(nullable: false),
                     PartNumber = table.Column<string>(maxLength: 40, nullable: false),
                     Name = table.Column<string>(maxLength: 40, nullable: false),
-                    QtyCurrent = table.Column<int>(nullable: false),
-                    QtySoldYear = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    CurrentStock = table.Column<int>(nullable: false),
+                    QtySoldToDate = table.Column<int>(nullable: false),
                     PriceIn = table.Column<decimal>(nullable: false),
-                    PriceOut = table.Column<decimal>(nullable: false),
-                    MinimumStock = table.Column<int>(nullable: false)
+                    PriceOut = table.Column<decimal>(nullable: true),
+                    Vendor = table.Column<string>(nullable: true),
+                    MinimumStock = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Parts_PartCategories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Parts_PartCategories_PartCategoryId",
+                        column: x => x.PartCategoryId,
                         principalTable: "PartCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -309,9 +311,9 @@ namespace CAM.Infrastructure.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parts_CategoryId",
+                name: "IX_Parts_PartCategoryId",
                 table: "Parts",
-                column: "CategoryId");
+                column: "PartCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Squawks_AircraftId",

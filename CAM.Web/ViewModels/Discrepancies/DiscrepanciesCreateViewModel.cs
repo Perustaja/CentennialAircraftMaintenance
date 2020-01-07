@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Web.ViewModels.Discrepancies
 {

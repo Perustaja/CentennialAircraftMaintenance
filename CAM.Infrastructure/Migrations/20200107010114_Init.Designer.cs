@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200105025418_Init")]
+    [Migration("20200107010114_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,16 +166,24 @@ namespace CAM.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("CurrentStock")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MinimumStock")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("MinimumStock")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(40);
+
+                    b.Property<int>("PartCategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PartNumber")
                         .IsRequired()
@@ -185,18 +193,18 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<decimal>("PriceIn")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("PriceOut")
+                    b.Property<decimal?>("PriceOut")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("QtyCurrent")
+                    b.Property<int>("QtySoldToDate")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("QtySoldYear")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Vendor")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("PartCategoryId");
 
                     b.ToTable("Parts");
                 });
@@ -430,9 +438,9 @@ namespace CAM.Infrastructure.Migrations
 
             modelBuilder.Entity("CAM.Core.Entities.Part", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.PartCategory", "Category")
+                    b.HasOne("CAM.Core.Entities.PartCategory", "PartCategory")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("PartCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

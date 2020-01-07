@@ -68,6 +68,8 @@ namespace CAM.Web
             services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
             services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
             services.AddScoped<IWorkStatusRepository, WorkStatusRepository>();
+            services.AddScoped<IPartRepository, PartRepository>();
+
 
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();
@@ -121,7 +123,7 @@ namespace CAM.Web
                         options.Conventions.AuthorizeAreaFolder("Identity", "/Identity/Account/Manage/");
                         options.Conventions.AuthorizeAreaPage("Identity", "/Identity/Account/Logout");
                     });
-            
+
             // Cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -178,15 +180,16 @@ namespace CAM.Web
 
             app.UseEndpoints(endpoints =>
                 {
-                    endpoints.MapControllerRoute(
-                    name: "maintenance",
-                    pattern: "maintenance/{controller}/{action}/{id?}",
-                    defaults: new { controller = "workorders", Action = "index" }
-                );
+
                     endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller}/{action}/{id?}",
                         defaults: new { controller = "home", Action = "index" }
+                    );
+                    endpoints.MapControllerRoute(
+                        name: "maintenance",
+                        pattern: "maintenance/{controller}/{action}/{id?}",
+                        defaults: new { controller = "workorders", Action = "index" }
                     );
                     endpoints.MapRazorPages();
                 });
