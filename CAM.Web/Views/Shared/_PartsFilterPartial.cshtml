@@ -1,6 +1,10 @@
+@functions{
+    bool IsSelected(string value) => value == (string)ViewData["FilterValue"];
+}
+
 <div class="form-group">
     <select type="text" name="filter" class="form-control mr-1">
         <option value="">Filter Your Search</option>
-        <option value="stock"></option>
+        <option value="stock" selected=@IsSelected("stock")>Stock: Below minimum</option>
     </select>
 </div>

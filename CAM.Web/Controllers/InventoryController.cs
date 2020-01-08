@@ -20,7 +20,8 @@ namespace CAM.Web.Controllers
         }
         public async Task<IActionResult> Index(string search, string filter)
         {
-            ViewData["FilterValue"] = !String.IsNullOrEmpty(filter) ? filter : "Testing";
+            ViewData["FilterValue"] = !String.IsNullOrEmpty(filter) ? filter : "";
+
             List<Part> parts;
             if (!String.IsNullOrEmpty(search) || !String.IsNullOrEmpty(filter))
                 parts = await _partRepository.GetBySearchParamsAsync(search, filter, false);
