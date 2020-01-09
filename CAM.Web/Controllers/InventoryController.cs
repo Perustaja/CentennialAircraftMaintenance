@@ -31,10 +31,5 @@ namespace CAM.Web.Controllers
             var viewmodel = _mapper.Map<List<InventoryIndexViewModel>>(parts);
             return View(viewmodel);
         }
-
-        public async Task<IActionResult> NewPart()
-        {
-            return View();
-        }
     }
 }

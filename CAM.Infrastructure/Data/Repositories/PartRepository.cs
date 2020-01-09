@@ -15,6 +15,19 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             _applicationContext = applicationContext;
         }
+
+        public async Task<Part> GetByIdAsync(string id, bool inclTracking = true)
+        {
+            Part result;
+            var queryable = _applicationContext.Set<Part>().Where(e => e.Id == id)
+                .Include(e => e.PartCategory);
+            
+            if (inclTracking)
+                result = await queryable.FirstOrDefaultAsync();
+            else
+                result = await queryable.AsNoTracking().FirstOrDefaultAsync();
+            return result;
+        }
         public async Task<List<Part>> GetListAllAsync(bool inclTracking = true)
         {
             if (inclTracking)
@@ -36,12 +49,13 @@ namespace CAM.Infrastructure.Data.Repositories
             // A little messy, but we search first regardless and then apply the specific filter if needed.
             // A more elegant solution will be required for any serious filtering.
             queryable = _applicationContext.Set<Part>()
-                .Where(e => e.Name.ToLower().Contains(search.ToLower()) || e.Description.ToLower().Contains(search.ToLower()))
+                .Where(e => e.Name.ToLower().Contains(search.ToLower()) || e.Description.ToLower().Contains(search.ToLower()) ||
+                    e.Id.ToLower().Contains(search) || e.CataloguePartNumber.ToLower().Contains(search))
                 .Include(e => e.PartCategory);
-            
+
             if (!String.IsNullOrEmpty(filter))
-                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock);
-            
+                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock && (!e.IsDiscontinued));
+
             if (inclTracking)
                 result = await queryable.ToListAsync();
             else

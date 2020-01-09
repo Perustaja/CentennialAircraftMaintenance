@@ -85,6 +85,20 @@ Html, body{
     text-decoration: underline;
     font-size: 17px;
 }
+/* td-clickable */
+.td-clickable a{
+    width: auto;
+    height: auto;
+    display: block;
+    color: black;
+}
+.td-clickable a:hover{
+    text-decoration: none;
+}
+.part-table-container{
+    padding-bottom: 5px;
+    border-bottom: 5px black;
+}
 /* list-inline */
 .list-inline li{
     display: inline-block;

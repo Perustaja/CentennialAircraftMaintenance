@@ -1,8 +1,18 @@
 @model CAM.Web.ViewModels.Inventory.InventoryIndexViewModel
 <tr>
-    <td scope="col">@Html.DisplayFor(m => Model.PartNumber)</td>
-    <td scope="col">@Html.DisplayFor(m => Model.Name)</td>
-    <td scope="col">@Html.DisplayFor(m => Model.PartCategoryViewModel.Name)</td>
-    <td scope="col">$@Html.DisplayFor(m => Model.PriceIn)</td>
-    <td scope="col">@Html.DisplayFor(m => Model.CurrentStock)</td>
+    <td scope="col" class="td-clickable">
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.Id)</a>
+    </td>
+    <td scope="col" class="td-clickable">
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.Name)</a>
+    </td>
+    <td scope="col" class="td-clickable">
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.PartCategoryViewModel.Name)</a>
+    </td>
+    <td scope="col" class="td-clickable">
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">$@Html.DisplayFor(m => Model.PriceIn)</a>
+    </td>
+    <td scope="col" class="td-clickable">
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.CurrentStock)</a>
+    </td>
 </tr>

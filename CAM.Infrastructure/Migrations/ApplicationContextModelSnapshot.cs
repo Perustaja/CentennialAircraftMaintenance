@@ -96,8 +96,8 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<int>("DiscrepancyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PartId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PartId")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Qty")
                         .HasColumnType("INTEGER");
@@ -160,9 +160,13 @@ namespace CAM.Infrastructure.Migrations
 
             modelBuilder.Entity("CAM.Core.Entities.Part", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(40);
+
+                    b.Property<string>("CataloguePartNumber")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(40);
 
                     b.Property<int>("CurrentStock")
                         .HasColumnType("INTEGER");
@@ -171,6 +175,9 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
+
+                    b.Property<bool>("IsDiscontinued")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("MinimumStock")
                         .HasColumnType("INTEGER");
@@ -182,11 +189,6 @@ namespace CAM.Infrastructure.Migrations
 
                     b.Property<int>("PartCategoryId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PartNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(40);
 
                     b.Property<decimal>("PriceIn")
                         .HasColumnType("TEXT");

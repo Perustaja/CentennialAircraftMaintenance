@@ -372,7 +372,7 @@ namespace CAM.Infrastructure.DocGen.Spreadsheets.Extensions
                 if (partsIndex <= partsCount - 1)
                 {
                     cell.SetCellValue(RichText.CreateRichTextString(
-                    $"{discrep.DiscrepancyParts[partsIndex].Part.PartNumber}",
+                    $"{discrep.DiscrepancyParts[partsIndex].Part.Id}",
                     fieldFont
                 ));
                 }
@@ -393,7 +393,7 @@ namespace CAM.Infrastructure.DocGen.Spreadsheets.Extensions
                 if (partsIndex + 4 <= partsCount - 1)
                 {
                     cell.SetCellValue(RichText.CreateRichTextString(
-                    $"{discrep.DiscrepancyParts[partsIndex + 4].Part.PartNumber}",
+                    $"{discrep.DiscrepancyParts[partsIndex + 4].Part.Id}",
                     fieldFont
                 ));
                 }

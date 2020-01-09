@@ -1,0 +1,55 @@
+@model CAM.Web.ViewModels.Parts.PartsDetailsViewModel
+@{
+    ViewData["Title"] = "Temp";
+}
+<div class="panel-body">
+    <div>
+        <table style="width: 100%;" class="table-bordered">
+            <tbody>
+                @* Header *@
+                <tr>
+                    <td colspan="2" style="padding: 10px 25px;">
+                        <div class="part-table-container">
+                            <table style="width: 100%;" class="table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h2>@Model.Id - @Model.Name</h2>
+                                            <h5>Vendor: @Model.Vendor</h5>
+                                            <div style="font-size: 15px;">
+                                                IPC Part #: <strong>@Model.CataloguePartNumber</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                In stock: 12
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                @* Main *@
+                <tr>
+                    @* Image/Description *@
+                    <td style="padding: 10px 25px;">
+                        @* image *@
+                        <div>
+                            This is image
+                        </div>
+                        @* Text *@
+                        <div>
+                            This is text
+                        </div>
+                    </td>
+                    @* Remainder *@
+                    <td>
+                        Some other info
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

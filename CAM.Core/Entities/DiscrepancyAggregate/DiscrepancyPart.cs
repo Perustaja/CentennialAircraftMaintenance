@@ -8,7 +8,7 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
     public class DiscrepancyPart
     {
         public int DiscrepancyId { get; set; }
-        public int PartId { get; set; }
+        public string PartId { get; set; }
         public int Qty { get; set; }
         public Discrepancy Discrepancy { get; set; }
         public Part Part { get; set; }

@@ -87,10 +87,9 @@ namespace CAM.Infrastructure.Migrations
                 name: "Parts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(maxLength: 40, nullable: false),
                     PartCategoryId = table.Column<int>(nullable: false),
-                    PartNumber = table.Column<string>(maxLength: 40, nullable: false),
+                    CataloguePartNumber = table.Column<string>(maxLength: 40, nullable: true),
                     Name = table.Column<string>(maxLength: 40, nullable: false),
                     Description = table.Column<string>(maxLength: 50, nullable: false),
                     CurrentStock = table.Column<int>(nullable: false),
@@ -98,6 +97,7 @@ namespace CAM.Infrastructure.Migrations
                     PriceIn = table.Column<decimal>(nullable: false),
                     PriceOut = table.Column<decimal>(nullable: true),
                     Vendor = table.Column<string>(nullable: true),
+                    IsDiscontinued = table.Column<bool>(nullable: false),
                     MinimumStock = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -233,7 +233,7 @@ namespace CAM.Infrastructure.Migrations
                 columns: table => new
                 {
                     DiscrepancyId = table.Column<int>(nullable: false),
-                    PartId = table.Column<int>(nullable: false),
+                    PartId = table.Column<string>(nullable: false),
                     Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

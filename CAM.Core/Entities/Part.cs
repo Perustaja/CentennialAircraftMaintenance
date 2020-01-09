@@ -9,27 +9,34 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains general item information used for inventory purposes. 
     /// </summary>
-    public class Part : BaseEntity<int>
+    public class Part : BaseEntity<string>
     {
-        public override int Id { get; set; }
+        [Display(Name = "Manufacturer's Part Number")]
+        [Key]
+        [StringLength(50)]
+        public override string Id { get; set; }
         // PartCategory FK
         public int PartCategoryId { get; set; }
         // Main
-        [Required]
+        [Display(Name = "Part Number")]
         [StringLength(40)]
-        public string PartNumber { get; set; }
+        public string CataloguePartNumber { get; set; }
         [Required]
         [StringLength(40)]
         public string Name { get; set; }
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
-        public string ImagePath => $"~/img/parts/{PartNumber.ToUpper()}";
+        public string ImagePath => $"~/img/parts/{Id.ToUpper()}";
         public int CurrentStock { get; set; }
         public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }
         public decimal? PriceOut { get; set; }
+
+        [Required]
+        [StringLength(20)]
         public string Vendor { get; set; }
+        public bool IsDiscontinued { get; set; } = false;
         public int? MinimumStock { get; set; } = 0;
         // Category 
         public PartCategory PartCategory { get; set; }
