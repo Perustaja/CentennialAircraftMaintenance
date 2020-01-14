@@ -2,15 +2,16 @@
 @{
     ViewData["Title"] = "Temp";
 }
-<div class="panel-body">
+
+<div class="panel-body" style="border: 1px solid #d9d9d9; box-shadow: 1px 1px 2px 2px #d9d9d9; margin: 2.5rem;">
     <div>
-        <table style="width: 100%;" class="table-bordered">
+        <table class="part-table">
             <tbody>
                 @* Header *@
                 <tr>
-                    <td colspan="2" style="padding: 10px 25px;">
-                        <div class="part-table-container">
-                            <table style="width: 100%;" class="table-bordered">
+                    <td colspan="2" style="padding: 5px 10px;">
+                        <div class="border-bot">
+                            <table class="part-table">
                                 <tbody>
                                     <tr>
                                         <td>
@@ -20,10 +21,18 @@
                                                 IPC Part #: <strong>@Model.CataloguePartNumber</strong>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div>
-                                                In stock: 12
-                                            </div>
+                                        <td class="text-right">
+                                            <h5 style="color: @Model.StockColor">
+                                                <span class="popup" style="color: @Model.StockColor" onmouseover="partsPopupMessage()">
+                                                    <h5>
+                                                        <span class="popup-text" style="margin-right: 50px" id="partPopup">@Model.StockMessage</span>
+                                                        <i class="@Model.StockIcon"></i>
+                                                    </h5>
+                                                </span>
+                                                <strong>Current Stock: @Model.CurrentStock</strong>
+                                            </h5>
+                                            <h6>Price in: @Html.DisplayFor(m => m.PriceIn)</h6>
+                                            <h6>Price out: @Html.DisplayFor(m => m.PriceOut)</h6>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -34,19 +43,17 @@
                 @* Main *@
                 <tr>
                     @* Image/Description *@
-                    <td style="padding: 10px 25px;">
+                    <td style="padding: 5px 10px; width: 60%">
                         @* image *@
-                        <div>
-                            This is image
+                        <div class="part-image-container">
+                                <img class="part-image" src="@Url.Content(@Model.ImagePath)">
                         </div>
                         @* Text *@
                         <div>
-                            This is text
+                            <div class="part-desc">
+                                <p>@Model.Description</p>
+                            </div>
                         </div>
-                    </td>
-                    @* Remainder *@
-                    <td>
-                        Some other info
                     </td>
                 </tr>
             </tbody>

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using AutoMapper.Configuration.Annotations;
 using CAM.Core.Entities.DiscrepancyAggregate;
+using CAM.Core.SharedKernel;
 
 namespace CAM.Web.ViewModels.Discrepancies
 {

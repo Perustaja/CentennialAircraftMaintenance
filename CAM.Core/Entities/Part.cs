@@ -21,13 +21,14 @@ namespace CAM.Core.Entities
         [Display(Name = "Part Number")]
         [StringLength(40)]
         public string CataloguePartNumber { get; set; }
+
         [Required]
         [StringLength(40)]
         public string Name { get; set; }
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
-        public string ImagePath => $"~/img/parts/{Id.ToUpper()}";
+        public string ImagePath => $"~/img/parts/{Id.ToUpper()}.jpg";
         public int CurrentStock { get; set; }
         public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }

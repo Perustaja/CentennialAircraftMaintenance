@@ -1,4 +1,4 @@
-namespace CAM.Web
+namespace CAM.Core.SharedKernel
 {
     public class Constants
     {

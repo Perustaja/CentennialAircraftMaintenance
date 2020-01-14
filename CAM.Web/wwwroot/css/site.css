@@ -1,45 +1,54 @@
-/* important asp.net core specifics */
+/* ASP.NET CORE SPECIFIC */
+
 .validation-summary-valid span {
-    display: none; 
+    display: none;
 }
-/* main overrides, see bootstrap overrides section last */
-a{
+
+/* MAIN OVERRIDES */
+
+a {
     color: darkslategray;
 }
 
-a:hover{
+a:hover {
     color: rgb(48, 45, 45);
 }
-/* page styling */
-Html, body{
-	height:100%;
-    margin:0px;
-    padding:0px;
+
+.list-inline li {
+    display: inline-block;
 }
+
+/* PAGE STYLING */
+
+Html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
 .theme-aspen {
     background-image: url("../img/portalbackground.jpg");
     background-size: cover;
     color: whitesmoke;
 }
-/* panels */
-.panel-body {
-    margin: 1rem;
-    padding: 20px;
+
+/* GENERAL USAGE */
+
+.text-right {
+    text-align: right;
 }
+
+/* NAV */
+
 /* navbar styling, button selectors are for logout form button to be integrated in dropdown */
+
 .navstyling {
     background-color: darkslategray;
     margin-bottom: 15px;
     padding: 0rem 0rem;
 }
-.navstyling a{
-    padding: 15px;
-    font-size: 17px;
-    text-decoration: none;
-    text-align: center;
-    color: whitesmoke;
-}
-.navstyling button{
+
+.navstyling a {
     padding: 15px;
     font-size: 17px;
     text-decoration: none;
@@ -47,307 +56,460 @@ Html, body{
     color: whitesmoke;
 }
 
-.navstyling a:hover{
+.navstyling button {
+    padding: 15px;
+    font-size: 17px;
+    text-decoration: none;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.navstyling a:hover {
     background-color: slategray;
 }
-.navstyling button:hover{
+
+.navstyling button:hover {
     background-color: slategray;
 }
-.navbar-dropdown a{
+
+.navbar-dropdown a {
     background-color: darkslategray;
     color: whitesmoke;
 }
-.navbar-dropdown button{
+
+.navbar-dropdown button {
     background-color: darkslategray;
     color: whitesmoke;
 }
-.dropdown-menu a:hover{
+
+.dropdown-menu a:hover {
     color: whitesmoke;
     background-color: slategray;
 }
-.dropdown-menu button:hover{
+
+.dropdown-menu button:hover {
     color: whitesmoke;
     background-color: slategray;
 }
+
+/* navbar-dark color override, necessary for toggler-icon */
+
+.navbar-dark .navbar-nav .nav-link {
+    color: whitesmoke;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.nav-item {
+    padding: 0px 0px;
+}
+
+.nav-link.dropdown-toggle {
+    min-width: 125px;
+}
+
 /* Subnav element */
-.subnav-container {
 
-}
-.subnav-container li{
+.subnav-container {}
+
+.subnav-container li {
     margin-right: 30px;
 }
-.subnav-link{
 
-}
+.subnav-link {}
 
-.subnav-link a{
+.subnav-link a {
     color: rgb(99, 96, 96);
     text-decoration: underline;
     font-size: 17px;
 }
+
+/* TABLES */
+
 /* td-clickable */
-.td-clickable a{
+
+.td-clickable a {
     width: auto;
     height: auto;
     display: block;
     color: black;
 }
-.td-clickable a:hover{
+
+.td-clickable a:hover {
     text-decoration: none;
 }
-.part-table-container{
-    padding-bottom: 5px;
-    border-bottom: 5px black;
-}
-/* list-inline */
-.list-inline li{
-    display: inline-block;
-}
+
 /* renderbody usage */
-.content-header{
+
+.content-header {
     text-align: center;
     margin-bottom: 15px;
 }
-.img-aircraft{
+
+.img-aircraft {
     object-fit: fill;
     height: 200px;
     border-radius: 3px;
 }
-/* forms */
-.form-centered{
+
+/* FORMS */
+
+.form-centered {
     margin: 0 auto;
     width: 40vw;
 }
-.form-group-last{
+
+.form-group-last {
     margin-bottom: 2.5rem;
 }
-@media screen and (max-width: 700px){
-    .form-centered{
+
+@media screen and (max-width: 700px) {
+    .form-centered {
         width: 80vw;
     }
 }
-.field-readonly{
+
+.field-readonly {
     font-weight: bold;
 }
-/* footers and controls */
-.control-footer{
-    padding: 11px 10px 30px;
 
+/* CONTROL PANELS */
+
+/* footers and controls */
+
+.control-footer {
+    padding: 11px 10px 30px;
 }
+
 /* control-panel and object for usage above tables, etc. */
-.control-panel{
+
+.control-panel {
     display: inline-block;
     width: 100%;
     padding-bottom: 5px;
 }
-.control-object{
+
+.control-object {
     width: auto;
     margin: 0px 5px 0px 0px;
     font-size: .9rem;
 }
 
-.ctrl-btn{
+.ctrl-btn {
     vertical-align: -webkit-baseline-middle;
     font-size: 1rem;
 }
-/* custom toggle switch */
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  border-radius: 1px;
-  width: 50px;
-  height: 25px;
+
+.panel-body {
+    margin: 1rem;
+    padding: 20px;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 17px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: darkslategray;
-}
-
-input:checked + .danger-slider {
-    background-color:  rgb(184, 30, 30);
-}
-input:focus + .slider {
-  box-shadow: 0 0 1px darkslategray;
-}
-
-input:focus + .danger-slider {
-    box-shadow: 0 0 1px rgb(184, 30, 30);
-  }
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-/* login */
+/* LOGIN-PAGE */
 
 .login-container-parent {
-opacity: .98;
-display: table;
-height: 100%;
-margin: 0 auto;
+    opacity: .98;
+    display: table;
+    height: 100%;
+    margin: 0 auto;
 }
+
 .login-container {
-display: table-cell;
-vertical-align: middle;
-margin: auto;
-background-clip: content-box;
-filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.5));
-background-color: white;
-color: black;
-padding: 10px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: auto;
+    background-clip: content-box;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.5));
+    background-color: white;
+    color: black;
+    padding: 10px;
 }
+
 .login-form-container {
-min-width: 600px;
-max-width: 800px;
+    min-width: 600px;
+    max-width: 800px;
 }
+
 .login-form {
-margin: auto;
+    margin: auto;
 }
+
 .login-logo-wrapper {
-padding: 15px;
-text-align: center;
+    padding: 15px;
+    text-align: center;
 }
 
 .login-header {
-text-align:center;
-font-size:200%;
-font-weight: 400;
-color: black;
-letter-spacing: .5px;
+    text-align: center;
+    font-size: 200%;
+    font-weight: 400;
+    color: black;
+    letter-spacing: .5px;
 }
+
 .login-lead {
     text-align: center;
 }
+
 .login-trail {
     text-align: center;
 }
+
+/* POPUPS */
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.popup-text {
+    background: rgb(236, 236, 236);
+    color: rgb(58, 57, 57);
+    visibility: hidden;
+    width: 320px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -161px;
+}
+
+.popup-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(236, 236, 236) transparent transparent transparent;
+}
+
+.popup-text.show {
+    visibility: visible;
+}
+
+/* PARTS-PAGE */
+
+.part-table {
+    width: 100%;
+}
+
+.part-table .border-bot {
+    border-bottom: 1px solid rgb(173, 173, 173);
+    padding-bottom: 10px;
+}
+
+.part-table td {
+    vertical-align: top;
+}
+
+.part-image-container {
+    height: 300px;
+    width: 30%;
+    float: left;
+    margin-right: 5px;
+}
+
+.part-image {
+    max-height: 100%;
+    max-width: 100%;
+    float: left;
+}
+
+.part-subtitle {
+    color: rgb(73, 73, 73);
+}
+
+.part-desc {
+    color: rgb(73, 73, 73);
+    word-spacing: 3px;
+    line-height: 1.7;
+    text-align: justify;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+/* CUSTOM TOGGLE SWITCH */
+
+/* The switch - the box around the slider */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    border-radius: 1px;
+    width: 50px;
+    height: 25px;
+}
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: darkslategray;
+}
+
+input:checked+.danger-slider {
+    background-color: rgb(184, 30, 30);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px darkslategray;
+}
+
+input:focus+.danger-slider {
+    box-shadow: 0 0 1px rgb(184, 30, 30);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
 /* bootstrap overrides */
+
 /* remove row's default -15px padding on l and r*/
-.row{
+
+.row {
     margin-right: 0px;
     margin-left: 0px;
 }
+
 /* nav dropdown menu */
 
-.nav-item .dropdown-menu{
+.nav-item .dropdown-menu {
     width: 100%;
     min-width: 8rem;
 }
+
 .dropdown-menu.show {
     padding: 0px;
-    box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.2);
 }
+
 /* td font-size */
-td { 
+
+td {
     font-size: 14px;
 }
+
 /* override option and optgroup fontsize */
+
 optgroup {
     font-size: 15px;
 }
+
 option {
     font-size: 14px;
 }
+
 /* datepicker override so it doesn't get hidden under sticky navbar */
+
 .datepicker {
     z-index: 2000 !important;
 }
+
 /* table-danger color override */
-.table-danger{
+
+.table-danger {
     background-color: indianred;
 }
+
 /* btn-x color, pills, etc. overrides*/
-.btn-secondary{
+
+.btn-secondary {
     background-color: darkslategray;
 }
-.btn-light{
+
+.btn-light {
     background-color: rgb(151, 149, 149);
 }
-.nav-pills .nav-link.active{
+
+.nav-pills .nav-link.active {
     background-color: darkslategray;
 }
 
 /* card-img-top img sizing */
+
 .card-img-top {
     width: 100%;
     height: 15vw;
     object-fit: cover;
 }
+
 /* self-explanatory card stuff */
-.card-deck{
+
+.card-deck {
     width: 100%;
 }
-.card-title{
+
+.card-title {
     margin: 0px;
 }
-.card-body{
+
+.card-body {
     padding: 0px;
     background-color: whitesmoke;
 }
-.card{
+
+.card {
     box-shadow: 0px 2px 2px 0px darkslategrey;
 }
-.card-title{
+
+.card-title {
     font-size: 25px;
     margin-left: 5px;
     font-weight: 400;
 }
-.card-text{
+
+.card-text {
     font-size: 15px;
     margin-left: 5px;
-}
-/* navbar-dark color override, necessary for toggler-icon */
-.navbar-dark .navbar-nav .nav-link{
-    color: whitesmoke;
-    padding-right: 1rem;
-    padding-left: 1rem;
-}
-.nav-item{
-    padding: 0px 0px;
-}
-.nav-link.dropdown-toggle {
-    min-width: 125px;
 }
