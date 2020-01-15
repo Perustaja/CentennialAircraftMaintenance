@@ -1,15 +1,16 @@
-﻿// part details popup
-function partsPopupMessage() {
-  var ele = document.getElementById("partPopup");
+﻿// simple popup message
+function popupMessage(id) {
+  var ele = document.getElementById(id);
   ele.classList.toggle("show");
 }
+
 // datepicker function 
 $.fn.datepicker.defaults.todayBtn = "linked";
 $.fn.datepicker.defaults.clearBtn = "linked";
 $.fn.datepicker.defaults.todayHighlight = "true";
 $.fn.datepicker.defaults.autoclose = "true";
 $(function () {
-    $('.datepicker').datepicker({
+  $('.datepicker').datepicker({
 
-    });
+  });
 });

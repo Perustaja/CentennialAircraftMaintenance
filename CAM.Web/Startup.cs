@@ -69,7 +69,7 @@ namespace CAM.Web
             services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
             services.AddScoped<IWorkStatusRepository, WorkStatusRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
-
+            services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
 
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();

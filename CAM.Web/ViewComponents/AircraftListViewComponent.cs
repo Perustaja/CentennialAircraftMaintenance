@@ -1,6 +1,4 @@
-using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
-using CAM.Infrastructure.Data;
 using CAM.Web.ViewModels.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,13 +9,9 @@ namespace CAM.Web.ViewComponents
 {
     public class AircraftListViewComponent : ViewComponent
     {
-        private readonly ApplicationContext _applicationContext;
         private readonly IAircraftRepository _aircraftRepository;
-        public AircraftListViewComponent(
-            ApplicationContext applicationContext, 
-            IAircraftRepository aircraftRepository)
+        public AircraftListViewComponent(IAircraftRepository aircraftRepository)
         {
-            _applicationContext = applicationContext;
             _aircraftRepository = aircraftRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync(string selected)

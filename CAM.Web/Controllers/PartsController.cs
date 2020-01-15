@@ -30,10 +30,17 @@ namespace CAM.Web.Controllers
             return View(viewmodel);
         }
 
-        [HttpGet("create")]
+        [HttpGet("new")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
+        [HttpPost("new")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PartsCreateViewModel viewModel)
+        {
+            return View();
+        }
+
     }
 }

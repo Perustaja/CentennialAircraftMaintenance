@@ -1,9 +1,9 @@
 @model CAM.Web.ViewModels.Parts.PartsDetailsViewModel
 @{
-    ViewData["Title"] = "Temp";
+    ViewData["Title"] = $"CAM - {Model.Id}";
 }
 
-<div class="panel-body" style="border: 1px solid #d9d9d9; box-shadow: 1px 1px 2px 2px #d9d9d9; margin: 2.5rem;">
+<div class="panel-body shadowed">
     <div>
         <table class="part-table">
             <tbody>
@@ -23,7 +23,7 @@
                                         </td>
                                         <td class="text-right">
                                             <h5 style="color: @Model.StockColor">
-                                                <span class="popup" style="color: @Model.StockColor" onmouseover="partsPopupMessage()">
+                                                <span class="popup" style="color: @Model.StockColor" onclick="popupMessage('partPopup')">
                                                     <h5>
                                                         <span class="popup-text" style="margin-right: 50px" id="partPopup">@Model.StockMessage</span>
                                                         <i class="@Model.StockIcon"></i>

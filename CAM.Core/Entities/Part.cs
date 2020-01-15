@@ -11,22 +11,22 @@ namespace CAM.Core.Entities
     /// </summary>
     public class Part : BaseEntity<string>
     {
-        [Display(Name = "Manufacturer's Part Number")]
+        [Display(Name = "Manufacturer's Part #")]
         [Key]
         [StringLength(50)]
         public override string Id { get; set; }
         // PartCategory FK
         public int PartCategoryId { get; set; }
         // Main
-        [Display(Name = "Part Number")]
-        [StringLength(40)]
+        [Display(Name = "IPC Part #")]
+        [StringLength(50)]
         public string CataloguePartNumber { get; set; }
 
         [Required]
         [StringLength(40)]
         public string Name { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(600)]
         public string Description { get; set; }
         public string ImagePath => $"~/img/parts/{Id.ToUpper()}.jpg";
         public int CurrentStock { get; set; }

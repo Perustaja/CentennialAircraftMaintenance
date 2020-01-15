@@ -1,9 +1,12 @@
 # CentennialAircraftMaintenance
-MVC application
+MVC application with a few side services
+
 # Requirements
 This project requires configuration variables or usersecrets for:
-<ul>
--SendGridKey & SendGridUser used in EmailSender<br>
--FspUser & FspPass required for logging in to FSP, used by FspScraper
-</ul>
-Furthermore, Identitydb is untracked for obvious reasons, but for ease of transfer the main database, CAM.db, is tracked.
+- SendGridKey & SendGridUser used in EmailSender
+- FspUser & FspPass required for logging in to FSP, used by FspScraper
+
+# Development environment
+- All databases are currently SQLite and will use SQL server probably through azure
+- User secrets are temporary as well for development
+- Static files are currently just stored in the repo, but will be hooked up with blob storage

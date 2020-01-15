@@ -205,6 +205,23 @@ Html, body {
     padding: 20px;
 }
 
+.form-panel {
+    margin-top: 2rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    margin-bottom: 2rem;
+    padding: 20px;
+}
+
+.title-panel {
+    text-align: center;
+}
+
+.shadowed {
+    border: 1px solid #d9d9d9;
+    box-shadow: 1px 1px 2px 2px #d9d9d9;
+}
+
 /* LOGIN-PAGE */
 
 .login-container-parent {
@@ -277,6 +294,14 @@ Html, body {
     bottom: 125%;
     left: 50%;
     margin-left: -161px;
+}
+
+.popup-info {
+    background: white;
+    border: 1px solid orange;
+    width: 150px;
+    margin-left: -75px;
+    padding: 15px 10px 15px 10px;
 }
 
 .popup-text::after {

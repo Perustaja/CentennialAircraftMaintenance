@@ -1,6 +1,4 @@
-using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
-using CAM.Infrastructure.Data;
 using CAM.Web.ViewModels.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,13 +9,9 @@ namespace CAM.Web.ViewComponents
 {
     public class WorkStatusListViewComponent : ViewComponent
     {
-        private readonly ApplicationContext _applicationContext;
         private readonly IWorkStatusRepository _workStatusRepository;
-        public WorkStatusListViewComponent(
-            ApplicationContext applicationContext,
-            IWorkStatusRepository workStatusRepository)
+        public WorkStatusListViewComponent(IWorkStatusRepository workStatusRepository)
         {
-            _applicationContext = applicationContext;
             _workStatusRepository = workStatusRepository;
         }
         public async Task<IViewComponentResult> InvokeAsync(string selected)
