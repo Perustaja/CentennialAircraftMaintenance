@@ -21,7 +21,7 @@ namespace CAM.Infrastructure.Data.Repositories
             Part result;
             var queryable = _applicationContext.Set<Part>().Where(e => e.Id == id)
                 .Include(e => e.PartCategory);
-            
+
             if (inclTracking)
                 result = await queryable.FirstOrDefaultAsync();
             else
@@ -61,6 +61,13 @@ namespace CAM.Infrastructure.Data.Repositories
             else
                 result = await queryable.AsNoTracking().ToListAsync();
             return result;
+        }
+
+        public async Task AddAsync(Part part)
+        {
+            _applicationContext.BeginTransaction();
+            await _applicationContext.AddAsync(part);
+            _applicationContext.Commit();
         }
     }
 }

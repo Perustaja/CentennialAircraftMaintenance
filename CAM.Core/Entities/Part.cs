@@ -11,6 +11,22 @@ namespace CAM.Core.Entities
     /// </summary>
     public class Part : BaseEntity<string>
     {
+        public Part(string id, int partCategoryId, string cataloguePartNumber, string name, string description,
+        string imagePath, decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
+        {
+            Id = id;
+            PartCategoryId = partCategoryId;
+            CataloguePartNumber = cataloguePartNumber;
+            Name = name;
+            Description = description;
+            ImagePath = imagePath;
+            CurrentStock = 0;
+            QtySoldToDate = 0;
+            PriceIn = priceIn;
+            PriceOut = priceOut ?? PriceIn * Constants.PRICE_MARKUP;
+            Vendor = vendor;
+            MinimumStock = minimumStock ?? 0;
+        }
         [Display(Name = "Manufacturer's Part #")]
         [Key]
         [StringLength(50)]
@@ -28,7 +44,7 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(600)]
         public string Description { get; set; }
-        public string ImagePath => $"~/img/parts/{Id.ToUpper()}.jpg";
+        public string ImagePath { get; set; }
         public int CurrentStock { get; set; }
         public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }
@@ -38,7 +54,7 @@ namespace CAM.Core.Entities
         [StringLength(20)]
         public string Vendor { get; set; }
         public bool IsDiscontinued { get; set; } = false;
-        public int? MinimumStock { get; set; } = 0;
+        public int? MinimumStock { get; set; }
         // Category 
         public PartCategory PartCategory { get; set; }
         // Required by EF

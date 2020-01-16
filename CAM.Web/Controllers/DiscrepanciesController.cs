@@ -12,18 +12,15 @@ namespace CAM.Web.Controllers
 {
     public class DiscrepanciesController : Controller
     {
-        private readonly ApplicationContext _applicationContext;
         private readonly IDiscrepancyRepository _discrepancyRepository;
         private readonly IDocumentGenerator _documentGenerator;
 
         private readonly IMapper _mapper;
         public DiscrepanciesController(
-            ApplicationContext appContext,
             IDiscrepancyRepository discrepancyRepository,
             IDocumentGenerator docGen,
             IMapper mapper)
         {
-            _applicationContext = appContext;
             _discrepancyRepository = discrepancyRepository;
             _documentGenerator = docGen;
             _mapper = mapper;

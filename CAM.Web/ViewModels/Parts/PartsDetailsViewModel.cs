@@ -90,7 +90,7 @@ namespace CAM.Web.ViewModels.Parts
                     case "green":
                         return "This item is currently in stock.";
                     case "yellow":
-                        return "This item is in stock, but is below the recommended minimum stock.";
+                        return "This item is in stock, but is below the recommended minimum stock level.";
                     default:
                         return "This item is currently out of stock.";
                 }

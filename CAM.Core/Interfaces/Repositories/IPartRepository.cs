@@ -9,5 +9,6 @@ namespace CAM.Core.Interfaces.Repositories
         Task<Part> GetByIdAsync(string id, bool inclTracking = true);
         Task<List<Part>> GetListAllAsync(bool inclTracking = true);
         Task<List<Part>> GetBySearchParamsAsync(string search, string filter, bool inclTracking = true);
+        Task AddAsync(Part part);
     }
 }

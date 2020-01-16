@@ -10,13 +10,10 @@ namespace CAM.Web.Controllers
 {
     public class AircraftController : Controller
     {
-        private readonly ApplicationContext _applicationContext;
         private readonly IAircraftRepository _aircraftRepository;
         public AircraftController(
-            ApplicationContext applicationContext, 
             IAircraftRepository aircraftRepository)
         {
-            _applicationContext = applicationContext;
             _aircraftRepository = aircraftRepository;
         }
         

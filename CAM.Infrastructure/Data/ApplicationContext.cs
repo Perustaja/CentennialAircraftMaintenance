@@ -9,7 +9,7 @@ namespace CAM.Infrastructure.Data
     /// <summary>
     /// Core context containing entities. See root for ERD.
     /// </summary>
-    public class ApplicationContext : DbContext, IDataContext
+    public class ApplicationContext : DbContext, IUnitOfWork
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
         public DbSet<Aircraft> Aircraft { get; set; }

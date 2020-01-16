@@ -1,6 +1,6 @@
 namespace CAM.Core.Interfaces
 {
-    public interface IDataContext
+    public interface IUnitOfWork
     {
         void BeginTransaction();
         void Commit();
