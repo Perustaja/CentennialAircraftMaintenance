@@ -1,8 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using CAM.Core.SharedKernel;
-using CAM.Core.Entities.DiscrepancyAggregate;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using CAM.Core.Entities;
@@ -51,8 +48,8 @@ namespace CAM.Web.ViewModels.Parts
         [IgnoreMap]
         [Display(Name = "Part Image")]
         [DataType(DataType.Upload)]
-        [MaxFileSizeInBytes(1024 * 5)]
-        [AllowedFileExtensions()]
+        [MaxFileSizeInBytes(5 * 1024 * 1024)]
+        [AllowedFileExtensions(".jpg", ".png")]
         public IFormFile Image { get; set; }
     }
 }

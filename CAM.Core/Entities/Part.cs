@@ -16,7 +16,7 @@ namespace CAM.Core.Entities
         {
             Id = id;
             PartCategoryId = partCategoryId;
-            CataloguePartNumber = cataloguePartNumber;
+            CataloguePartNumber = cataloguePartNumber ?? Id;
             Name = name;
             Description = description;
             ImagePath = imagePath;

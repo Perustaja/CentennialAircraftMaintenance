@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200109001627_Init")]
-    partial class Init
+    [Migration("20200116235037_dev")]
+    partial class dev
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,11 +164,11 @@ namespace CAM.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(40);
+                        .HasMaxLength(50);
 
                     b.Property<string>("CataloguePartNumber")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(40);
+                        .HasMaxLength(50);
 
                     b.Property<int>("CurrentStock")
                         .HasColumnType("INTEGER");
@@ -176,7 +176,10 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                        .HasMaxLength(600);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDiscontinued")
                         .HasColumnType("INTEGER");
@@ -202,7 +205,9 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Vendor")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

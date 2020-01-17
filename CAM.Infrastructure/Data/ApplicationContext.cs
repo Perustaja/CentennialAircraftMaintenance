@@ -43,7 +43,8 @@ namespace CAM.Infrastructure.Data
 
         public async void BeginTransaction()
         {
-            _transaction = await Database.BeginTransactionAsync();
+            // Commented out during development as SQLite does not support this.
+            // _transaction = await Database.BeginTransactionAsync();
         }
 
         public async void Commit()

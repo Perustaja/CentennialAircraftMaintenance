@@ -162,11 +162,11 @@ namespace CAM.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(40);
+                        .HasMaxLength(50);
 
                     b.Property<string>("CataloguePartNumber")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(40);
+                        .HasMaxLength(50);
 
                     b.Property<int>("CurrentStock")
                         .HasColumnType("INTEGER");
@@ -174,7 +174,10 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                        .HasMaxLength(600);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDiscontinued")
                         .HasColumnType("INTEGER");
@@ -200,7 +203,9 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Vendor")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

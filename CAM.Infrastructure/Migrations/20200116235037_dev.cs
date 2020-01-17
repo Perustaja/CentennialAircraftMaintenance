@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAM.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class dev : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,16 +87,17 @@ namespace CAM.Infrastructure.Migrations
                 name: "Parts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(maxLength: 40, nullable: false),
+                    Id = table.Column<string>(maxLength: 50, nullable: false),
                     PartCategoryId = table.Column<int>(nullable: false),
-                    CataloguePartNumber = table.Column<string>(maxLength: 40, nullable: true),
+                    CataloguePartNumber = table.Column<string>(maxLength: 50, nullable: true),
                     Name = table.Column<string>(maxLength: 40, nullable: false),
-                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 600, nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
                     CurrentStock = table.Column<int>(nullable: false),
                     QtySoldToDate = table.Column<int>(nullable: false),
                     PriceIn = table.Column<decimal>(nullable: false),
                     PriceOut = table.Column<decimal>(nullable: true),
-                    Vendor = table.Column<string>(nullable: true),
+                    Vendor = table.Column<string>(maxLength: 20, nullable: false),
                     IsDiscontinued = table.Column<bool>(nullable: false),
                     MinimumStock = table.Column<int>(nullable: true)
                 },

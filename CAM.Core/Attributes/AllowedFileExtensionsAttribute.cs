@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using CAM.Core.SharedKernel;
 using Microsoft.AspNetCore.Http;
 
 namespace CAM.Core.Attributes
