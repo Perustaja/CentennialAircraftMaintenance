@@ -7,6 +7,7 @@ using CAM.Web.ViewModels.Parts;
 using Microsoft.EntityFrameworkCore;
 using CAM.Core.SharedKernel;
 using System.IO;
+using CAM.Core.Interfaces;
 
 namespace CAM.Web.Controllers
 {
@@ -15,11 +16,16 @@ namespace CAM.Web.Controllers
     {
         private readonly IPartRepository _partRepository;
         private readonly IMapper _mapper;
-        public PartsController(IPartRepository partRepository, IMapper mapper)
+        private readonly IFileHandler _fileHandler;
+        public PartsController(IPartRepository partRepository, IMapper mapper, IFileHandler fileHandler)
         {
             _partRepository = partRepository;
             _mapper = mapper;
+            _fileHandler = fileHandler;
         }
+        
+        [TempData]
+        public string StatusMessage { get; set; }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
@@ -40,38 +46,26 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PartsCreateViewModel vm)
         {
-            // create the file path
-            string filePath;
-            if (vm.Image == null)
+            if (!ModelState.IsValid)
             {
-                filePath = $"{Constants.PARTS_DIRECTORY}/default.png";
+                return View();
             }
-            else
-            {
-                filePath = $"{Constants.PARTS_DIRECTORY}/{vm.Id.ToUpper()}{Path.GetExtension(vm.Image.FileName).ToLowerInvariant()}";
-            }
-            // save the formfile to the path
-            using (var stream = System.IO.File.Create(filePath))
-            {
-                await vm.Image.CopyToAsync(stream);
-            }
+
+            string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
 
             var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
             filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
             try
             {
-                if (ModelState.IsValid)
-                {
-                    await _partRepository.AddAsync(part);
-                    // return some modelstate message?
-                }
+                // check for existing record
+                await _partRepository.AddAsync(part);
+                StatusMessage = "New part successfuly saved.";
             }
             catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Error saving changes. Try again, if the problem persists contact site administration.");
             }
-            return View(vm);
+            return View();
         }
-
     }
 }

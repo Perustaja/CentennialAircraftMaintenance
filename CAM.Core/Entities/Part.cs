@@ -51,7 +51,7 @@ namespace CAM.Core.Entities
         public decimal? PriceOut { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(30)]
         public string Vendor { get; set; }
         public bool IsDiscontinued { get; set; } = false;
         public int? MinimumStock { get; set; }

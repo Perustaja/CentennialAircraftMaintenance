@@ -55,14 +55,14 @@ namespace CAM.Infrastructure.Data
             }
             finally
             {
-                await _transaction.DisposeAsync();
+                // await _transaction.DisposeAsync();
             }
         }
 
         public async void Rollback()
         {
-            await _transaction.RollbackAsync();
-            await _transaction.DisposeAsync();
+            // await _transaction.RollbackAsync();
+            // await _transaction.DisposeAsync();
         }
     }
 }

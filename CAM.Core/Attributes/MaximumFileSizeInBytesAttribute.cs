@@ -20,7 +20,7 @@ namespace CAM.Core.Attributes
         protected override ValidationResult IsValid(object value, ValidationContext context)
         {
             var file = value as IFormFile;
-            if (file.Length > _size)
+            if (file != null && file.Length > _size)
             {
                 return new ValidationResult($"The file's size cannot exceed {_size} bytes");
             }

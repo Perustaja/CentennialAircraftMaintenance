@@ -84,6 +84,9 @@ namespace CAM.Web
             // DocumentGenerator
             services.AddScoped<IDocumentGenerator, DocumentGenerator>();
 
+            // FileHandler
+            services.AddScoped<IFileHandler, FileHandler>();
+
             // Identity
             services.Configure<IdentityOptions>(options =>
             {

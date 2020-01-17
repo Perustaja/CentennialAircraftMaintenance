@@ -8,5 +8,6 @@ namespace CAM.Core.SharedKernel
         public const decimal PRICE_MARKUP = 1.2m;
         // This will store locally, and will be setup as a configuration variable in deployment
         public const string PARTS_DIRECTORY = "wwwroot/img/parts";
+        public const string DEFAULT_IMAGE_NAME = "default.png";
     }
 }

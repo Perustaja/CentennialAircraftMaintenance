@@ -2,6 +2,18 @@
 @{
     ViewData["Title"] = "Add a new part";
 }
+@{
+    if (TempData.Peek("StatusMessage") != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            TempData.Peek("StatusMessage")
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
 <div class="centered-form-container">
     <div class="form-panel shadowed">
         <div class="title-panel">
@@ -108,6 +120,7 @@
                     <small class="form-text text-muted">
                         Images must be of a .jpg or .png file extension and be under 5MB in size.
                     </small>
+                    <span asp-validation-for="Image" class="text-danger"></span>
                 </div> 
             </div>
             @* submit *@

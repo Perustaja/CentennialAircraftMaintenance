@@ -10,21 +10,22 @@ namespace CAM.Core.Attributes
     public class AllowedFileExtensionsAttribute : ValidationAttribute
     {
         protected readonly List<string> _extensions;
-        public AllowedFileExtensionsAttribute(params string[] extensions)
+        protected readonly bool _required;
+        public AllowedFileExtensionsAttribute(bool required, params string[] extensions)
         {
             _extensions = extensions.ToList();
+            _required = required;
         }
-
+        
         protected override ValidationResult IsValid(object value, ValidationContext context)
         {
             var file = value as IFormFile;
-            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant() ?? null;
             
             if (String.IsNullOrEmpty(fileExtension) || !_extensions.Contains(fileExtension))
             {
-                return new ValidationResult("The file's extension is not valid.");
+                return new ValidationResult("The given file's extensions are not valid.");
             }
-
             return ValidationResult.Success;
         }
     }
