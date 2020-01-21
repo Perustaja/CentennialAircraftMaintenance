@@ -11,7 +11,7 @@ namespace CAM.Web.ViewModels.Parts
     public class PartsCreateViewModel
     {
         [Display(Name = "Manufacturer's Part #")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "The part number must be a string consisting of normal characters and cannot be empty.")]
+        [Required(AllowEmptyStrings = false)]
         [StringLength(50)]
         public string Id { get; set; }
 
@@ -28,7 +28,7 @@ namespace CAM.Web.ViewModels.Parts
         [StringLength(40)]
         public string Name { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "The given description cannot exceed 600 characters.")]
+        [Required(AllowEmptyStrings = false)]
         [StringLength(600)]
         public string Description { get; set; }
 
@@ -39,7 +39,7 @@ namespace CAM.Web.ViewModels.Parts
         [Display(Name = "Price Out")]
         public decimal? PriceOut { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "The vendor's name cannot exceed 30 characters.")]
+        [Required(AllowEmptyStrings = false)]
         [StringLength(30)]
         public string Vendor { get; set; }
 
@@ -50,7 +50,7 @@ namespace CAM.Web.ViewModels.Parts
         [Display(Name = "Part Image")]
         [DataType(DataType.Upload)]
         [MaxFileSizeInBytes(5 * 1024 * 1024)]
-        [AllowedFileExtensions(".jpg", ".png")]
+        [AllowedFileExtensions(false, ".jpg", ".png")]
         public IFormFile Image { get; set; }
     }
 }

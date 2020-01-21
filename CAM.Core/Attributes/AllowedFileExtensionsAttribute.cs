@@ -16,17 +16,25 @@ namespace CAM.Core.Attributes
             _extensions = extensions.ToList();
             _required = required;
         }
-        
+
         protected override ValidationResult IsValid(object value, ValidationContext context)
         {
             var file = value as IFormFile;
-            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant() ?? null;
-            
-            if (String.IsNullOrEmpty(fileExtension) || !_extensions.Contains(fileExtension))
+            try
             {
-                return new ValidationResult("The given file's extensions are not valid.");
+                var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+                if (!String.IsNullOrEmpty(fileExtension) && _extensions.Contains(fileExtension))
+                    return ValidationResult.Success;
+                else
+                    return new ValidationResult("The given file's extensions are not valid.");
             }
-            return ValidationResult.Success;
+            catch (System.NullReferenceException) // file was not entered
+            {
+                if (_required)
+                    return new ValidationResult("An image is required.");
+                else
+                    return ValidationResult.Success;
+            }
         }
     }
 }

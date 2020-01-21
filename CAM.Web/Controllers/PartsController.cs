@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CAM.Core.SharedKernel;
 using System.IO;
 using CAM.Core.Interfaces;
+using System;
 
 namespace CAM.Web.Controllers
 {
@@ -23,9 +24,9 @@ namespace CAM.Web.Controllers
             _mapper = mapper;
             _fileHandler = fileHandler;
         }
-        
+
         [TempData]
-        public string StatusMessage { get; set; }
+        public string SuccessMessage { get; set; }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
@@ -57,13 +58,19 @@ namespace CAM.Web.Controllers
             filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
             try
             {
-                // check for existing record
-                await _partRepository.AddAsync(part);
-                StatusMessage = "New part successfuly saved.";
+                if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
+                {
+                    ModelState.AddModelError(String.Empty, "A part already exists with this manufacturer's part number");
+                }
+                else
+                {
+                    await _partRepository.AddAsync(part);
+                    SuccessMessage = "New part successfuly saved.";
+                }
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError("", "Error saving changes. Try again, if the problem persists contact site administration.");
+                ModelState.AddModelError(String.Empty, "Error saving changes. Try again, if the problem persists contact site administration.");
             }
             return View();
         }
