@@ -1,11 +1,14 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces;
 using CAM.Core.Interfaces.Repositories;
+using CAM.Tests.Builders;
 using CAM.Web.Controllers;
 using CAM.Web.ViewModels.Parts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -14,9 +17,6 @@ namespace CAM.Tests.UnitTests.Web.Controllers
 {
     public class PartsControllerTests
     {
-        private Mock<IFileHandler> _filerHandler;
-        private Mock<IMapper> _autoMapper;
-        private Mock<ILogger<PartsController>> _logger;
         private HttpClient _Client;
         // private PartsCreateViewModel _validVm = ;
 
@@ -67,20 +67,21 @@ namespace CAM.Tests.UnitTests.Web.Controllers
             // arrange
             var repo = new Mock<IPartRepository>();
             repo.Setup(r => r.AddAsync(It.IsAny<Part>())).Returns(Task.CompletedTask).Verifiable();
+            var mapper = new Mock<IMapper>();
+            var fileHandler = new Mock<IFileHandler>();
+            fileHandler.Setup(f => f.TrySaveImageAndReturnPathAsync(String.Empty, null, String.Empty)).ReturnsAsync("test");
+            var logger = new Mock<ILogger<PartsController>>();
 
-            var controller = new PartsController(repo.Object, _autoMapper.Object, _filerHandler.Object, _logger.Object);
+            var controller = new PartsController(repo.Object, mapper.Object, fileHandler.Object, logger.Object);
 
             // act
-            
+            var result = await controller.Create(PartBuilder.ReturnValidPartsCreateViewModel());
 
-
-        }
-        private List<Part> GetTestParts()
-        {
-            return new List<Part>()
-            {
-                new Part()
-            };
+            // assert
+            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Inventory", redirectResult.ControllerName);
+            Assert.Equal("Index", redirectResult.ActionName);
+            repo.Verify();
         }
     }
 }

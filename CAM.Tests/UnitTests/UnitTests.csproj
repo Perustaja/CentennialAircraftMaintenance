@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CAM.Core\CAM.Core.csproj" />
-    <ProjectReference Include="..\CAM.Web\CAM.Web.csproj" />
-    <ProjectReference Include="..\CAM.Infrastructure\CAM.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\CAM.Core\CAM.Core.csproj" />
+    <ProjectReference Include="..\..\CAM.Web\CAM.Web.csproj" />
+    <ProjectReference Include="..\..\CAM.Infrastructure\CAM.Infrastructure.csproj" />
     <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   
