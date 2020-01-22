@@ -110,6 +110,7 @@ namespace CAM.Web
             });
 
             // MVC + Razor
+            services.AddSession();
             services.AddControllersWithViews(config =>
             {
                 // Default to requiring authorization
@@ -175,6 +176,7 @@ namespace CAM.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseRouting();
 
             // Auth BEFORE ENDPOINTS

@@ -9,6 +9,8 @@ using CAM.Core.SharedKernel;
 using System.IO;
 using CAM.Core.Interfaces;
 using System;
+using CAM.Web.ViewModels.Shared;
+using Microsoft.Extensions.Logging;
 
 namespace CAM.Web.Controllers
 {
@@ -18,15 +20,19 @@ namespace CAM.Web.Controllers
         private readonly IPartRepository _partRepository;
         private readonly IMapper _mapper;
         private readonly IFileHandler _fileHandler;
-        public PartsController(IPartRepository partRepository, IMapper mapper, IFileHandler fileHandler)
+        private readonly ILogger<PartsController> _logger;
+        public PartsController(IPartRepository partRepository, IMapper mapper, IFileHandler fileHandler, ILogger<PartsController> logger)
         {
             _partRepository = partRepository;
             _mapper = mapper;
             _fileHandler = fileHandler;
+            _logger = logger;
         }
 
         [TempData]
-        public string SuccessMessage { get; set; }
+        public string StatusMessage { get; set; }
+        [TempData]
+        public bool Success { get; set; }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
@@ -65,12 +71,16 @@ namespace CAM.Web.Controllers
                 else
                 {
                     await _partRepository.AddAsync(part);
-                    SuccessMessage = "New part successfuly saved.";
+                    StatusMessage = ("Your new part has been successfully saved.");
+                    Success = true;
+                    return RedirectToAction("Index", "Inventory");
                 }
             }
-            catch (DbUpdateException)
+            catch (Exception exc)
             {
-                ModelState.AddModelError(String.Empty, "Error saving changes. Try again, if the problem persists contact site administration.");
+                StatusMessage = ("There was an error handling your request. Try again, and if the issue persists contact site administration.");
+                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to save new part. {exc}");
+                Success = false;
             }
             return View();
         }

@@ -7,7 +7,7 @@ using KellermanSoftware.CompareNetObjects;
 
 namespace CAM.Tests.UnitTests.Infrastructure.Services.TimesScraper.FspTimesParserTests
 {
-    public class ParseTimes
+    public class ParseTimesTests
     {
         /// <summary>
         /// Ensures that, when given a number with trailing text, the parser creates a substring

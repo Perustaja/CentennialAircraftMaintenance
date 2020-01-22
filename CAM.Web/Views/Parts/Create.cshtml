@@ -2,17 +2,8 @@
 @{
     ViewData["Title"] = "Add a new part";
 }
-@{
-    if (TempData.Peek("SuccessMessage") != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
-}
+
+@await Html.PartialAsync("_StatusMessagePartial", TempData)
 
 <div class="centered-form-container">
     <div class="form-panel shadowed">

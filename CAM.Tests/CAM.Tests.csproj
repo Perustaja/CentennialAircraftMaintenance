@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CompareNETObjects" Version="4.64.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
@@ -16,12 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CAM.Core\CAM.Core.csproj" />
+    <ProjectReference Include="..\CAM.Web\CAM.Web.csproj" />
     <ProjectReference Include="..\CAM.Infrastructure\CAM.Infrastructure.csproj" />
     <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CAM.Web\CAM.Web.csproj" />
-  </ItemGroup>
-
+  
 </Project>

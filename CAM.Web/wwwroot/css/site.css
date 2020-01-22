@@ -332,6 +332,9 @@ Html, body {
     visibility: visible;
 }
 
+.opac97 {
+    opacity: 97%;
+}
 /* PARTS-PAGE */
 
 .part-table {

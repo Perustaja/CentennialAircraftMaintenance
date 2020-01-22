@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Inventory";
 }
+@await Html.PartialAsync("_StatusMessagePartial", TempData)
+
 <div class="panel-body">
     <div class="control-panel">
         <div class="btn-toolbar justify-content-between">
