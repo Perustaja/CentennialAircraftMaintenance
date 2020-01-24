@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
+
 namespace CAM.Core.Interfaces
 {
     public interface IUnitOfWork
     {
-        void BeginTransaction();
-        void Commit();
-        void Rollback();
+        Task BeginTransaction();
+        Task Commit();
+        Task Rollback();
     }
 }

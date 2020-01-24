@@ -31,24 +31,6 @@ namespace CAM.Tests.UnitTests.Web.Controllers
         // }
 
         // [Fact]
-        // public async Task Create_Returns_Error_If_Duplicate()
-        // {
-        //     // Arrange
-        //     var mockRepo = new Mock<IPartRepository>();
-        //     mockRepo.Setup(repo => repo.CheckForExistingRecordAsync(String.Empty).Returns()
-        //         .ReturnsAsync(GetTestSessions());
-        //     var controller = new HomeController(mockRepo.Object);
-
-        //     // Act
-        //     var result = await controller.Index();
-
-        //     // Assert
-        //     var viewResult = Assert.IsType<ViewResult>(result);
-        //     var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
-        //         viewResult.ViewData.Model);
-        //     Assert.Equal(2, model.Count());
-        // }
-        // [Fact]
         // public async Task Create_Returns_Error_On_Exception()
         // {
         //     // arrange
@@ -62,6 +44,9 @@ namespace CAM.Tests.UnitTests.Web.Controllers
         // }
         
         [Fact]
+        /// <summary>
+        /// Ensures that upon a valid view model being passed, redirects to inventory page
+        /// </summary>
         public async Task Create_Redirects_On_Success()
         {
             // arrange

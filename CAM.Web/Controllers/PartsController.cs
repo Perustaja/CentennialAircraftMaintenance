@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CAM.Web.Controllers
 {
-    [Route("inventory/p")]
+    [Route("inventory/p", Name = "Parts")]
     public class PartsController : Controller
     {
         private readonly IPartRepository _partRepository;
@@ -32,7 +32,7 @@ namespace CAM.Web.Controllers
         [TempData]
         public string StatusMessage { get; set; }
         [TempData]
-        public bool Success { get; set; }
+        public bool Success { get; set; } = false;
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
@@ -78,11 +78,39 @@ namespace CAM.Web.Controllers
             }
             catch (Exception exc)
             {
-                StatusMessage = ("There was an error handling your request. Try again, and if the issue persists contact site administration.");
-                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to save new part. {exc}");
+                StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
+                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to save new part {part.Id}. {exc}");
                 Success = false;
             }
+
             return View();
+        }
+        // edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var part = await _partRepository.GetByIdAsync(id, false);
+            if (part == null)
+            {
+                StatusMessage = "Unable to locate this part. Please try again.";
+                Success = false;
+            }
+
+            try
+            {
+                await _partRepository.DeleteAsync(part);
+                StatusMessage = $"Part \"{part.Id}\" was successfully deleted.";
+                Success = true;
+            }
+            catch (Exception exc)
+            {
+                StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
+                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to delete part {part.Id}. {exc}");
+                Success = false;
+            }
+
+            return RedirectToAction("Index", "Inventory");
         }
     }
 }

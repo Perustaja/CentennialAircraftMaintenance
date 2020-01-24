@@ -15,4 +15,10 @@
     <td scope="col" class="td-clickable">
         <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.CurrentStock)</a>
     </td>
+    <td scope="col" class="td-clickable">
+
+        <button class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("details", "parts", new { id = @Model.Id})'">View</button>
+        <button class="btn btn-sm btn-secondary" onclick="location.href='@Url.Action("edit", "parts", new { id = @Model.Id})'">Edit</button>
+        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="@Model.Id">Delete</button>
+    </td>
 </tr>

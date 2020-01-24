@@ -11,5 +11,6 @@ namespace CAM.Core.Interfaces.Repositories
         Task<List<Part>> GetBySearchParamsAsync(string search, string filter, bool inclTracking = true);
         Task AddAsync(Part part);
         Task<bool> CheckForExistingRecordAsync(string id);
+        Task DeleteAsync(Part part);
     }
 }

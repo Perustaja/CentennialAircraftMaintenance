@@ -14,3 +14,12 @@ $(function () {
 
   });
 });
+
+// testing out modal data
+$('#deleteModal').on('show.bs.modal', function (e) {
+  var btn = $(e.relatedTarget);
+  var modelData = btn.data('id');
+  var form = $(this).getElementById('deleteForm');
+
+  form.setAttribute('asp-route-id', 'modelData')
+})

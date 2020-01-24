@@ -43,10 +43,37 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @Html.DisplayForModel()
         </tbody>
     </table>
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                @* header *@
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm deletion</h4>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                @* body *@
+                <div class="modal-body text-center">
+                    <h6 class="mb-4">Deleting a part cannot be undone, are you sure you would like to continue?</h6>
+                    <span style="padding-right: 5px">
+                        @* asp-route-id set by js *@
+                        <form method="post" asp-controller="Parts" asp-action="Delete" id="deleteForm" >
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </span>
+                    <span>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

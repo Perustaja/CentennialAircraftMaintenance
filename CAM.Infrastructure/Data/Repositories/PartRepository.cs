@@ -65,14 +65,21 @@ namespace CAM.Infrastructure.Data.Repositories
 
         public async Task AddAsync(Part part)
         {
-            _applicationContext.BeginTransaction();
+            await _applicationContext.BeginTransaction();
             await _applicationContext.AddAsync(part);
-            _applicationContext.Commit();
+            await _applicationContext.Commit();
         }
 
         public async Task<bool> CheckForExistingRecordAsync(string id)
         {
             return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
+        }
+
+        public async Task DeleteAsync(Part part)
+        {
+            await _applicationContext.BeginTransaction();
+            _applicationContext.Parts.Remove(part);
+            await _applicationContext.Commit();
         }
     }
 }

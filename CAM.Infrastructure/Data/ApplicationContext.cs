@@ -3,6 +3,7 @@ using CAM.Core.Entities;
 using CAM.Core.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
 using CAM.Core.Entities.DiscrepancyAggregate;
+using System.Threading.Tasks;
 
 namespace CAM.Infrastructure.Data
 {
@@ -41,13 +42,13 @@ namespace CAM.Infrastructure.Data
 
         private IDbContextTransaction _transaction;
 
-        public async void BeginTransaction()
+        public async Task BeginTransaction()
         {
             // Commented out during development as SQLite does not support this.
             // _transaction = await Database.BeginTransactionAsync();
         }
 
-        public async void Commit()
+        public async Task Commit()
         {
             try
             {
@@ -55,12 +56,14 @@ namespace CAM.Infrastructure.Data
             }
             finally
             {
+                // Commented out during development as SQLite does not support this.
                 // await _transaction.DisposeAsync();
             }
         }
 
-        public async void Rollback()
+        public async Task Rollback()
         {
+            // Commented out during development as SQLite does not support this.
             // await _transaction.RollbackAsync();
             // await _transaction.DisposeAsync();
         }
