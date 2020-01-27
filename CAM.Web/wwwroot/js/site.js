@@ -17,9 +17,8 @@ $(function () {
 
 // testing out modal data
 $('#deleteModal').on('show.bs.modal', function (e) {
-  var btn = $(e.relatedTarget);
-  var modelData = btn.data('id');
-  var form = $(this).getElementById('deleteForm');
+  var modelData = $(e.relatedTarget).data('id');
+  var form = $('#deleteOptionHidden');
 
-  form.setAttribute('asp-route-id', 'modelData')
+  form.attr('value', modelData)
 })

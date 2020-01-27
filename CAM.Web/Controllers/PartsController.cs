@@ -34,6 +34,7 @@ namespace CAM.Web.Controllers
         [TempData]
         public bool Success { get; set; } = false;
 
+        // details
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
         {
@@ -43,6 +44,7 @@ namespace CAM.Web.Controllers
             return View(viewmodel);
         }
 
+        // create
         [HttpGet("new")]
         public async Task<IActionResult> Create()
         {
@@ -76,17 +78,33 @@ namespace CAM.Web.Controllers
                     return RedirectToAction("Index", "Inventory");
                 }
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
-                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to save new part {part.Id}. {exc}");
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {part.Id}.");
                 Success = false;
             }
 
             return View();
         }
-        // edit
-        [HttpPost]
+
+        // editGET
+        [HttpGet("edit")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            return View();
+        }
+
+        // editPOST
+        [HttpPost("edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit()
+        {
+            return View();
+        }
+
+        // delete (handled by modal)
+        [HttpPost("delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
@@ -103,10 +121,10 @@ namespace CAM.Web.Controllers
                 StatusMessage = $"Part \"{part.Id}\" was successfully deleted.";
                 Success = true;
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
-                _logger.LogCritical(exc, $"{DateTime.Now}: Exception when trying to delete part {part.Id}. {exc}");
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to delete part: {part.Id}.");
                 Success = false;
             }
 

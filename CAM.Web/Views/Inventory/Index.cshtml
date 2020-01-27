@@ -10,7 +10,7 @@
             @* Left *@
             <div>
                 <div class="btn-group mr-1">
-                    <a class="btn btn-secondary" href="/inventory/p/new">Add Part</a>
+                    <a class="btn btn-secondary" asp-controller="parts" asp-action="create">Add Part</a>
                 </div>
                 <div class="btn-group mr-1">
                     <a class="btn btn-secondary" asp-controller="inventory" asp-action="receive">Receive Shipment</a>
@@ -43,37 +43,12 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Actions</th>
+                <th style="width: 200px">Actions</th>
             </tr>
         </thead>
         <tbody>
             @Html.DisplayForModel()
         </tbody>
     </table>
-    <div class="modal" id="deleteModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                @* header *@
-                <div class="modal-header">
-                    <h4 class="modal-title">Confirm deletion</h4>
-                    <button class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                @* body *@
-                <div class="modal-body text-center">
-                    <h6 class="mb-4">Deleting a part cannot be undone, are you sure you would like to continue?</h6>
-                    <span style="padding-right: 5px">
-                        @* asp-route-id set by js *@
-                        <form method="post" asp-controller="Parts" asp-action="Delete" id="deleteForm" >
-                            <input type="submit" value="Delete" class="btn btn-danger" />
-                        </form>
-                    </span>
-                    <span>
-                        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    @await Html.PartialAsync("_ModalPartsDelete")
 </div>
