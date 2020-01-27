@@ -1,0 +1,124 @@
+@model CAM.Web.ViewModels.Parts.PartsEditViewModel
+@{
+    ViewData["Title"] = "Add a new part";
+}
+
+@await Html.PartialAsync("_StatusMessagePartial", TempData)
+
+<div class="centered-form-container">
+    <div class="form-panel shadowed">
+        <div class="title-panel">
+            <h3>Add a new part</h3>
+            <hr />
+        </div>
+        @* Form *@
+        <form enctype="multipart/form-data" asp-controller="parts" asp-action="create" method="post" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* Id *@
+            <div class="form-group row">
+                <label asp-for="Id" class="col-sm-4 col-form-label">@Html.DisplayNameFor(m => m.Id)*</label>
+                <div class="col-sm-8">
+                    <input readonly="true" asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            </div>
+            @* CataloguePartNumber *@
+            <div class="form-group row">
+                <label asp-for="CataloguePartNumber" class="col-sm-4 col-form-label">
+                    <span class="popup" onclick="popupMessage('formPopup1')">
+                        <span class="popup-text popup-info" style="margin-right: 50px" id="formPopup1">
+                            If the manufacturer's part number is different from the part number prescribed by the IPC, enter the IPC number here.
+                        </span>
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                    @Html.DisplayNameFor(m => m.CataloguePartNumber)
+                    </label>
+                
+                <div class="col-sm-8">
+                    <input asp-for="CataloguePartNumber" class="form-control" />
+                    <span asp-validation-for="CataloguePartNumber" class="text-danger"></span>
+                </div>
+            </div>
+            @* Name *@
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.Name)*</label>
+                <div class="col-sm-8">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            @* Description *@
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.Description)*</label>
+                <div class="col-sm-8">
+                    <textarea rows="3" cols="50" asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            @* Category *@
+            <div class="form-group row">
+                <label asp-for="PartCategoryId" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.PartCategoryId)*</label>
+                <div class="col-sm-3">
+                    <select asp-for="PartCategoryId" class="form-control mr-1">
+                        @await Component.InvokeAsync("PartCategoryList")
+                    </select>
+                    <span asp-validation-for="PartCategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            @* PriceIn *@
+            <div class="form-group row">
+                <label asp-for="PriceIn" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.PriceIn)*</label>
+                <div class="col-sm-8">
+                    <input asp-for="PriceIn" class="form-control" />
+                    <span asp-validation-for="PriceIn" class="text-danger"></span>
+                </div>
+            </div>
+            @* PriceOut *@
+            <div class="form-group row">
+                <label asp-for="PriceOut" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.PriceOut)</label>
+                <div class="col-sm-8">
+                    <input asp-for="PriceOut" class="form-control" />
+                    <small class="form-text text-muted">
+                        Only fill in this field if this part goes against the standard automated price markup.
+                    </small>
+                    <span asp-validation-for="PriceOut" class="text-danger"></span>
+                </div>
+            </div>
+            @* Vendor *@
+            <div class="form-group row">
+                <label asp-for="Vendor" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.Vendor)*</label>
+                <div class="col-sm-8">
+                    <input asp-for="Vendor" class="form-control" />
+                    <span asp-validation-for="Vendor" class="text-danger"></span>
+                </div> 
+            </div>
+            @* Minimumstock *@
+            <div class="form-group row">
+                <label asp-for="MinimumStock" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.MinimumStock)</label>
+                <div class="col-sm-8">
+                    <input asp-for="MinimumStock" class="form-control" />
+                    <small class="form-text text-muted">
+                        Leave this blank unless an initial minimum stock level is desired.
+                    </small>
+                    <span asp-validation-for="MinimumStock" class="text-danger"></span>
+                </div> 
+            </div>
+            @* ImagePath, validation is done after post *@
+            <div class="form-group row">
+                <label asp-for="Image" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.Image)</label>
+                <div class="col-sm-8">
+                    <input asp-for="Image" />
+                    <small class="form-text text-muted">
+                        Images must be of a .jpg or .png file extension and be under 5MB in size.
+                    </small>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div> 
+            </div>
+            @* submit *@
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Add Part" class="btn btn-secondary mr-5" />
+                <button class="btn btn-dark" asp-controller="inventory" asp-action="index">Back to Inventory</button>
+            </div>
+        </form>
+    </div>
+</div>

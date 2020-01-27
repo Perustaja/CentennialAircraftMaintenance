@@ -38,7 +38,12 @@ namespace CAM.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(string id)
         {
+            // null id won't be encountered
             var part = await _partRepository.GetByIdAsync(id, false);
+            if (part == null)
+            {
+                return new BadRequestResult();
+            }
             var viewmodel = _mapper.Map<PartsDetailsViewModel>(part);
 
             return View(viewmodel);
@@ -46,7 +51,7 @@ namespace CAM.Web.Controllers
 
         // create
         [HttpGet("new")]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -92,7 +97,21 @@ namespace CAM.Web.Controllers
         [HttpGet("edit")]
         public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestResult();
+            }
+
+            var part = await _partRepository.GetByIdAsync(id);
+            if (part == null)
+            {
+                StatusMessage = "Unable to locate a matching part.";
+                Success = false;
+                return RedirectToAction("Index", "Inventory");
+            }
+            var viewmodel = _mapper.Map<PartsEditViewModel>(part);
+
+            return View(viewmodel);
         }
 
         // editPOST
@@ -100,6 +119,9 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit()
         {
+            // if image is null, don't touch the imagepath
+            // if it isn't, perform normal check
+            // save it
             return View();
         }
 
@@ -108,6 +130,11 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestResult();
+            }
+
             var part = await _partRepository.GetByIdAsync(id, false);
             if (part == null)
             {
