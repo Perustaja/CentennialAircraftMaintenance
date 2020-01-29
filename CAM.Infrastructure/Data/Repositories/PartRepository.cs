@@ -62,6 +62,11 @@ namespace CAM.Infrastructure.Data.Repositories
                 result = await queryable.AsNoTracking().ToListAsync();
             return result;
         }
+        public async Task<bool> CheckForExistingRecordAsync(string id)
+        {
+            return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
+        }
+
 
         public async Task AddAsync(Part part)
         {
@@ -70,10 +75,12 @@ namespace CAM.Infrastructure.Data.Repositories
             await _applicationContext.Commit();
         }
 
-        public async Task<bool> CheckForExistingRecordAsync(string id)
+        public async Task SaveChangesAsync()
         {
-            return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
+            await _applicationContext.BeginTransaction();
+            await _applicationContext.Commit();
         }
+
 
         public async Task DeleteAsync(Part part)
         {

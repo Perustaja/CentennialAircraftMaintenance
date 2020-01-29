@@ -1,6 +1,6 @@
 @model CAM.Web.ViewModels.Parts.PartsEditViewModel
 @{
-    ViewData["Title"] = "Add a new part";
+    ViewData["Title"] = $"Edit a part";
 }
 
 @await Html.PartialAsync("_StatusMessagePartial", TempData)
@@ -8,11 +8,11 @@
 <div class="centered-form-container">
     <div class="form-panel shadowed">
         <div class="title-panel">
-            <h3>Add a new part</h3>
+            <h3>Edit a part</h3>
             <hr />
         </div>
         @* Form *@
-        <form enctype="multipart/form-data" asp-controller="parts" asp-action="create" method="post" autocomplete="off">
+        <form enctype="multipart/form-data" asp-controller="parts" asp-action="edit" method="post" autocomplete="off">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @* Id *@
             <div class="form-group row">
@@ -109,14 +109,15 @@
                 <div class="col-sm-8">
                     <input asp-for="Image" />
                     <small class="form-text text-muted">
-                        Images must be of a .jpg or .png file extension and be under 5MB in size.
+                        Images must be of a .jpg or .png file extension and be under 5MB in size.<br>
+                        <b>If you do not wish to override the existing image, leave this blank.</b>
                     </small>
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div> 
             </div>
             @* submit *@
             <div class="form-group text-center mt-5">
-                <input type="submit" value="Add Part" class="btn btn-secondary mr-5" />
+                <input type="submit" value="Submit Changes" class="btn btn-secondary mr-5" />
                 <button class="btn btn-dark" asp-controller="inventory" asp-action="index">Back to Inventory</button>
             </div>
         </form>

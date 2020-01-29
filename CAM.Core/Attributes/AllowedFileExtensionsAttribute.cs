@@ -26,7 +26,7 @@ namespace CAM.Core.Attributes
                 if (!String.IsNullOrEmpty(fileExtension) && _extensions.Contains(fileExtension))
                     return ValidationResult.Success;
                 else
-                    return new ValidationResult("The given file's extensions are not valid.");
+                    return new ValidationResult("The given file's extension is not valid.");
             }
             catch (System.NullReferenceException) // file was not entered
             {

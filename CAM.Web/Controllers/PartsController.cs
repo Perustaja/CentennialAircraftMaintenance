@@ -64,36 +64,33 @@ namespace CAM.Web.Controllers
             {
                 return View();
             }
-
-            string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
-
-            var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
-            filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
+            if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
+            {
+                ModelState.AddModelError(String.Empty, "A part already exists with this manufacturer's part number");
+            }
             try
             {
-                if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
-                {
-                    ModelState.AddModelError(String.Empty, "A part already exists with this manufacturer's part number");
-                }
-                else
-                {
-                    await _partRepository.AddAsync(part);
-                    StatusMessage = ("Your new part has been successfully saved.");
-                    Success = true;
-                    return RedirectToAction("Index", "Inventory");
-                }
+                string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
+
+                var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
+                filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
+
+                await _partRepository.AddAsync(part);
+                StatusMessage = ("Your new part has been successfully saved.");
+                Success = true;
+                return RedirectToAction("Index", "Inventory");
             }
             catch (Exception)
             {
                 StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
-                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {part.Id}.");
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {vm.Id}.");
                 Success = false;
             }
 
             return View();
         }
 
-        // editGET
+        // edit GET
         [HttpGet("edit")]
         public async Task<IActionResult> Edit(string id)
         {
@@ -102,7 +99,7 @@ namespace CAM.Web.Controllers
                 return new BadRequestResult();
             }
 
-            var part = await _partRepository.GetByIdAsync(id);
+            var part = await _partRepository.GetByIdAsync(id, false);
             if (part == null)
             {
                 StatusMessage = "Unable to locate a matching part.";
@@ -114,15 +111,49 @@ namespace CAM.Web.Controllers
             return View(viewmodel);
         }
 
-        // editPOST
+        // edit POST
         [HttpPost("edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(PartsEditViewModel vm)
         {
-            // if image is null, don't touch the imagepath
-            // if it isn't, perform normal check
-            // save it
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            // Assume current values are valid
+            var part = await _partRepository.GetByIdAsync(vm.Id);
+            if (part == null)
+            {
+                StatusMessage = "Unable to locate this part. Please try again.";
+                Success = false;
+            }
+            // if a new image was provided, try to save it and get the filepath.
+            try
+            {
+                string filepath = vm.Image == null ? String.Empty : await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
+                part.PartCategoryId = vm.PartCategoryId;
+                part.CataloguePartNumber = vm.CataloguePartNumber;
+                part.Name = vm.Name;
+                part.Description = vm.Description;
+                part.ImagePath = String.IsNullOrEmpty(filepath) ? part.ImagePath : filepath;
+                part.PriceIn = vm.PriceIn;
+                part.PriceOut = vm.PriceOut;
+                part.Vendor = vm.Vendor;
+                part.MinimumStock = vm.MinimumStock;
+
+                await _partRepository.SaveChangesAsync();
+                StatusMessage = ("Changes saved successfully.");
+                Success = true;
+                return RedirectToAction("Index", "Inventory");
+            }
+            catch (Exception)
+            {
+                StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to edit existing part: {vm.Id}.");
+                Success = false;
+            }
+
+            return RedirectToAction("Index", "Inventory");
         }
 
         // delete (handled by modal)
@@ -134,14 +165,12 @@ namespace CAM.Web.Controllers
             {
                 return new BadRequestResult();
             }
-
-            var part = await _partRepository.GetByIdAsync(id, false);
+            var part = await _partRepository.GetByIdAsync(id);
             if (part == null)
             {
                 StatusMessage = "Unable to locate this part. Please try again.";
                 Success = false;
             }
-
             try
             {
                 await _partRepository.DeleteAsync(part);
