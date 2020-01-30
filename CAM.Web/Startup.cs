@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CAM.Infrastructure.Data;
 using AutoMapper;
+using Microsoft.OpenApi.Models;
 using Hangfire;
 using Hangfire.SQLite;
 using CAM.Core.Interfaces;
@@ -128,6 +129,12 @@ namespace CAM.Web
                         options.Conventions.AuthorizeAreaPage("Identity", "/Identity/Account/Logout");
                     });
 
+            // OpenAPI with docs
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CAM-API", Version = "v1" });
+            });
+
             // Cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -182,6 +189,14 @@ namespace CAM.Web
             // Auth BEFORE ENDPOINTS
             app.UseAuthentication();
             app.UseAuthorization();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // OpenAPI
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CAM API V1");
+            });
 
             app.UseEndpoints(endpoints =>
                 {

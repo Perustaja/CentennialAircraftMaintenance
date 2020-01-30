@@ -2,28 +2,31 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using CAM.Core.SharedKernel;
+using CAM.Core.Entities;
+using CAM.Core.Entities.DiscrepancyAggregate;
+using AutoMapper;
 
 namespace CAM.Web.ApiModels
 {
     /// <summary>
     /// Contains general item information used for inventory purposes. 
     /// </summary>
+    [AutoMap(typeof(Part), ReverseMap = true)]
     public class PartDto
     {
-        public int Id { get; set; }
-        // Category FK
-        public int CategoryId { get; set; }
+        public string Id { get; set; }
         // Main
-        [Required]
-        [StringLength(40)]
-        public string PartNumber { get; set; }
-        [Required]
-        [StringLength(40)]
-        public string Name { get; set; }
-        public int QtyCurrent { get; set; }
-        public int QtySoldYear { get; set; }
+        public string CataloguePartNumber { get; set; }
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
+        public int CurrentStock { get; set; }
+        public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }
-        public decimal PriceOut { get; set; }
-        public int MinimumStock { get; set; }
+        public decimal? PriceOut { get; set; }
+        public string Vendor { get; set; }
+        public bool IsDiscontinued { get; set; } = false;
+        public int? MinimumStock { get; set; }
+        // Category 
+        public PartCategoryDto PartCategory { get; set; }
     }
 }
