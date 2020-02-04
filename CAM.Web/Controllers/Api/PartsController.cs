@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CAM.Core.Entities;
@@ -22,17 +23,18 @@ namespace CAM.Web.Controllers.Api
             _mapper = mapper;
             _logger = logger;
         }
-        // GET api/parts/search?part-number=....
-        [HttpGet("{part-number}")]
-        public async Task<ActionResult<List<PartDto>>> Search(string part_number)
+
+        // GET api/parts/search?partNumber=<string>&maxCount=<int>
+        [HttpGet]
+        public async Task<ActionResult<List<PartDto>>> Search([FromQuery]string partNumber, [FromQuery]int maxCount = 4)
         {
             // get the part, passing String.Empty to note that there is no filter.
-            var parts = await _partRepository.GetBySearchParamsAsync(part_number, string.Empty, false);
+            var parts = await _partRepository.GetBySearchParamsAsync(partNumber, string.Empty, false);
             if (parts.Count == 0)
             {
                 return NotFound();
             }
-            var partDtos = _mapper.Map<List<PartDto>>(parts);
+            var partDtos = _mapper.Map<List<PartDto>>(parts.Take(maxCount));
 
             return partDtos;
         }

@@ -213,6 +213,7 @@ Html, body {
     text-align: initial;
     margin-bottom: 15px;
 }
+
 .centered-form-container {
     width: 100%;
     text-align: center;
@@ -335,6 +336,40 @@ Html, body {
 .opac97 {
     opacity: 97%;
 }
+
+/* AUTOCOMPLETE VIA API */
+
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete :active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.autocomplete-parts {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-parts div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-parts div:hover {
+    background-color: #e9e9e9;
+}
+
 /* PARTS-PAGE */
 
 .part-table {

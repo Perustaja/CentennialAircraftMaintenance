@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Receive a shipment";
+}
+<div class="form-group row">
+    <div class="autocomplete col-sm-4">
+        <input id="searchParts" type="text" class="form-control" placeholder="Trigger the api call..." autocomplete="false" />
+    </div>
+</div>
+@section Scripts {
+    @* Parts search API *@
+    <script>searchAutoComplete("searchParts", "")</script>
+}
