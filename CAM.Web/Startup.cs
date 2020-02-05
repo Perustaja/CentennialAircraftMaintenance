@@ -112,15 +112,9 @@ namespace CAM.Web
 
             // MVC + Razor
             services.AddSession();
-            services.AddControllersWithViews(config =>
-            {
-                // Default to requiring authorization
-                var policy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
-                config.Filters.Add(new AuthorizeFilter());
-            })
-            .AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            // Authorization policies - temporarily disabled. Add policies when ready
+            // services.AddAuthorization();
 
             services.AddRazorPages()
                     .AddRazorPagesOptions(options =>

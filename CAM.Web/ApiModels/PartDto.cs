@@ -18,7 +18,6 @@ namespace CAM.Web.ApiModels
         // Main
         public string CataloguePartNumber { get; set; }
         public string Description { get; set; }
-        public string ImagePath { get; set; }
         public int CurrentStock { get; set; }
         public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }
