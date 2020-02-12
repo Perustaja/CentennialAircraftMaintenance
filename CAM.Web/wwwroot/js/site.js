@@ -54,7 +54,7 @@ function partsAutoComplete(inputElementId) {
                     descSpan.innerText = `${json[i]["name"]}`;
                     liEle.appendChild(partNumSpan);
                     liEle.appendChild(descSpan);
-                    
+
                     liEle.addEventListener("click", function (e) {
                         input.value = json[i]["id"];
                         closeAllLists();
@@ -68,6 +68,10 @@ function partsAutoComplete(inputElementId) {
             lists[i].parentNode.removeChild(lists[i]);
         };
     }
+    // Close any lists if the document is clicked
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
 }
 
 
