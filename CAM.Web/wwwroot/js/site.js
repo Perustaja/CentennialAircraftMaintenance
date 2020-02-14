@@ -1,4 +1,5 @@
 ﻿const partsSearchApiUri = `${window.location.origin}/api/parts/search`
+
 // Popup message for modal
 function popupMessage(id) {
     var ele = document.getElementById(id);
@@ -25,9 +26,12 @@ function partsAutoComplete(inputElementId) {
         if (input == null || input.value.trim().length < 3) {
             return false;
         }
+        // reset currentFocus on input
+        var currentFocus = -1;
         // create container for items to be displayed
         var list = document.createElement("ul");
         list.setAttribute("class", "autocomplete-list");
+        list.setAttribute("id", "autocomplete-list");
         this.parentNode.appendChild(list);
 
         // setup url with query strings
@@ -65,6 +69,48 @@ function partsAutoComplete(inputElementId) {
                     })
                 }
             });
+        // Add event listener for arrow keys
+        input.addEventListener("keydown", function (e) {
+            var list = document.getElementById("autocomplete-list");
+            if (list) {
+                listEles = list.getElementsByClassName("list-item");
+                switch (e.keyCode) {
+                    case 38: // UP
+                        currentFocus--;
+                        setActive(listEles);
+                        break;
+                    case 40: // DOWN
+                        currentFocus++;
+                        setActive(listEles);
+                        break;
+                    case 13: // ENTER, click element if applicable
+                        e.preventDefault();
+                        if (currentFocus >= 0) {
+                            if (listEles) {
+                                listEles[currentFocus].click()
+                            }
+                        }
+                        break;
+                }
+            }
+            function setActive(listEles) {
+                if (!listEles) {
+                    return false;
+                }
+                // Remove active state before changing
+                removeActive(listEles)
+                if (currentFocus > listEles.length - 1) { currentFocus = 0 };
+                if (currentFocus < 0) { currentFocus = (listEles.length - 1) };
+                listEles[currentFocus].classList.add("list-item-active");
+
+            }
+            function removeActive(listEles) {
+                for (let i = 0; i < listEles.length; i++) {
+                    listEles[i].classList.remove("list-item-active")
+                }
+            }
+        });
+
     }
     function closeAllLists() {
         var lists = document.getElementsByClassName("autocomplete-list");
@@ -72,6 +118,7 @@ function partsAutoComplete(inputElementId) {
             lists[i].parentNode.removeChild(lists[i]);
         };
     }
+
     // Close any lists if the document is clicked
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);

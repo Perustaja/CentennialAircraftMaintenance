@@ -380,7 +380,7 @@ Html, body {
     font-size: 12pt;
 }
 
-.autocomplete-list li:hover {
+.autocomplete-list li:hover, .autocomplete-list .list-item-active{
     background-color: rgb(247, 247, 247);
 }
 
