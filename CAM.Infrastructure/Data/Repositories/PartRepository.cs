@@ -62,9 +62,12 @@ namespace CAM.Infrastructure.Data.Repositories
                 result = await queryable.AsNoTracking().ToListAsync();
             return result;
         }
+        /// <summary>
+        /// Checks if a part with a matching id exists. Both strings are copied with ToLower() so it is not case-sensitive.
+        /// </summary> 
         public async Task<bool> CheckForExistingRecordAsync(string id)
         {
-            return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
+            return await _applicationContext.Parts.AnyAsync(e => e.Id.ToLower() == id.ToLower()) ? true : false;
         }
 
 

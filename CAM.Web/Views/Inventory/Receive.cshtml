@@ -1,3 +1,4 @@
+@model CAM.Web.ViewModels.Inventory.InventoryReceiveViewModel
 @{
     ViewData["Title"] = "Receive a shipment";
 }
@@ -8,19 +9,24 @@
             <h3>Receive a shipment</h3>
             <hr />
         </div>
-        <div class="form-row justify-content-center">
-            <div class="form-group autocomplete col-sm-6">
-                <span class="fa fa-search form-search-input"></span>
-                <input id="searchParts" type="text" class="form-control has-search-icon" placeholder="Search for a part..." autocomplete="false" />
-                <span class="text-muted ml-1" style="font-size: 13px;">Click here to add a non-existing part.</span>
+        @* Doesn't use inline form or align-items-center with col-auto because of autocomplete elements *@
+        <form action="receive" method="post">
+            <div class="form-row justify-content-center pt-3">
+                <div class="form-group autocomplete col-md-6">
+                    <span class="fa fa-search form-search-input"></span>
+                    <input asp-for="InputPartNumber" id="searchParts" type="text" class="form-control has-search-icon" placeholder="Search for a part..." autocomplete="off" />
+                    <span asp-validation-for="InputPartNumber" class="text-danger" style="position: absolute; z-index: -1;"></span>
+                    @* <span class="text-muted ml-1" style="font-size: 13px;">Click here to add a non-existing part.</span> *@
+                </div>
+                <div class="form-group col-md-2">
+                    <input asp-for="InputQuantity" class="form-control" value="1" placeholder="Qty" />
+                    <span asp-validation-for="InputQuantity" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
+                </div>
             </div>
-            <div class="form-group col-sm-1">
-                <input type="number" class="form-control" placeholder="Qty" />
-            </div>
-            <div>
-                <button class="btn btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
-            </div>
-        </div>
+        </form>
         <hr />
     </div>
 </div>

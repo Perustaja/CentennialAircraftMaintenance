@@ -368,6 +368,7 @@ Html, body {
     border-top: none;
     border-radius: 2px;
     color: rgb(48, 45, 45);
+    background-color: white;
 }
 
 .list-item-header {

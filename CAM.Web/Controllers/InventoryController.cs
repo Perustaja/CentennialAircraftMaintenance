@@ -31,10 +31,39 @@ namespace CAM.Web.Controllers
             var viewmodel = _mapper.Map<List<InventoryIndexViewModel>>(parts);
             return View(viewmodel);
         }
+
         [HttpGet]
         public async Task<IActionResult> Receive()
         {
+            var viewmodel = new InventoryReceiveViewModel();
+            return View(viewmodel);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Receive(InventoryReceiveViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                
+                return View(vm);
+            }
             return View();
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public async Task<IActionResult> VerifyPartExists(string inputPartNumber)
+        {
+            // just in case the input gets sent without being set
+            if (String.IsNullOrWhiteSpace(inputPartNumber))
+            {
+                return Json($"The part number cannot be empty.");
+            }
+            else if (!await _partRepository.CheckForExistingRecordAsync(inputPartNumber))
+            {
+               return Json($"The part {inputPartNumber} could not be found.");
+            }
+
+            return Json(true);
         }
     }
 }

@@ -54,10 +54,14 @@ function partsAutoComplete(inputElementId) {
                     descSpan.innerText = `${json[i]["name"]}`;
                     liEle.appendChild(partNumSpan);
                     liEle.appendChild(descSpan);
+                    liEle.setAttribute("style", `z-index: ${i};`)
 
                     liEle.addEventListener("click", function (e) {
                         input.value = json[i]["id"];
                         closeAllLists();
+                        // the focus and blur is to trigger model validation after clicking the div
+                        input.focus();
+                        input.blur();
                     })
                 }
             });
@@ -73,15 +77,3 @@ function partsAutoComplete(inputElementId) {
         closeAllLists(e.target);
     });
 }
-
-
-// datepicker function 
-$.fn.datepicker.defaults.todayBtn = "linked";
-$.fn.datepicker.defaults.clearBtn = "linked";
-$.fn.datepicker.defaults.todayHighlight = "true";
-$.fn.datepicker.defaults.autoclose = "true";
-$(function () {
-    $('.datepicker').datepicker({
-
-    });
-});
