@@ -1,0 +1,33 @@
+@model CAM.Web.ViewModels.Inventory.InventoryReceiveListViewModel
+@using (Html.BeginCollectionItem("Parts"))
+{
+    <div class="receive-item col-md-8">
+        <div class="receive-img">
+            <img src=@Model.ImgThumb>
+        </div>
+        <div class="receive-title">
+            <a href="#">@Model.PartNumber</a>
+        </div>
+        <div class="receive-stock">
+            <span>Current stock: @Model.StockCount</span>
+        </div>
+        <div class="receive-desc">
+            <span>@Model.Category</span>
+        </div>
+    </div>
+    <div class="receive-qty col-md-2">
+        <div>
+            <form>
+                <fieldset class="border p-2">
+                    <legend class="w-auto">Quantity</legend>
+                        <input>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="receive-controls col-md-2">
+        <div>
+            Delete
+        </div>
+    </div>
+}

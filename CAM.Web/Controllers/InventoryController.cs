@@ -6,6 +6,7 @@ using AutoMapper;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Core.Entities;
 using CAM.Web.ViewModels.Inventory;
+using CAM.Web.ViewModels.Shared;
 
 namespace CAM.Web.Controllers
 {
@@ -18,6 +19,10 @@ namespace CAM.Web.Controllers
             _partRepository = partRepository;
             _mapper = mapper;
         }
+        [TempData]
+        public string StatusMessage { get; set; }
+        [TempData]
+        public bool Success { get; set; } = false;
         public async Task<IActionResult> Index(string search, string filter)
         {
             ViewData["FilterValue"] = !String.IsNullOrEmpty(filter) ? filter : "";
@@ -33,21 +38,23 @@ namespace CAM.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Receive()
+        public IActionResult Receive()
         {
-            var viewmodel = new InventoryReceiveViewModel();
-            return View(viewmodel);
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> Receive(InventoryReceiveViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                
-                return View(vm);
-            }
             return View();
+        }
+
+        [HttpGet("receive/add")]
+        public async Task<IActionResult> AddToList(string partId, int qty)
+        {
+            // fetch from db, verifying
+            // return partial with viewmodel passed to it
+            var part = _partRepository.GetByIdAsync(partId, false);
+            if (part == null)
+            {
+                return Json(false);
+            }
+            var vm = _mapper.Map<InventoryReceiveListViewModel>(part);
+            
         }
 
         [AcceptVerbs("GET", "POST")]
@@ -60,7 +67,7 @@ namespace CAM.Web.Controllers
             }
             else if (!await _partRepository.CheckForExistingRecordAsync(inputPartNumber))
             {
-               return Json($"The part {inputPartNumber} could not be found.");
+                return Json($"The part {inputPartNumber} could not be found.");
             }
 
             return Json(true);

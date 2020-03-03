@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace CAM.Web.ViewModels.Inventory
         [Remote(action:"VerifyPartExists", controller:"Inventory")]
         public string InputPartNumber { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "The quantity must be at least 1")]
+        [Range(1, int.MaxValue, ErrorMessage = "Must be at least 1")]
         public int InputQuantity { get; set; }
     }
 }
