@@ -6,10 +6,10 @@ namespace CAM.Web.ViewModels.Inventory
     [AutoMap(typeof(Part), ReverseMap = true)]
     public class InventoryReceiveListViewModel
     {
-        public string PartNumber { get; set; }
-        public int Quantity { get; set; }
-        public int StockCount { get; set; }
-        public string Category { get; set; }
+        public string Id { get; set; }
+        public string CataloguePartNumber { get; set; }
+        public string Name { get; set; }
+        public int CurrentStock { get; set; }
         [IgnoreMap]
         public string ImgThumb { get; set; }
         [IgnoreMap]

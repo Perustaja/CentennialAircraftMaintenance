@@ -43,20 +43,39 @@ namespace CAM.Web.Controllers
             return View();
         }
 
-        [HttpGet("receive/add")]
-        public async Task<IActionResult> AddToList(string partId, int qty)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Receive(InventoryReceiveListViewModel vm)
         {
-            // fetch from db, verifying
-            // return partial with viewmodel passed to it
-            var part = _partRepository.GetByIdAsync(partId, false);
-            if (part == null)
+            return NotFound();
+            if (!ModelState.IsValid)
             {
-                return Json(false);
+                return NotFound("test");
             }
-            var vm = _mapper.Map<InventoryReceiveListViewModel>(part);
-            
+            // validate EVERYTHING
+
+            return Ok();
         }
 
+        // Ajax only
+        [HttpPost]
+        public async Task<IActionResult> AddToReceivingList(InventoryReceiveViewModel vm)
+        {
+            if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0) // make sure that this doesn't crash with no qty
+            {
+                var part = await _partRepository.GetByIdAsync(vm.InputPartNumber, false);
+                if (part != null)
+                {
+                    var mappedVm = _mapper.Map<InventoryReceiveListViewModel>(part);
+                    mappedVm.ImgThumb = part.ImagePath; // temporary, needs thumbnail
+                    mappedVm.Qty = vm.InputQuantity;
+                    return PartialView("_ReceiveListPartial", mappedVm);
+                }
+            }
+            return Json(false);
+        }
+
+        // Remote validation
         [AcceptVerbs("GET", "POST")]
         public async Task<IActionResult> VerifyPartExists(string inputPartNumber)
         {

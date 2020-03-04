@@ -4,7 +4,6 @@
 }
 
 @await Html.PartialAsync("_StatusMessagePartial", TempData)
-
 <div class="centered-form-container">
     <div class="form-panel shadowed" style="min-width: 1000px;">
         <div class="title-panel">
@@ -12,7 +11,7 @@
             <hr />
         </div>
         @* Doesn't use inline form or align-items-center with col-auto because of autocomplete elements *@
-        <form asp-action="Receive" method="post">
+        <form asp-controller="Inventory" asp-action="AddToReceivingList" data-ajax="true" data-ajax-method="post" data-ajax-update="#partsList" data-ajax-mode="after">
             <div class="form-row justify-content-center pt-3">
                 <div class="form-group autocomplete col-md-6">
                     @* <span class="text-muted ml-1" style="font-size: 13px;">Click here to add a non-existing part.</span> *@
@@ -21,11 +20,11 @@
                     <span asp-validation-for="InputPartNumber" class="text-danger" style="position: absolute; z-index: -1;"></span>
                 </div>
                 <div class="form-group col-md-2">
-                    <input asp-for="InputQuantity" class="form-control" value="1" placeholder="Qty" />
+                    <input asp-for="InputQuantity" id="partQty" class="form-control" value="1" placeholder="Qty" />
                     <span asp-validation-for="InputQuantity" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-2">
-                    <button type="submit" class="btn btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
+                    <button type="submit" id="addPart" class="btn btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
                 </div>
             </div>
         </form>
@@ -35,14 +34,26 @@
                 <span>Current queue of parts</span>
             </div>
         </div>
-        <div class="row" id="partsList">
+        <form asp-controller="Inventory" asp-action="Receive" data-ajax="true" data-ajax-method="post" 
+            data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail"
+            data-ajax-success="onListSubmitSuccess">
+            <div class="row" id="partsList">
 
-        </div>
+            </div> 
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 @section Scripts {
-    @* Parts search API *@
+    @* Parts search API and ajax *@
     <script>
-        partsAutoComplete("searchParts")
+        partsAutoComplete("searchParts");
+
+        // ajax
+        onListSubmitFail = function (xhr) {
+            alert(`${xhr.status}: ${xhr.statusText}`);
+        };
     </script>
 }

@@ -3,16 +3,16 @@
 {
     <div class="receive-item col-md-8">
         <div class="receive-img">
-            <img src=@Model.ImgThumb>
+            <img src="@Url.Content(@Model.ImgThumb)">
         </div>
         <div class="receive-title">
-            <a href="#">@Model.PartNumber</a>
+            <a href="#">@Model.Id</a>
         </div>
         <div class="receive-stock">
-            <span>Current stock: @Model.StockCount</span>
+            <span>Current stock: @Model.CurrentStock</span>
         </div>
         <div class="receive-desc">
-            <span>@Model.Category</span>
+            <span>@Model.Name</span>
         </div>
     </div>
     <div class="receive-qty col-md-2">
@@ -20,7 +20,7 @@
             <form>
                 <fieldset class="border p-2">
                     <legend class="w-auto">Quantity</legend>
-                        <input>
+                        <input asp-for="Qty" />
                 </fieldset>
             </form>
         </div>

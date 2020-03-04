@@ -24,6 +24,7 @@
     <PackageReference Include="Hangfire.Core" Version="1.7.6" />
     <PackageReference Include="Hangfire.SQLite" Version="1.4.2" />
     <PackageReference Include="Hangfire.Sqlserver" Version="1.7.6" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="SwashBuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
