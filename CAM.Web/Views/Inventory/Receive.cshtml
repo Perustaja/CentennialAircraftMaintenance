@@ -11,7 +11,7 @@
             <hr />
         </div>
         @* Doesn't use inline form or align-items-center with col-auto because of autocomplete elements *@
-        <form asp-controller="Inventory" asp-action="AddToReceivingList" data-ajax="true" data-ajax-method="post" data-ajax-update="#partsList" data-ajax-mode="after">
+        <form asp-controller="Inventory" asp-action="AddToReceivingList" data-ajax="true" data-ajax-method="post" data-ajax-success="verifyThenAppend" data-ajax-failure="onAddFail">
             <div class="form-row justify-content-center pt-3">
                 <div class="form-group autocomplete col-md-6">
                     @* <span class="text-muted ml-1" style="font-size: 13px;">Click here to add a non-existing part.</span> *@
@@ -35,8 +35,7 @@
             </div>
         </div>
         <form asp-controller="Inventory" asp-action="Receive" data-ajax="true" data-ajax-method="post" 
-            data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail"
-            data-ajax-success="onListSubmitSuccess">
+            data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail">
             <div class="row" id="partsList">
 
             </div> 
@@ -46,12 +45,42 @@
         </form>
     </div>
 </div>
+
+@* Ajax failure modal with root div id of ajaxFailModal*@
+@await Html.PartialAsync("_ModalNotificationPartial", "ajaxFailModal");
+
 @section Scripts {
     @* Parts search API and ajax *@
     <script>
         partsAutoComplete("searchParts");
 
-        // ajax
+        // Ajax
+
+        // Works with ReceiveListPartial classes
+        verifyThenAppend = function (data, status, xhr) {
+            var dataHtml = $($(data).html());
+            dataHtml.
+            var newPartId = dataHtml.getElementById("newPartId");
+            var newQty = dataHtml.getElementById("newPartQty");
+            var existingIds = document.getElementsByClassName("part-id");
+            for (var i = 0; i < existingIds.length; i++) {
+                if (newPartId.innerText == existingIds[i].innerText) {
+                    var existingQtys = document.getElementsByClassName("part-qty");
+                    existingQtys[i].val(existingQtys[i].val() + newQty.val()).trigger("change");
+                    return;
+                }                
+            }
+            // no match found. Clear ids before appending
+            newPartId.removeAttribute("id");
+            newQty.removeAttribute("id");
+            $("#partsList").append($.parseHTML(dataHtml));
+        };
+
+        onAddFail = function (xhr) {
+            showModal("ajaxFailModal", "Unable to add part", 
+            "The server was unable to add the specified part, please ensure the part exists.<br /> <br /> If the issue persists, contact site administration.")
+        };
+
         onListSubmitFail = function (xhr) {
             alert(`${xhr.status}: ${xhr.statusText}`);
         };

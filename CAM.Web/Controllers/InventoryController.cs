@@ -61,7 +61,7 @@ namespace CAM.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToReceivingList(InventoryReceiveViewModel vm)
         {
-            if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0) // make sure that this doesn't crash with no qty
+            if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
             {
                 var part = await _partRepository.GetByIdAsync(vm.InputPartNumber, false);
                 if (part != null)
@@ -72,7 +72,7 @@ namespace CAM.Web.Controllers
                     return PartialView("_ReceiveListPartial", mappedVm);
                 }
             }
-            return Json(false);
+            return NotFound();
         }
 
         // Remote validation

@@ -14,6 +14,15 @@ $('#deleteModal').on('show.bs.modal', function (e) {
     form.attr('value', modelData)
 })
 
+// Reusable modal trigger for ajax responses
+function showModal(modalId, titleText, bodyText)
+{
+    var modal = $(`#${modalId}`);
+    modal.find(".modal-title").html(titleText);
+    modal.find(".modal-body").html(bodyText);
+    modal.modal("show");
+}
+
 // Search autocomplete for parts API
 function partsAutoComplete(inputElementId) {
     var input = document.getElementById(inputElementId);

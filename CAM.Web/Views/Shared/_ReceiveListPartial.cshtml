@@ -1,4 +1,6 @@
 @model CAM.Web.ViewModels.Inventory.InventoryReceiveListViewModel
+@* Utilizes empty CSS classes part-id and part-qty used to select and check for duplicates after ajax call. *@
+@* The id field *@
 @using (Html.BeginCollectionItem("Parts"))
 {
     <div class="receive-item col-md-8">
@@ -6,7 +8,7 @@
             <img src="@Url.Content(@Model.ImgThumb)">
         </div>
         <div class="receive-title">
-            <a href="#">@Model.Id</a>
+            <a href="@Url.Action("Parts", "Details", new { id = "@Model.Id"})" class="part-id" id="newPartId">@Model.Id</a>
         </div>
         <div class="receive-stock">
             <span>Current stock: @Model.CurrentStock</span>
@@ -20,7 +22,7 @@
             <form>
                 <fieldset class="border p-2">
                     <legend class="w-auto">Quantity</legend>
-                        <input asp-for="Qty" />
+                        <input class="part-qty" asp-for="Qty" id="newPartQty" />
                 </fieldset>
             </form>
         </div>
