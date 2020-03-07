@@ -58,22 +58,21 @@
 
         // Works with ReceiveListPartial classes
         verifyThenAppend = function (data, status, xhr) {
-            var dataHtml = $($(data).html());
-            dataHtml.
-            var newPartId = dataHtml.getElementById("newPartId");
-            var newQty = dataHtml.getElementById("newPartQty");
+            var parsedHtml = (new DOMParser().parseFromString(data, "text/html"));
+            var newPartId = parsedHtml.getElementById("newPartId");
+            var newQty = parsedHtml.getElementById("newPartQty");
             var existingIds = document.getElementsByClassName("part-id");
             for (var i = 0; i < existingIds.length; i++) {
                 if (newPartId.innerText == existingIds[i].innerText) {
                     var existingQtys = document.getElementsByClassName("part-qty");
-                    existingQtys[i].val(existingQtys[i].val() + newQty.val()).trigger("change");
+                    existingQtys[i].value = (parseInt(existingQtys[i].value) + parseInt(newQty.value));
                     return;
                 }                
             }
             // no match found. Clear ids before appending
             newPartId.removeAttribute("id");
             newQty.removeAttribute("id");
-            $("#partsList").append($.parseHTML(dataHtml));
+            $("#partsList").append(parsedHtml.documentElement.outerHTML);
         };
 
         onAddFail = function (xhr) {
