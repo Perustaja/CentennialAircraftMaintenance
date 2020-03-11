@@ -5,7 +5,7 @@
 
 @await Html.PartialAsync("_StatusMessagePartial", TempData)
 <div class="centered-form-container">
-    <div class="form-panel shadowed" style="min-width: 1000px;">
+    <div class="form-panel shadowed" style="width: 1000px;">
         <div class="title-panel">
             <h3>Receive a shipment</h3>
             <hr />
@@ -23,24 +23,36 @@
                     <input asp-for="InputQuantity" id="partQty" class="form-control" value="1" placeholder="Qty" />
                     <span asp-validation-for="InputQuantity" class="text-danger"></span>
                 </div>
-                <div class="form-group col-md-2">
-                    <button type="submit" id="addPart" class="btn btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
+                <div class="btn-toolbar pl-2" style="display: block;">
+                    <button type="submit" id="addPart" class="btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
+                    <button type="button" class="btn btn-dark">New part</button>
                 </div>
             </div>
         </form>
         <hr />
-        <div class="row receive-header">
-            <div class="col-md-12">
-                <span>Current queue of parts</span>
-            </div>
+        <div class="receive-header">
+            <span class="pl-2">Current queue of parts</span>
         </div>
         <form asp-controller="Inventory" asp-action="Receive" data-ajax="true" data-ajax-method="post" 
-            data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail">
-            <div class="row" id="partsList">
-
+            data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail"
+            data-ajax-loading="#loading">
+            <div id="partsList" class="parts-list">
+                <div class="row part-container part-dummy" id="dummyText">
+                    <div class="col-md-12">
+                        <p class="text-muted">
+                            There are currently no parts. Start adding items to receive by searching and using the "Add to list" button.
+                            <br />
+                            <br />
+                            If you cannot find a part, you can add it by clicking the "New part" button.
+                        </p>
+                    </div>        
+                </div>
             </div> 
-            <div class="form-group">
-                <button type="submit">Submit</button>
+            <div class="form-group text-right pt-2 pr-2">
+                <button type="submit" class="btn btn-secondary" id="submitList" disabled="true">Submit for receiving</button>
+                <span id="loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </span>
             </div>
         </form>
     </div>
@@ -53,6 +65,15 @@
     @* Parts search API and ajax *@
     <script>
         partsAutoComplete("searchParts");
+
+        // Remove part and disable submit button if list empty
+        $(document).on("click", ".btn-del", function(e) {
+            $(this).closest(".part-container").remove();
+            // Account for dummy div
+            if ($("#partsList").find(".part-container").length < 2) {
+                $("#submitList").prop("disabled", true);
+            }
+        });
 
         // Ajax
 
@@ -69,15 +90,17 @@
                     return;
                 }                
             }
-            // no match found. Clear ids before appending
+            // no match found. Clear ids before appending, hide placeholder text
             newPartId.removeAttribute("id");
             newQty.removeAttribute("id");
+            $("#dummyText").hide();
+            $("#submitList").prop("disabled", false);
             $("#partsList").append(parsedHtml.documentElement.outerHTML);
         };
 
         onAddFail = function (xhr) {
             showModal("ajaxFailModal", "Unable to add part", 
-            "The server was unable to add the specified part, please ensure the part exists.<br /> <br /> If the issue persists, contact site administration.")
+            "The server was unable to add the specified part, please ensure you have an internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.")
         };
 
         onListSubmitFail = function (xhr) {

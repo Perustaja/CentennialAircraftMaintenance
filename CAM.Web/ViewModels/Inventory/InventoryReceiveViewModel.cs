@@ -11,7 +11,7 @@ namespace CAM.Web.ViewModels.Inventory
         [Remote(action:"VerifyPartExists", controller:"Inventory")]
         public string InputPartNumber { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Must be at least 1")]
+        [Range(1, int.MaxValue, ErrorMessage = "Cannot be less than 1")]
         public int InputQuantity { get; set; }
     }
 }

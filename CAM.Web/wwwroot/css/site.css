@@ -215,7 +215,6 @@ Html, body {
 }
 
 .form-panel {
-    min-width: 800px;
     padding: 20px;
     display: inline-block;
     text-align: initial;
@@ -499,6 +498,7 @@ Html, body {
     display: flex;
     align-items: center;
 }
+
 .receive-qty input {
     width: 100%;
     border: none;
@@ -522,11 +522,44 @@ Html, body {
 }
 
 .receive-header {
-    font-size: 14pt;
-    background-color: rgb(207, 207, 207);
-    margin-bottom: 5px;
+    font-size: 13pt;
+    font-weight: 600;
+    padding: 5px;
+    background-color: rgb(223, 223, 223);
     border-radius: 2px;
+    border-left: solid rgb(185, 185, 185) 1px;
+    border-right: solid rgb(185, 185, 185) 1px;
+    border-top: solid rgb(185, 185, 185) 1px;
 }
+
+.parts-list {
+    height: 400px;
+    overflow: auto;
+    border-left: solid rgb(185, 185, 185) 1px;
+    border-right: solid rgb(185, 185, 185) 1px;
+    border-bottom: solid rgb(185, 185, 185) 1px;
+}
+
+.part-container {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: solid rgb(185, 185, 185) 1px;
+}
+
+/* Account for hidden dummy div */
+.part-container:nth-of-type(n+4) {
+    border-bottom: none;
+}
+
+.part-dummy {
+    display: flex;
+    align-content: center;
+    text-align: center;
+    height: 100%;
+}
+
 /* CUSTOM TOGGLE SWITCH */
 
 /* The switch - the box around the slider */

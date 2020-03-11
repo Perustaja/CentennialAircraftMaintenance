@@ -7,15 +7,18 @@ using CAM.Core.Interfaces.Repositories;
 using CAM.Core.Entities;
 using CAM.Web.ViewModels.Inventory;
 using CAM.Web.ViewModels.Shared;
+using Microsoft.Extensions.Logging;
 
 namespace CAM.Web.Controllers
 {
     public class InventoryController : Controller
     {
+        private readonly ILogger<InventoryController> _logger;
         private readonly IPartRepository _partRepository;
         private readonly IMapper _mapper;
-        public InventoryController(IPartRepository partRepository, IMapper mapper)
+        public InventoryController(ILogger<InventoryController> logger, IPartRepository partRepository, IMapper mapper)
         {
+            _logger = logger;
             _partRepository = partRepository;
             _mapper = mapper;
         }
@@ -43,11 +46,12 @@ namespace CAM.Web.Controllers
             return View();
         }
 
+        // Ajax only
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Receive(InventoryReceiveListViewModel vm)
         {
-            return NotFound();
+            
             if (!ModelState.IsValid)
             {
                 return NotFound("test");
@@ -66,7 +70,7 @@ namespace CAM.Web.Controllers
                 var part = await _partRepository.GetByIdAsync(vm.InputPartNumber, false);
                 if (part != null)
                 {
-                    var mappedVm = _mapper.Map<InventoryReceiveListViewModel>(part);
+                    var mappedVm = _mapper.Map<InventoryReceiveItemViewModel>(part);
                     mappedVm.ImgThumb = part.ImagePath; // temporary, needs thumbnail
                     mappedVm.Qty = vm.InputQuantity;
                     return PartialView("_ReceiveListPartial", mappedVm);
