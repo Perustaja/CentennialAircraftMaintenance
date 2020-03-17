@@ -11,6 +11,7 @@ using CAM.Core.Interfaces;
 using System;
 using CAM.Web.ViewModels.Shared;
 using Microsoft.Extensions.Logging;
+using CAM.Web.Attributes;
 
 namespace CAM.Web.Controllers
 {
@@ -185,6 +186,32 @@ namespace CAM.Web.Controllers
             }
 
             return RedirectToAction("Index", "Inventory");
+        }
+
+        // Ajax
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OnCreatePost(PartsCreateViewModel vm)
+        {
+            if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
+            {
+                return BadRequest("A part already exists with this manufacturer's part number.");
+            }
+            try
+            {
+                string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
+
+                var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
+                filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
+
+                await _partRepository.AddAsync(part);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {vm.Id}.");
+            }
+            return BadRequest("Unable to add the specified part. Please try again and contact site administration if the problem persists.");
         }
     }
 }

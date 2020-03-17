@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using CAM.Core.Entities;
 using CAM.Core.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CAM.Web.ViewModels.Parts
 {

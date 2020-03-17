@@ -5,6 +5,7 @@ using AutoMapper;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Web.ApiModels;
+using CAM.Web.ViewModels.Parts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

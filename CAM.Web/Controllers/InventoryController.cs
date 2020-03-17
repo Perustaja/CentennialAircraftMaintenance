@@ -46,12 +46,12 @@ namespace CAM.Web.Controllers
             return View();
         }
 
-        // Ajax only
+        // Ajax
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Receive(InventoryReceiveListViewModel vm)
+        public async Task<IActionResult> OnReceivePost(InventoryReceiveListViewModel vm)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return NotFound("test");
@@ -61,9 +61,9 @@ namespace CAM.Web.Controllers
             return Ok();
         }
 
-        // Ajax only
+        // Ajax
         [HttpPost]
-        public async Task<IActionResult> AddToReceivingList(InventoryReceiveViewModel vm)
+        public async Task<IActionResult> OnAddToReceivingListPost(InventoryReceiveViewModel vm)
         {
             if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
             {
@@ -80,7 +80,7 @@ namespace CAM.Web.Controllers
         }
 
         // Remote validation
-        [AcceptVerbs("GET", "POST")]
+        [AcceptVerbs("GET")]
         public async Task<IActionResult> VerifyPartExists(string inputPartNumber)
         {
             // just in case the input gets sent without being set

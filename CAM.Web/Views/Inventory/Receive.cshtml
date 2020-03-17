@@ -11,7 +11,7 @@
             <hr />
         </div>
         @* Doesn't use inline form or align-items-center with col-auto because of autocomplete elements *@
-        <form asp-controller="Inventory" asp-action="AddToReceivingList" data-ajax="true" data-ajax-method="post" data-ajax-success="verifyThenAppend" data-ajax-failure="onAddFail">
+        <form asp-controller="Inventory" asp-action="OnAddToReceivingListPost" data-ajax="true" data-ajax-method="post" data-ajax-success="verifyThenAppend" data-ajax-failure="onAddFail">
             <div class="form-row justify-content-center pt-3">
                 <div class="form-group autocomplete col-md-6">
                     @* <span class="text-muted ml-1" style="font-size: 13px;">Click here to add a non-existing part.</span> *@
@@ -25,7 +25,7 @@
                 </div>
                 <div class="btn-toolbar pl-2" style="display: block;">
                     <button type="submit" id="addPart" class="btn btn-secondary"><i class="far fa-plus-square"></i> Add to list</button>
-                    <button type="button" class="btn btn-dark">New part</button>
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#newPartModal">New part</button>
                 </div>
             </div>
         </form>
@@ -33,7 +33,7 @@
         <div class="receive-header">
             <span class="pl-2">Current queue of parts</span>
         </div>
-        <form asp-controller="Inventory" asp-action="Receive" data-ajax="true" data-ajax-method="post" 
+        <form asp-controller="Inventory" asp-action="OnReceivePost" data-ajax="true" data-ajax-method="post" 
             data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail"
             data-ajax-loading="#loading">
             <div id="partsList" class="parts-list">
@@ -57,6 +57,9 @@
         </form>
     </div>
 </div>
+
+@* Add new part ajax modal form *@
+@await Html.PartialAsync("_ModalPartsCreatePartial");
 
 @* Ajax failure modal with root div id of ajaxFailModal*@
 @await Html.PartialAsync("_ModalNotificationPartial", "ajaxFailModal");
@@ -104,7 +107,15 @@
         };
 
         onListSubmitFail = function (xhr) {
-            alert(`${xhr.status}: ${xhr.statusText}`);
+            alert(`${xhr.status}: ${xhr.responseText}`);
+        };
+
+        onAddNewPartFail = function (xhr) {
+            alert(`${xhr.status}: ${xhr.responseText}`);
+        };
+
+        onAddNewPartSuccess = function (xhr) {
+            alert("Successfully saved new part.");
         };
     </script>
 }
