@@ -114,17 +114,27 @@
         $(function() {
             $("#newPartForm").submit(function(e) {
                 e.preventDefault();
+                // Prevent submit if field validation triggers
+                if ($("#newPartForm > div.form-group").find("span.field-validation-error").length > 0) {
+                    return;
+                };
+
                 $.ajax({
                     url: "@Url.Action("OnCreatePost", "Parts")",
                     type: "post",
-                    data: new FormData(document.getElementById("newPartForm")),
+                    data: new FormData(this),
                     contentType: false,
                     processData: false,
                     success: function(xhr) {
-                        alert("Successfully added part. You may now add it to your list.")
+                        alert("Successfully added part. You may now add it to your list.");
+                        $("#newPartModal").modal("hide");
+                        $("#newPartForm").each(function() {
+                            this.reset();
+                        });
+
                     },
                     error: function() {
-                        alert("Unable to process request. If the issue persists, contact site administration.")
+                        alert("Unable to process request. If the issue persists, contact site administration.");
                     }
                 });
             });

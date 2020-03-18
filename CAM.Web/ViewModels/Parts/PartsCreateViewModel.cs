@@ -13,7 +13,9 @@ namespace CAM.Web.ViewModels.Parts
     {
         [Display(Name = "Manufacturer's Part #")]
         [Required(AllowEmptyStrings = false)]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 4)]
+        // Client side validation for existing part
+        [Remote(action: "VerifyPartNonExistent", controller: "Inventory")]
         public string Id { get; set; }
 
         // PartCategory FK

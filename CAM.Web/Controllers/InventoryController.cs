@@ -92,8 +92,17 @@ namespace CAM.Web.Controllers
             {
                 return Json($"The part {inputPartNumber} could not be found.");
             }
-
             return Json(true);
+        }
+
+        [AcceptVerbs("GET")]
+        public async Task<IActionResult> VerifyPartNonExistent(string id)
+        {
+            if (!String.IsNullOrWhiteSpace(id) && await _partRepository.CheckForExistingRecordAsync(id))
+            {
+                return Json($"A part already exists with the part number {id}.");
+            }
+            return Json(true);            
         }
     }
 }

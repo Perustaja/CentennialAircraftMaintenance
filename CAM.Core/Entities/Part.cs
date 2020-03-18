@@ -29,7 +29,7 @@ namespace CAM.Core.Entities
         }
         [Display(Name = "Manufacturer's Part #")]
         [Key]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 4)]
         public override string Id { get; set; }
         // PartCategory FK
         public int PartCategoryId { get; set; }
