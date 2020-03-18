@@ -14,8 +14,7 @@
                 <hr />
             </div>
             @* Form *@
-            <form enctype="multipart/form-data" asp-controller="Parts" asp-action="OnCreatePost" data-ajax="true" data-ajax-method="post"
-            autocomplete="off" data-ajax-failure="onAddNewPartFail" data-ajax-success="onAddNewPartSuccess">
+            <form method="post" asp-controller="Parts" asp-action="OnCreatePost" enctype="multipart/form-data" autocomplete="off" id="newPartForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @* Id *@
                 <div class="form-group row">
@@ -110,7 +109,7 @@
                 <div class="form-group row">
                     <label asp-for="Image" class="col-sm-4 col-form-label ">@Html.DisplayNameFor(m => m.Image)</label>
                     <div class="col-sm-8">
-                        <input asp-for="Image" />
+                        <input type="file" asp-for="Image" />
                         <small class="form-text text-muted">
                             Images must be of a .jpg or .png file extension and be under 5MB in size.
                         </small>
@@ -119,7 +118,7 @@
                 </div>
                 @* submit *@
                 <div class="form-group text-center mt-5">
-                    <input type="submit" value="Add Part" class="btn btn-secondary mr-5" />
+                    <input type="submit" value="Add Part" class="btn btn-secondary mr-5" id="submitNewPart" />
                 </div>
             </form>
         </div>

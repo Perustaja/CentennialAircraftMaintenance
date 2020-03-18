@@ -4,14 +4,10 @@ using AutoMapper;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Core.Entities;
 using CAM.Web.ViewModels.Parts;
-using Microsoft.EntityFrameworkCore;
 using CAM.Core.SharedKernel;
-using System.IO;
 using CAM.Core.Interfaces;
 using System;
-using CAM.Web.ViewModels.Shared;
 using Microsoft.Extensions.Logging;
-using CAM.Web.Attributes;
 
 namespace CAM.Web.Controllers
 {
@@ -193,6 +189,10 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnCreatePost(PartsCreateViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return NotFound("One of the values was invalid. The image specified may not follow guidelines, or one of your fields is invalid.");
+            }
             if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
             {
                 return BadRequest("A part already exists with this manufacturer's part number.");

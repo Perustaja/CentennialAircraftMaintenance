@@ -110,12 +110,24 @@
             alert(`${xhr.status}: ${xhr.responseText}`);
         };
 
-        onAddNewPartFail = function (xhr) {
-            alert(`${xhr.status}: ${xhr.responseText}`);
-        };
-
-        onAddNewPartSuccess = function (xhr) {
-            alert("Successfully saved new part.");
-        };
+        // Manual Ajax call due to IFormFile being submitted
+        $(function() {
+            $("#newPartForm").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "@Url.Action("OnCreatePost", "Parts")",
+                    type: "post",
+                    data: new FormData(document.getElementById("newPartForm")),
+                    contentType: false,
+                    processData: false,
+                    success: function(xhr) {
+                        alert("Successfully added part. You may now add it to your list.")
+                    },
+                    error: function() {
+                        alert("Unable to process request. If the issue persists, contact site administration.")
+                    }
+                });
+            });
+        });
     </script>
 }
