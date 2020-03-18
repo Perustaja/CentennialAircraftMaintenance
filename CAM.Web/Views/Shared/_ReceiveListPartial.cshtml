@@ -1,6 +1,5 @@
 @model CAM.Web.ViewModels.Inventory.InventoryReceiveItemViewModel
 @* Utilizes empty CSS classes part-id and part-qty used to select and check for duplicates after ajax call. *@
-@* The id field *@
 @using (Html.BeginCollectionItem("ReceiveItems"))
 {
 <div class="row part-container">
@@ -9,7 +8,8 @@
             <img src="@Url.Content(@Model.ImgThumb)">
         </div>
         <div class="receive-title">
-            <a href="@Url.Action("Parts", "Details", new { id = "@Model.Id"})" class="part-id" id="newPartId">@Model.Id</a>
+            @Html.HiddenFor(m => m.Id)
+            <a href="@Url.Action("Parts", "Details", new { id = "Model.Id"})" class="part-id" id="newPartId">@Model.Id</a>
         </div>
         <div class="receive-stock">
             <span>Current stock: @Model.CurrentStock</span>
@@ -20,17 +20,15 @@
     </div>
     <div class="receive-qty col-md-2">
         <div>
-            <form>
-                <fieldset class="border p-2">
+            <fieldset class="border p-2">
                     <legend class="w-auto">Quantity</legend>
-                        <input type="number" min="1" class="part-qty" asp-for="Qty" id="newPartQty" />
-                </fieldset>
-            </form>
+                        @Html.EditorFor(m => m.Qty, new { htmlAttributes = new { @class = "part-qty", id = "newPartQty", min = "1" } })
+            </fieldset>
         </div>
     </div>
     <div class="receive-controls col-md-2">
         <div>
-            <button type="button" class="btn btn-md btn-danger mt-3 btn-del" id="test">Remove</button>
+            <button type="button" class="btn btn-md btn-danger mt-3 btn-del">Remove</button>
         </div>
     </div>
 </div>

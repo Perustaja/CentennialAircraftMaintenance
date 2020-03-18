@@ -20,7 +20,7 @@
                     <span asp-validation-for="InputPartNumber" class="text-danger" style="position: absolute; z-index: -1;"></span>
                 </div>
                 <div class="form-group col-md-2">
-                    <input asp-for="InputQuantity" id="partQty" class="form-control" value="1" placeholder="Qty" />
+                    <input asp-for="InputQuantity" id="partQty" class="form-control" min="1" value="1" placeholder="Qty" />
                     <span asp-validation-for="InputQuantity" class="text-danger"></span>
                 </div>
                 <div class="btn-toolbar pl-2" style="display: block;">
@@ -69,12 +69,15 @@
     <script>
         partsAutoComplete("searchParts");
 
-        // Remove part and disable submit button if list empty
+        // Remove BCI hidden index, container, and disable submit button if list empty
         $(document).on("click", ".btn-del", function(e) {
-            $(this).closest(".part-container").remove();
-            // Account for dummy div
+            var cont = $(this).closest("div.part-container");
+            cont.prev("input[name='ReceiveItems.index']").remove();
+            cont.remove();
+            // Account for dummy div that is hidden on add
             if ($("#partsList").find(".part-container").length < 2) {
                 $("#submitList").prop("disabled", true);
+                $("#dummyText").show();
             }
         });
 
@@ -125,13 +128,12 @@
                     data: new FormData(this),
                     contentType: false,
                     processData: false,
-                    success: function(xhr) {
+                    success: function() {
                         alert("Successfully added part. You may now add it to your list.");
                         $("#newPartModal").modal("hide");
                         $("#newPartForm").each(function() {
                             this.reset();
                         });
-
                     },
                     error: function() {
                         alert("Unable to process request. If the issue persists, contact site administration.");

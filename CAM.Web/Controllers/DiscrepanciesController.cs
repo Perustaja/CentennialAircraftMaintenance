@@ -41,10 +41,10 @@ namespace CAM.Web.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> New()
-        {
-            // TBD
-            return View();
-        }
+        // public async Task<IActionResult> New()
+        // {
+        //     // TBD
+        //     return View();
+        // }
     }
 }
