@@ -15,8 +15,7 @@ $('#deleteModal').on('show.bs.modal', function (e) {
 })
 
 // Reusable modal trigger for ajax responses
-function showModal(modalId, titleText, bodyText)
-{
+function showModal(modalId, titleText, bodyText) {
     var modal = $(`#${modalId}`);
     modal.find(".modal-title").html(titleText);
     modal.find(".modal-body").html(bodyText);
@@ -32,7 +31,7 @@ function partsAutoComplete(inputElementId) {
     async function updateListFromApi() {
         closeAllLists();
 
-        if (input == null || input.value.trim().length < 3) {
+        if (input.value == null || input.value.trim().length < 3) {
             return false;
         }
         // reset currentFocus on input
@@ -83,20 +82,20 @@ function partsAutoComplete(inputElementId) {
             var list = document.getElementById("autocomplete-list");
             if (list) {
                 listEles = list.getElementsByClassName("list-item");
-                switch (e.keyCode) {
-                    case 38: // UP
+                switch (e.key) {
+                    case "ArrowUp":
                         currentFocus--;
                         setActive(listEles);
                         break;
-                    case 40: // DOWN
+                    case "ArrowDown": // DOWN
                         currentFocus++;
                         setActive(listEles);
                         break;
-                    case 13: // ENTER, click element if applicable
+                    case "Enter": // ENTER, click element if applicable
                         e.preventDefault();
-                        if (currentFocus >= 0) {
+                        if (currentFocus > -1) {
                             if (listEles) {
-                                listEles[currentFocus].click()
+                                $(".list-item-active").click()
                             }
                         }
                         break;
@@ -104,12 +103,12 @@ function partsAutoComplete(inputElementId) {
             }
             function setActive(listEles) {
                 if (!listEles) {
-                    return false;
+                    return;
                 }
                 // Remove active state before changing
                 removeActive(listEles)
-                if (currentFocus > listEles.length - 1) { currentFocus = 0 };
-                if (currentFocus < 0) { currentFocus = (listEles.length - 1) };
+                if (currentFocus >= listEles.length) { currentFocus = 0 };
+                if (currentFocus < 0) { currentFocus = listEles.length - 1 };
                 listEles[currentFocus].classList.add("list-item-active");
 
             }
@@ -133,3 +132,32 @@ function partsAutoComplete(inputElementId) {
         closeAllLists(e.target);
     });
 }
+
+// Manual Ajax call for ModalPartsCreate partial due to IFormFile being submitted
+$(function () {
+    $("#newPartForm").submit(function (e) {
+        e.preventDefault();
+        // Prevent submit if field validation triggers
+        if ($("#newPartForm > div.form-group").find("span.field-validation-error").length > 0) {
+            return;
+        };
+
+        $.ajax({
+            url: "/inventory/p",
+            type: "post",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Successfully saved new part.");
+                $("#newPartModal").modal("hide");
+                $("#newPartForm").each(function () {
+                    this.reset();
+                });
+            },
+            error: function () {
+                alert("Unable to process request. If the issue persists, contact site administration.");
+            }
+        });
+    });
+});

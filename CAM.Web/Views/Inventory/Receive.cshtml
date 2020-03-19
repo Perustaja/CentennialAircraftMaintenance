@@ -59,10 +59,10 @@
 </div>
 
 @* Add new part ajax modal form *@
-@await Html.PartialAsync("_ModalPartsCreatePartial");
+@await Html.PartialAsync("_ModalPartsCreatePartial", new CAM.Web.ViewModels.Parts.PartsCreateViewModel())
 
 @* Ajax failure modal with root div id of ajaxFailModal*@
-@await Html.PartialAsync("_ModalNotificationPartial", "ajaxFailModal");
+@await Html.PartialAsync("_ModalNotificationPartial", "ajaxFailModal")
 
 @section Scripts {
     @* Parts search API and ajax *@
@@ -106,40 +106,11 @@
 
         onAddFail = function (xhr) {
             showModal("ajaxFailModal", "Unable to add part", 
-            "The server was unable to add the specified part, please ensure you have an internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.")
+            "The server was unable to add the specified part, please ensure you have an active internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.")
         };
 
         onListSubmitFail = function (xhr) {
             alert(`${xhr.status}: ${xhr.responseText}`);
         };
-
-        // Manual Ajax call due to IFormFile being submitted
-        $(function() {
-            $("#newPartForm").submit(function(e) {
-                e.preventDefault();
-                // Prevent submit if field validation triggers
-                if ($("#newPartForm > div.form-group").find("span.field-validation-error").length > 0) {
-                    return;
-                };
-
-                $.ajax({
-                    url: "@Url.Action("OnCreatePost", "Parts")",
-                    type: "post",
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    success: function() {
-                        alert("Successfully added part. You may now add it to your list.");
-                        $("#newPartModal").modal("hide");
-                        $("#newPartForm").each(function() {
-                            this.reset();
-                        });
-                    },
-                    error: function() {
-                        alert("Unable to process request. If the issue persists, contact site administration.");
-                    }
-                });
-            });
-        });
     </script>
 }

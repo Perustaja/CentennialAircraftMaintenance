@@ -10,7 +10,7 @@
             @* Left *@
             <div>
                 <div class="btn-group mr-1">
-                    <a class="btn btn-secondary" asp-controller="parts" asp-action="create">Add Part</a>
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#newPartModal">Add Part</button>
                 </div>
                 <div class="btn-group mr-1">
                     <a class="btn btn-secondary" asp-controller="inventory" asp-action="receive">Receive Shipment</a>
@@ -50,5 +50,8 @@
             @Html.DisplayForModel()
         </tbody>
     </table>
+    @* ajax modals *@
+    @await Html.PartialAsync("_ModalPartsCreatePartial", new CAM.Web.ViewModels.Parts.PartsCreateViewModel())
+
     @await Html.PartialAsync("_ModalPartsDeletePartial")
 </div>

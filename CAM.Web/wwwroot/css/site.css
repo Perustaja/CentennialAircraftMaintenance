@@ -388,7 +388,7 @@ Html, body {
 }
 
 .autocomplete-list li:hover, .autocomplete-list .list-item-active {
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(209, 209, 209);
 }
 
 .has-search-icon {
@@ -549,7 +549,7 @@ Html, body {
 }
 
 /* Account for hidden dummy div */
-.part-container:nth-of-type(n+4) {
+.part-container:nth-of-type(n+4):last-child {
     border-bottom: none;
 }
 

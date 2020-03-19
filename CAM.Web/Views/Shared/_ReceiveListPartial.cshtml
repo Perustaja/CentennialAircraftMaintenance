@@ -9,7 +9,7 @@
         </div>
         <div class="receive-title">
             @Html.HiddenFor(m => m.Id)
-            <a href="@Url.Action("Parts", "Details", new { id = "Model.Id"})" class="part-id" id="newPartId">@Model.Id</a>
+            <a href="@Url.Action("Details", "Parts", new { id = Model.Id})" class="part-id" id="newPartId">@Model.Id</a>
         </div>
         <div class="receive-stock">
             <span>Current stock: @Model.CurrentStock</span>

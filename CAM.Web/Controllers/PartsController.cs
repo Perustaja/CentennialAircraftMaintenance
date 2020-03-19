@@ -46,47 +46,6 @@ namespace CAM.Web.Controllers
             return View(viewmodel);
         }
 
-        // create
-        [HttpGet("new")]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost("new")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PartsCreateViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
-            {
-                ModelState.AddModelError(String.Empty, "A part already exists with this manufacturer's part number");
-            }
-            try
-            {
-                string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
-
-                var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
-                filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
-
-                await _partRepository.AddAsync(part);
-                StatusMessage = ("Your new part has been successfully saved.");
-                Success = true;
-                return RedirectToAction("Index", "Inventory");
-            }
-            catch (Exception)
-            {
-                StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
-                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {vm.Id}.");
-                Success = false;
-            }
-
-            return View();
-        }
-
         // edit GET
         [HttpGet("edit")]
         public async Task<IActionResult> Edit(string id)
@@ -205,7 +164,7 @@ namespace CAM.Web.Controllers
                 filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
 
                 await _partRepository.AddAsync(part);
-                return Ok();
+                return CreatedAtAction("Parts", vm.Id);
             }
             catch (Exception)
             {
