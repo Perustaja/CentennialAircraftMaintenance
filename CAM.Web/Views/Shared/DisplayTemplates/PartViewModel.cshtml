@@ -1,7 +1,7 @@
-@model CAM.Web.ViewModels.Inventory.InventoryIndexViewModel
+@model CAM.Web.ViewModels.Shared.PartViewModel
 <tr>
     <td scope="col" class="td-clickable">
-        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.Id)</a>
+        <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => m.Id)</a>
     </td>
     <td scope="col" class="td-clickable">
         <a asp-controller="Parts" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(m => Model.Name)</a>

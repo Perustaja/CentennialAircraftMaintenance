@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
+using CAM.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace CAM.Infrastructure.Data.Repositories
@@ -40,28 +41,36 @@ namespace CAM.Infrastructure.Data.Repositories
                     .AsNoTracking()
                     .ToListAsync();
         }
-
-        public async Task<List<Part>> GetBySearchParamsAsync(string search, string filter, bool inclTracking = true)
+        /// <summary>
+        /// Returns a sorted and filtered PaginatedList of Parts ordered by their id length.
+        /// </summary> 
+        public async Task<PaginatedList<Part>> GetBySearchParamsAsync(string search, string filter, 
+        int page, int ipp, bool inclTracking = true)
         {
-            search = search ?? "";
-            List<Part> result;
-            IQueryable<Part> queryable;
-            // A little messy, but we search first regardless and then apply the specific filter if needed.
-            // A more elegant solution will be required for any serious filtering.
-            queryable = _applicationContext.Set<Part>()
-                .Where(e => e.Name.ToLower().Contains(search.ToLower()) || e.Description.ToLower().Contains(search.ToLower()) ||
-                    e.Id.ToLower().Contains(search) || e.CataloguePartNumber.ToLower().Contains(search))
-                .Include(e => e.PartCategory);
-
-            if (!String.IsNullOrEmpty(filter))
-                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock && (!e.IsDiscontinued));
+            search = search ?? String.Empty;
+            filter = filter ?? String.Empty;
+            PaginatedList<Part> result;
+            IQueryable<Part> queryable = GetQueryableBySearch(search, filter);
 
             if (inclTracking)
-                result = await queryable.ToListAsync();
+                result = await PaginatedList<Part>.CreateAsync(queryable, page, ipp);
             else
-                result = await queryable.AsNoTracking().ToListAsync();
+                result = await PaginatedList<Part>.CreateAsync(queryable.AsNoTracking(), page, ipp);
             return result;
         }
+        /// <summary>
+        /// Gets by API search values ordered by their id length. Returns an empty list if argument is null.
+        /// </summary> 
+        public async Task<List<Part>> GetByApiSearchValues(string search)
+        {
+            if (String.IsNullOrWhiteSpace(search))
+                return new List<Part>(); // Return an empty list
+            
+            IQueryable<Part> queryable = GetQueryableBySearch(search, String.Empty);
+
+            return await queryable.AsNoTracking().ToListAsync();
+        }
+
         /// <summary>
         /// Checks if a part with a matching id exists. Both strings are copied with ToLower() so it is not case-sensitive.
         /// </summary> 
@@ -69,7 +78,6 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             return await _applicationContext.Parts.AnyAsync(e => e.Id.ToLower() == id.ToLower()) ? true : false;
         }
-
 
         public async Task AddAsync(Part part)
         {
@@ -84,12 +92,34 @@ namespace CAM.Infrastructure.Data.Repositories
             await _applicationContext.Commit();
         }
 
-
         public async Task DeleteAsync(Part part)
         {
             await _applicationContext.BeginTransaction();
             _applicationContext.Parts.Remove(part);
             await _applicationContext.Commit();
+        }
+        private IQueryable<Part> GetQueryableBySearch(string search, string filter)
+        {
+            IQueryable<Part> queryable;
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                queryable = _applicationContext.Set<Part>()
+                    .Where(e => e.Name.ToLower().Contains(search.ToLower()) || e.Description.ToLower().Contains(search.ToLower()) ||
+                        e.Id.ToLower().Contains(search) || e.CataloguePartNumber.ToLower().Contains(search))
+                    .Include(e => e.PartCategory)
+                    .OrderBy(e => e.Id.Length);
+            }
+            else
+            {
+                queryable = _applicationContext.Set<Part>()
+                    .Include(e => e.PartCategory)
+                    .OrderBy(e => e.Id.Length);
+            }
+
+            if (!String.IsNullOrWhiteSpace(filter))
+                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock && (!e.IsDiscontinued));
+
+            return queryable;
         }
     }
 }

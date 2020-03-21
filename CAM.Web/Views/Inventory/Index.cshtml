@@ -1,4 +1,4 @@
-@model IEnumerable<CAM.Web.ViewModels.Inventory.InventoryIndexViewModel>
+@model CAM.Web.ViewModels.Inventory.InventoryIndexViewModel
 @{
     ViewData["Title"] = "Inventory";
 }
@@ -47,11 +47,84 @@
             </tr>
         </thead>
         <tbody>
-            @Html.DisplayForModel()
+            @Html.DisplayFor(m => m.PaginatedParts)
         </tbody>
+        <tfoot>
+            <td colspan="6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>
+                            <span class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" data-toggle="dropdown"></button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                                asp-route-filter="@ViewData["FilterValue"]" asp-route-page="@ViewData["PageValue"]"
+                                                asp-route-ipp="10">10
+                                            </a>
+                                            </li>
+                                        <li>
+                                            <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                                asp-route-filter="@ViewData["FilterValue"]" asp-route-page="@ViewData["PageValue"]"
+                                                asp-route-ipp="20">20
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </span>
+                        </span>
+                        <span>@Model.PaginatedParts.StateMessage</span>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item">
+                                <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                    asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
+                                    asp-route-page="1" class="page-link">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <button asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                    asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
+                                    asp-route-page="@(Model.PaginatedParts.PageIndex - 1)" 
+                                    disabled="@(!Model.PaginatedParts.HasPrevPage)" class="page-link">
+                                    <i class="fas fa-angle-left"></i>
+                                </button>
+                            </li>
+                            @foreach (int num in Model.PaginatedParts.ControlPanelPageNumbers)
+                            {
+                                <li class="page-item">
+                                <button asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                    asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
+                                    asp-route-page="@num" 
+                                    disabled="@(!Model.PaginatedParts.PageInRange(num))" class="page-link">
+                                    @num
+                                </button>
+                                </li>
+                            }
+                            <li class="page-item">
+                                <button asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                    asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
+                                    asp-route-page="@(Model.PaginatedParts.PageIndex + 1)" 
+                                    disabled="@(!Model.PaginatedParts.HasNextPage)" class="page-link">
+                                    <i class="fas fa-angle-right"></i>
+                                </button>
+                            </li>
+                            <li class="page-item">
+                                <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
+                                    asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
+                                    asp-route-page="@Model.PaginatedParts.PageTotal" class="page-link">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tfoot>
     </table>
-    @* ajax modals *@
-    @await Html.PartialAsync("_ModalPartsCreatePartial", new CAM.Web.ViewModels.Parts.PartsCreateViewModel())
-
-    @await Html.PartialAsync("_ModalPartsDeletePartial")
 </div>
+@* ajax modals *@
+@await Html.PartialAsync("_ModalPartsCreatePartial", new CAM.Web.ViewModels.Parts.PartsCreateViewModel())
+
+@await Html.PartialAsync("_ModalPartsDeletePartial")

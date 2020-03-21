@@ -31,8 +31,11 @@ namespace CAM.Web.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<List<PartDto>>> Search([FromQuery]string partNumber, [FromQuery]int maxCount = 4)
         {
+            // Null string should not be allowed, but just incase
+            if (string.IsNullOrWhiteSpace(partNumber))
+                return NotFound();
             // get the part, passing String.Empty to note that there is no filter.
-            var parts = await _partRepository.GetBySearchParamsAsync(partNumber, string.Empty, false);
+            var parts = await _partRepository.GetByApiSearchValues(partNumber);
             if (parts.Count == 0)
             {
                 return NotFound();

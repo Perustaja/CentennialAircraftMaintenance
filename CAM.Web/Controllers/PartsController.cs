@@ -105,7 +105,7 @@ namespace CAM.Web.Controllers
             catch (Exception)
             {
                 StatusMessage = "There was an error handling your request. Try again, and if the issue persists contact site administration.";
-                _logger.LogCritical($"{DateTime.Now}: Exception when trying to edit existing part: {vm.Id}.");
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to edit existing part.");
                 Success = false;
             }
 

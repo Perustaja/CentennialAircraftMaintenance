@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Infrastructure.Data.Repositories;
+using CAM.Web.Mapping;
 
 namespace CAM.Web
 {
@@ -71,6 +72,7 @@ namespace CAM.Web
             services.AddScoped<IWorkStatusRepository, WorkStatusRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
+            services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();
 
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();
