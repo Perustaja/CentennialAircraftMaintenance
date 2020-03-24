@@ -49,7 +49,7 @@ namespace CAM.Web.ViewModels.Parts
         [Display(Name = "Part Image")]
         [DataType(DataType.Upload)]
         [MaxFileSizeInBytes(5 * 1024 * 1024)]
-        [AllowedFileExtensions(false, ".jpg", ".png")]
+        [AllowedFileExtensions(false, ".jpg", ".png", "jpeg")]
         public IFormFile Image { get; set; }
     }
 }

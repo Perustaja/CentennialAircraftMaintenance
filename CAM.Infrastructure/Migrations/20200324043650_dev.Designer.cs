@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200116235037_dev")]
+    [Migration("20200324043650_dev")]
     partial class dev
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,6 +181,9 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ImageThumbPath")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsDiscontinued")
                         .HasColumnType("INTEGER");
 
@@ -207,7 +210,7 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("Vendor")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 

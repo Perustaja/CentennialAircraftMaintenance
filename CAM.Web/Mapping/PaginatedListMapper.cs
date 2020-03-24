@@ -23,7 +23,7 @@ namespace CAM.Web.Mapping
             {
                 convertedList.Add(_mapper.Map<T>(obj));
             }
-            return new PaginatedList<T>(convertedList, convertedList.Count, 
+            return new PaginatedList<T>(convertedList, orig.ItemTotal, 
             orig.PageIndex, orig.ItemsPerPage);
         }
     }

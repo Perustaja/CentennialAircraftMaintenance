@@ -243,6 +243,48 @@ Html, body {
     box-shadow: 1px 1px 2px 2px #d9d9d9;
 }
 
+/* pagination */
+
+.pagination-panel div {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.pagination-panel a.page-link {
+    text-decoration: none;
+    font-size: 12pt;
+    font-weight: 600;
+    color: rgb(56, 56, 56);
+}
+
+.pagination-panel a[disabled="disabled"] {
+    pointer-events: none;
+    color: grey;
+}
+
+.pagination-panel a[current="current"] {
+    pointer-events: none;
+    background-color: rgb(230, 230, 230);
+}
+
+.pagination-panel button.btn-light {
+    background-color: rgb(216, 216, 216);
+}
+
+.pagination-panel .dropdown-menu a {
+    text-decoration: none;
+}
+
+ul.pagination-dropdown {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+}
+
+.pagination-dropdown a {
+    display: block;
+}
+
 /* LOGIN-PAGE */
 
 .login-container-parent {
@@ -549,6 +591,7 @@ Html, body {
 }
 
 /* Account for hidden dummy div */
+
 .part-container:nth-of-type(n+4):last-child {
     border-bottom: none;
 }

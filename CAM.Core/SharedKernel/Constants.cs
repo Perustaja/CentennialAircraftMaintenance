@@ -6,8 +6,11 @@ namespace CAM.Core.SharedKernel
     {
         public const string DATE_FORMAT = "{0:MM/dd/yyyy}";
         public const decimal PRICE_MARKUP = 1.2m;
+        public static IReadOnlyList<string> ALLOWED_IMAGE_EXTENSIONS = new List<string>() { ".png", ".jpg", "jpeg" };
         // This will store locally, and will be setup as a configuration variable in deployment
-        public const string PARTS_DIRECTORY = "wwwroot/img/parts";
-        public const string DEFAULT_IMAGE_NAME = "default.png";
+        public const string PARTS_IMAGES_DIRECTORY = "wwwroot/img/parts";
+        public const string DEFAULT_IMAGE_PATH = PARTS_IMAGES_DIRECTORY + "/" + "default.png";
+        public const string PARTS_THUMB_DIRECTORY = "wwwroot/img/parts/thumb";
+        public const string DEFAULT_THUMB_PATH = PARTS_THUMB_DIRECTORY + "/" + "default.png";
     }
 }

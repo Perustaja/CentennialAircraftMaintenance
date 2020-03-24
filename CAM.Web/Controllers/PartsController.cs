@@ -86,16 +86,15 @@ namespace CAM.Web.Controllers
             // if a new image was provided, try to save it and get the filepath.
             try
             {
-                string filepath = vm.Image == null ? String.Empty : await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
                 part.PartCategoryId = vm.PartCategoryId;
                 part.CataloguePartNumber = vm.CataloguePartNumber;
                 part.Name = vm.Name;
                 part.Description = vm.Description;
-                part.ImagePath = String.IsNullOrEmpty(filepath) ? part.ImagePath : filepath;
                 part.PriceIn = vm.PriceIn;
                 part.PriceOut = vm.PriceOut;
                 part.Vendor = vm.Vendor;
                 part.MinimumStock = vm.MinimumStock;
+                part = await _fileHandler.SetPartImage(part, vm.Image);
 
                 await _partRepository.SaveChangesAsync();
                 StatusMessage = ("Changes saved successfully.");
@@ -158,11 +157,10 @@ namespace CAM.Web.Controllers
             }
             try
             {
-                string filePath = await _fileHandler.TrySaveImageAndReturnPathAsync(vm.Id, vm.Image, Constants.PARTS_DIRECTORY);
-
                 var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
-                filePath, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
-
+                vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
+                part = await _fileHandler.SetPartImage(part, vm.Image);
+                
                 await _partRepository.AddAsync(part);
                 return CreatedAtAction("Parts", vm.Id);
             }

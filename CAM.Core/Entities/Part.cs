@@ -12,14 +12,13 @@ namespace CAM.Core.Entities
     public class Part : BaseEntity<string>
     {
         public Part(string id, int partCategoryId, string cataloguePartNumber, string name, string description,
-        string imagePath, decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
+        decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
         {
             Id = id;
             PartCategoryId = partCategoryId;
             CataloguePartNumber = cataloguePartNumber ?? Id;
             Name = name;
             Description = description;
-            ImagePath = imagePath;
             CurrentStock = 0;
             QtySoldToDate = 0;
             PriceIn = priceIn;
@@ -44,7 +43,8 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(600)]
         public string Description { get; set; }
-        public string ImagePath { get; set; }
+        public string ImagePath { get; set; } = Constants.DEFAULT_IMAGE_PATH;
+        public string ImageThumbPath { get; set; } = Constants.DEFAULT_THUMB_PATH;
         public int CurrentStock { get; set; }
         public int QtySoldToDate { get; set; }
         public decimal PriceIn { get; set; }

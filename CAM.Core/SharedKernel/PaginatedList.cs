@@ -48,7 +48,7 @@ namespace CAM.Core.SharedKernel
         }
         public string StateMessage
         {
-            get => $"Showing {ItemIndex} to {ItemEndIndex} of {ItemTotal} entries.";
+            get => $"Showing {ItemIndex} to {ItemEndIndex} of {ItemTotal} entries";
         }
         public bool PageInRange(int index) => (index > 0 && index <= PageTotal) ? true : false;
         public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int ipp)

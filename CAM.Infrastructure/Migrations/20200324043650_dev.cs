@@ -93,11 +93,12 @@ namespace CAM.Infrastructure.Migrations
                     Name = table.Column<string>(maxLength: 40, nullable: false),
                     Description = table.Column<string>(maxLength: 600, nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
+                    ImageThumbPath = table.Column<string>(nullable: true),
                     CurrentStock = table.Column<int>(nullable: false),
                     QtySoldToDate = table.Column<int>(nullable: false),
                     PriceIn = table.Column<decimal>(nullable: false),
                     PriceOut = table.Column<decimal>(nullable: true),
-                    Vendor = table.Column<string>(maxLength: 20, nullable: false),
+                    Vendor = table.Column<string>(maxLength: 30, nullable: false),
                     IsDiscontinued = table.Column<bool>(nullable: false),
                     MinimumStock = table.Column<int>(nullable: true)
                 },
