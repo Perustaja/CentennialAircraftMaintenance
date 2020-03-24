@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces;
 using CAM.Core.SharedKernel;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -38,42 +39,41 @@ namespace CAM.Infrastructure.Services
                 _logger.LogError($"Unable to save new image and assign to part. The given IFormFile is null or has an invalid extension.");
                 return part;
             }
-            string imagePath = $"{Constants.PARTS_IMAGES_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
-            string imageThumbPath = $"{Constants.PARTS_THUMB_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
-            if (!await TrySaveImage(image, imagePath) || !await TrySaveImage(CreateThumbnail(imagePath), imageThumbPath))
+            string imageSavePath = $"{Constants.PARTS_IMAGES_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            string imageThumbSavePath = $"{Constants.PARTS_THUMB_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            if (!await TrySaveImageAndThumb(image, imageSavePath, imageThumbSavePath))
             {
-                File.Delete(imagePath); 
-                File.Delete(imageThumbPath);
+                File.Delete(imageSavePath);
+                File.Delete(imageThumbSavePath);
                 return part; // Error will be logged and part will remain unchanged
             }
-            part.ImagePath = imagePath;
-            part.ImageThumbPath = imageThumbPath;
+            part.ImagePath = $"{Constants.PARTS_IMAGES_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            part.ImageThumbPath = $"{Constants.PARTS_THUMB_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
             return part;
         }
-        private async Task<bool> TrySaveImage(IFormFile image, string imagePath)
+        private async Task<bool> TrySaveImageAndThumb(IFormFile image, string imagePath, string imageThumbPath)
         {
             using (var stream = System.IO.File.Create(imagePath))
             {
                 try
                 {
-                    _logger.LogInformation($"{DateTime.Now}: Attempting to save image at location: {imagePath}.");
+                    _logger.LogInformation($"{DateTime.Now}: Attempting to save image and thumb at location: {imagePath}, {imageThumbPath}.");
                     await image.CopyToAsync(stream);
                     _logger.LogInformation($"{DateTime.Now}: Successfully saved image at location: {imagePath}.");
-                    stream.Close();
+                    CreateThumbnail(stream).Save(imageThumbPath);
+                    _logger.LogInformation($"{DateTime.Now}: Successfully saved thumb at location: {imageThumbPath}.");
                     return true;
                 }
                 catch (Exception exc)
                 {
-                    _logger.LogError($"{DateTime.Now}: Unable to save image at location: {imagePath}. {exc.Message}");
-                    stream.Close();
+                    _logger.LogError($"{DateTime.Now}: Unable to save image or thumbnail: {exc.Message}");
                     return false;
                 }
             }
         }
-        private IFormFile CreateThumbnail(string filePath, int width = 75, int height = 75)
+        private Image CreateThumbnail(Stream stream, int width = 75, int height = 75)
         {
-            Image img = Image.FromFile(filePath).GetThumbnailImage(width, height, () => false, IntPtr.Zero);
-            return img as IFormFile;
+            return Image.FromStream(stream).GetThumbnailImage(width, height, () => false, IntPtr.Zero);
         }
     }
 }

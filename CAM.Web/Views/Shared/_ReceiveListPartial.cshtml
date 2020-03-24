@@ -5,7 +5,7 @@
 <div class="row part-container">
     <div class="receive-item col-md-8">
         <div class="receive-img">
-            <img src="@Url.Content(@Model.ImgThumb)">
+            <img src="@Url.Content(@Model.ImageThumbPath)" draggable="false">
         </div>
         <div class="receive-title">
             @Html.HiddenFor(m => m.Id)

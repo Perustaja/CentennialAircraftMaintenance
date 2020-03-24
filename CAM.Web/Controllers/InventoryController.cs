@@ -80,7 +80,6 @@ namespace CAM.Web.Controllers
                 if (part != null)
                 {
                     var mappedVm = _mapper.Map<InventoryReceiveItemViewModel>(part);
-                    mappedVm.ImgThumb = part.ImagePath; // temporary, needs thumbnail
                     mappedVm.Qty = vm.InputQuantity;
                     return PartialView("_ReceiveListPartial", mappedVm);
                 }

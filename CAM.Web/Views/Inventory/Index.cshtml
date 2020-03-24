@@ -96,8 +96,8 @@
                                 <li class="page-item">
                                     <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
                                         asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
-                                        asp-route-page="@num" current="@(num == Model.PaginatedParts.PageIndex)"
-                                        disabled="@(!Model.PaginatedParts.PageInRange(@num))" class="page-link">
+                                        asp-route-page="@num" data-current="@(num == Model.PaginatedParts.PageIndex)"
+                                        data-disabled="@(!Model.PaginatedParts.PageInRange(@num))" class="page-link">
                                         @num
                                     </a>
                                 </li>
@@ -106,7 +106,7 @@
                                 <a asp-action="Index" asp-route-search="@ViewData["SearchValue"]" 
                                     asp-route-filter="@ViewData["FilterValue"]" asp-route-ipp="@ViewData["IppValue"]"
                                     asp-route-page="@(Model.PaginatedParts.PageIndex + 1)"
-                                    disabled="@(!Model.PaginatedParts.HasNextPage)" class="page-link">
+                                    data-disabled="@(!Model.PaginatedParts.HasNextPage)" class="page-link">
                                     <i class="fas fa-angle-right"></i>
                                 </a>
                             </li>

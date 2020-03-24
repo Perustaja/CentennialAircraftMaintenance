@@ -149,7 +149,7 @@ namespace CAM.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return NotFound("One of the values was invalid. The image specified may not follow guidelines, or one of your fields is invalid.");
+                return BadRequest("The image specified does not follow guidelines. Please ensure the file has a valid extension and size.");
             }
             if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
             {

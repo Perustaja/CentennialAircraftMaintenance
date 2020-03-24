@@ -10,6 +10,7 @@ using CAM.Core.Entities;
 using CAM.Infrastructure.Services;
 using Microsoft.Extensions.Logging.Abstractions;
 using CAM.Tests.Builders;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CAM.Tests.UnitTests.Infrastructure.Services
 {

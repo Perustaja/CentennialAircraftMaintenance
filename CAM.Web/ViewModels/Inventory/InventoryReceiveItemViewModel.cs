@@ -10,8 +10,7 @@ namespace CAM.Web.ViewModels.Inventory
         public string CataloguePartNumber { get; set; }
         public string Name { get; set; }
         public int CurrentStock { get; set; }
-        [IgnoreMap]
-        public string ImgThumb { get; set; }
+        public string ImageThumbPath { get; set; }
         [IgnoreMap]
         public int Qty { get; set; }
     }

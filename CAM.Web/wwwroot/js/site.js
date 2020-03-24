@@ -150,13 +150,10 @@ $(function () {
             processData: false,
             success: function () {
                 alert("Successfully saved new part.");
-                $("#newPartModal").modal("hide");
-                $("#newPartForm").each(function () {
-                    this.reset();
-                });
+                location.reload();
             },
-            error: function () {
-                alert("Unable to process request. If the issue persists, contact site administration.");
+            error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
             }
         });
     });

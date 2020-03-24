@@ -18,7 +18,7 @@ namespace CAM.Web.ViewModels.Parts
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        public string ImagePath => $"~/img/parts/{Id.ToUpper()}.jpg";
+        public string ImagePath { get; set; }
         public int CurrentStock { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C}")]
