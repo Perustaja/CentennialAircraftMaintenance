@@ -7,9 +7,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains data relating to categories used for parts.
     /// </summary>
-    public class PartCategory : BaseEntity<int>
+    public class PartCategory
     {
-        public override int Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [StringLength(30)]
         public string Name { get; set; }

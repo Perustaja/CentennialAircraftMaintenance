@@ -10,12 +10,12 @@ namespace CAM.Core.Entities
     /// it is important to realize that despite the naming conventions, Aircraft.Id is reliant upon Times.AircraftId or else there would be errors
     /// if an aircraft were added overnight for instance. Please keep this in mind, the naming convention makes sense but remember who actually follows whom.
     /// </summary>
-    public class Aircraft : BaseEntity<string>
+    public class Aircraft
     {
         [ForeignKey("Times")]
         [StringLength(20)]
         [Display(Name = "Registration")]
-        public override string Id { get ; set; }
+        public string Id { get ; set; }
         //Main
         [StringLength(100)]
         [Display(Name = "Image Path")]

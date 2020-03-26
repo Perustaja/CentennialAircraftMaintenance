@@ -10,15 +10,15 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
     /// <summary>
     /// Contains information used for maintenance documents and tracking purposes. 
     /// </summary>
-    public class Discrepancy : BaseEntity<int>
+    public class Discrepancy
     {
-        public Discrepancy()
+        private Discrepancy()
         {
             // Required by EF
         }
         public Discrepancy(string aircraftId, int? workOrderId, int workStatusId, int? squawkId,
             string title, string description, string createdBy)
-        {   // checks are performed with viewmodel attributes before this
+        {
             AircraftId = aircraftId;
             WorkOrderId = workOrderId;
             WorkStatusId = workStatusId;
@@ -28,7 +28,7 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
             CreatedBy = createdBy;
             DateCreated = DateTime.Today;
         }
-        public override int Id { get; set; }
+        public int Id { get; set; }
 
         public string AircraftId { get; private set; }
 

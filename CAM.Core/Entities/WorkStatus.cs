@@ -7,9 +7,9 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains data used to represent the current status of a workorder or discrepancy.
     /// </summary>
-    public class WorkStatus : BaseEntity<int>
+    public class WorkStatus
     {
-        public override int Id { get; set; }
+        public int Id { get; set; }
         // Main
         [StringLength(15)]
         [Display(Name = "Description")]

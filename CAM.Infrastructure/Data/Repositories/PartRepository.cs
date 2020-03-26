@@ -117,7 +117,7 @@ namespace CAM.Infrastructure.Data.Repositories
             }
 
             if (!String.IsNullOrWhiteSpace(filter))
-                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock && (!e.IsDiscontinued));
+                queryable = queryable.Where(e => e.CurrentStock < e.MinimumStock);
 
             return queryable;
         }

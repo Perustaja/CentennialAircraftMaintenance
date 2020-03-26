@@ -9,8 +9,12 @@ namespace CAM.Core.Entities
     /// <summary>
     /// Contains general item information used for inventory purposes. 
     /// </summary>
-    public class Part : BaseEntity<string>
+    public class Part
     {
+        private Part()
+        {
+            // Required by EF
+        }
         public Part(string id, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
         {
@@ -29,7 +33,7 @@ namespace CAM.Core.Entities
         [Display(Name = "Manufacturer's Part #")]
         [Key]
         [StringLength(50, MinimumLength = 4)]
-        public override string Id { get; set; }
+        public string Id { get; set; }
         // PartCategory FK
         public int PartCategoryId { get; set; }
         // Main
@@ -53,11 +57,11 @@ namespace CAM.Core.Entities
         [Required]
         [StringLength(30)]
         public string Vendor { get; set; }
-        public bool IsDiscontinued { get; set; } = false;
         public int? MinimumStock { get; set; }
         // Category 
         public PartCategory PartCategory { get; set; }
         // Required by EF
         public List<DiscrepancyPart> DiscrepancyParts { get; set; }
+
     }
 }
