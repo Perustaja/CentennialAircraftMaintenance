@@ -47,8 +47,9 @@ namespace CAM.Infrastructure.Services
                 File.Delete(imageThumbSavePath);
                 return part; // Error will be logged and part will remain unchanged
             }
-            part.ImagePath = $"{Constants.PARTS_IMAGES_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
-            part.ImageThumbPath = $"{Constants.PARTS_THUMB_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            var imagePath = $"{Constants.PARTS_IMAGES_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            var imageThumbPath = $"{Constants.PARTS_THUMB_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            part.ChangeImage(imagePath, imageThumbPath);
             return part;
         }
         private async Task<bool> TrySaveImageAndThumb(IFormFile image, string imagePath, string imageThumbPath)

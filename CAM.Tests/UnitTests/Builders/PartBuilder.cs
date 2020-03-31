@@ -8,6 +8,21 @@ namespace CAM.Tests.Builders
 {
     public class PartBuilder
     {
+        public static Part ReturnDefaultPart()
+        {
+            return new Part
+            (
+                "test",
+                1,
+                "test",
+                "test",
+                "test",
+                0,
+                0,
+                "test",
+                0
+            );
+        }
         public static PartsCreateViewModel ReturnValidPartsCreateViewModel()
         {
             return new PartsCreateViewModel()
