@@ -20,8 +20,6 @@ namespace CAM.Infrastructure.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<LaborRecord> LaborRecords { get; set; }
         public DbSet<Part> Parts { get; set; }
-        public DbSet<Squawk> Squawks { get; set; }
-        public DbSet<SquawkStatus> SquawkStatuses { get; set; }
         public DbSet<Times> Times { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
         public DbSet<WorkStatus> WorkStatuses { get; set; }

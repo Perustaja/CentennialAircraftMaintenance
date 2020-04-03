@@ -31,7 +31,5 @@ namespace CAM.Core.Entities
         public bool IsTwin { get; set; } = false;
         // Times 
         public Times Times { get; set; }
-        // Navigation properties
-        public List<Squawk> Squawks { get; set; }
     }
 }

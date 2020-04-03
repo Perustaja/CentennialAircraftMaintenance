@@ -12,37 +12,18 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
     /// </summary>
     public class Discrepancy
     {
-        private Discrepancy()
-        {
-            // Required by EF
-        }
-        public Discrepancy(string aircraftId, int? workOrderId, int workStatusId, int? squawkId,
-            string title, string description, string createdBy)
-        {
-            AircraftId = aircraftId;
-            WorkOrderId = workOrderId;
-            WorkStatusId = workStatusId;
-            SquawkId = squawkId;
-            Title = title;
-            Description = description;
-            CreatedBy = createdBy;
-            DateCreated = DateTime.Today;
-        }
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
         public string AircraftId { get; private set; }
 
         public int WorkStatusId { get; private set; }
 
-        public int? WorkOrderId { get; private set; }
-
-        public int? SquawkId { get; private set; }
-
+        public int WorkOrderId { get; private set; }
         // Main
         [StringLength(15)]
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Resolution { get; set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public string Resolution { get; private set; }
 
         [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
@@ -54,9 +35,24 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         [StringLength(60)]
         public string CreatedBy { get; private set; }
         // Navigation properties
-        public Aircraft Aircraft { get; set; }
-        public List<LaborRecord> LaborRecords { get; set; }
-        public WorkStatus WorkStatus { get; set; }
-        public List<DiscrepancyPart> DiscrepancyParts { get; set; }
+        public Aircraft Aircraft { get; private set; }
+        public List<LaborRecord> LaborRecords { get; private set; }
+        public WorkStatus WorkStatus { get; private set; }
+        public List<DiscrepancyPart> DiscrepancyParts { get; private set; }
+        private Discrepancy()
+        {
+            // Required by EF
+        }
+        public Discrepancy(string aircraftId, int workOrderId, int workStatusId, string title,
+        string description, string createdBy)
+        {
+            AircraftId = aircraftId;
+            WorkOrderId = workOrderId;
+            WorkStatusId = workStatusId;
+            Title = title;
+            Description = description;
+            CreatedBy = createdBy;
+            DateCreated = DateTime.Today;
+        }
     }
 }

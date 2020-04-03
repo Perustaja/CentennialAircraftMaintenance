@@ -19,8 +19,7 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             Aircraft result;
             var queryable = _applicationContext.Set<Aircraft>()
-                .Include(e => e.Times)
-                .Include(e => e.Squawks);
+                .Include(e => e.Times);
 
             if (inclTracking)
                 result = await queryable.FirstOrDefaultAsync();
