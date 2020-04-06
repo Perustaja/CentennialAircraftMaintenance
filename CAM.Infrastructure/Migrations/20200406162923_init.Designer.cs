@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200324043650_dev")]
-    partial class dev
+    [Migration("20200406162923_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("Aircraft");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", b =>
+            modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,17 +69,14 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("Resolution")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("SquawkId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
-                    b.Property<int?>("WorkOrderId")
+                    b.Property<int>("WorkOrderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WorkStatusId")
+                    b.Property<int>("WorkStatus")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -88,18 +85,16 @@ namespace CAM.Infrastructure.Migrations
 
                     b.HasIndex("WorkOrderId");
 
-                    b.HasIndex("WorkStatusId");
-
                     b.ToTable("Discrepancies");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.DiscrepancyPart", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyPart", b =>
                 {
                     b.Property<int>("DiscrepancyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PartId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PartId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Qty")
                         .HasColumnType("INTEGER");
@@ -111,28 +106,47 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("DiscrepancyParts");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.LaborRecord", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyTemplate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DiscrepancyId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("LaborInHours")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Resolution")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkOrderTemplateId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscrepancyId");
+                    b.HasIndex("WorkOrderTemplateId");
 
-                    b.HasIndex("EmployeeId");
+                    b.ToTable("DiscrepancyTemplates");
+                });
 
-                    b.ToTable("LaborRecords");
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyTemplatePart", b =>
+                {
+                    b.Property<int>("DiscrepancyTemplateId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PartId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("DiscrepancyTemplateId", "PartId");
+
+                    b.HasIndex("PartId");
+
+                    b.ToTable("DiscrepancyTemplateParts");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Employee", b =>
@@ -160,11 +174,35 @@ namespace CAM.Infrastructure.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("CAM.Core.Entities.LaborRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DiscrepancyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("LaborInHours")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiscrepancyId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("LaborRecords");
+                });
+
             modelBuilder.Entity("CAM.Core.Entities.Part", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CataloguePartNumber")
                         .HasColumnType("TEXT")
@@ -184,8 +222,12 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("ImageThumbPath")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsDiscontinued")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("MfrsPartNumber")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("MinimumStock")
                         .HasColumnType("INTEGER");
@@ -203,9 +245,6 @@ namespace CAM.Infrastructure.Migrations
 
                     b.Property<decimal?>("PriceOut")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("QtySoldToDate")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Vendor")
                         .IsRequired()
@@ -233,73 +272,6 @@ namespace CAM.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PartCategories");
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.Squawk", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AircraftId")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DateResolved")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(1000);
-
-                    b.Property<bool>("IsGroundable")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Pilot")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Resolution")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("ResolvedBy")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(30);
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AircraftId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Squawks");
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.SquawkStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsOpen")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SquawkStatuses");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Times", b =>
@@ -354,6 +326,10 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(60);
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
@@ -365,29 +341,41 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
-                    b.Property<int>("WorkStatusId")
+                    b.Property<int>("WorkStatus")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WorkStatusId");
-
                     b.ToTable("WorkOrders");
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.WorkStatus", b =>
+            modelBuilder.Entity("CAM.Core.Entities.WorkOrderTemplate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(15);
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkStatuses");
+                    b.ToTable("WorkOrderTemplates");
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.WorkOrderTemplateDiscrepancyTemplate", b =>
+                {
+                    b.Property<int>("WorkOrderTemplateId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DiscrepancyTemplateId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("WorkOrderTemplateId", "DiscrepancyTemplateId");
+
+                    b.HasIndex("DiscrepancyTemplateId");
+
+                    b.ToTable("WorkOrderTemplateDiscrepancyTemplates");
                 });
 
             modelBuilder.Entity("CAM.Core.Entities.Aircraft", b =>
@@ -399,7 +387,7 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", b =>
+            modelBuilder.Entity("CAM.Core.Entities.Discrepancy", b =>
                 {
                     b.HasOne("CAM.Core.Entities.Aircraft", "Aircraft")
                         .WithMany()
@@ -407,18 +395,14 @@ namespace CAM.Infrastructure.Migrations
 
                     b.HasOne("CAM.Core.Entities.WorkOrder", null)
                         .WithMany("Discrepancies")
-                        .HasForeignKey("WorkOrderId");
-
-                    b.HasOne("CAM.Core.Entities.WorkStatus", "WorkStatus")
-                        .WithMany()
-                        .HasForeignKey("WorkStatusId")
+                        .HasForeignKey("WorkOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.DiscrepancyPart", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyPart", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", "Discrepancy")
+                    b.HasOne("CAM.Core.Entities.Discrepancy", "Discrepancy")
                         .WithMany("DiscrepancyParts")
                         .HasForeignKey("DiscrepancyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -431,9 +415,31 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyAggregate.LaborRecord", b =>
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyTemplate", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.DiscrepancyAggregate.Discrepancy", null)
+                    b.HasOne("CAM.Core.Entities.WorkOrderTemplate", "WorkOrderTemplate")
+                        .WithMany()
+                        .HasForeignKey("WorkOrderTemplateId");
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.DiscrepancyTemplatePart", b =>
+                {
+                    b.HasOne("CAM.Core.Entities.DiscrepancyTemplate", "DiscrepancyTemplate")
+                        .WithMany("DiscrepancyTemplateParts")
+                        .HasForeignKey("DiscrepancyTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CAM.Core.Entities.Part", "Part")
+                        .WithMany("DiscrepancyTemplateParts")
+                        .HasForeignKey("PartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CAM.Core.Entities.LaborRecord", b =>
+                {
+                    b.HasOne("CAM.Core.Entities.Discrepancy", null)
                         .WithMany("LaborRecords")
                         .HasForeignKey("DiscrepancyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,26 +461,17 @@ namespace CAM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CAM.Core.Entities.Squawk", b =>
+            modelBuilder.Entity("CAM.Core.Entities.WorkOrderTemplateDiscrepancyTemplate", b =>
                 {
-                    b.HasOne("CAM.Core.Entities.Aircraft", "Aircraft")
-                        .WithMany("Squawks")
-                        .HasForeignKey("AircraftId")
+                    b.HasOne("CAM.Core.Entities.DiscrepancyTemplate", "DiscrepancyTemplate")
+                        .WithMany("WorkOrderTemplateDiscrepancyTemplates")
+                        .HasForeignKey("DiscrepancyTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CAM.Core.Entities.SquawkStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CAM.Core.Entities.WorkOrder", b =>
-                {
-                    b.HasOne("CAM.Core.Entities.WorkStatus", "WorkStatus")
-                        .WithMany()
-                        .HasForeignKey("WorkStatusId")
+                    b.HasOne("CAM.Core.Entities.WorkOrderTemplate", "WorkOrderTemplate")
+                        .WithMany("WorkOrderTemplateDiscrepancyTemplates")
+                        .HasForeignKey("WorkOrderTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

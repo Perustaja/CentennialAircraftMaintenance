@@ -17,7 +17,7 @@ namespace CAM.Infrastructure.Data.Repositories
             _applicationContext = applicationContext;
         }
 
-        public async Task<Part> GetByIdAsync(string id, bool inclTracking = true)
+        public async Task<Part> GetByIdAsync(int id, bool inclTracking = true)
         {
             Part result;
             var queryable = _applicationContext.Set<Part>().Where(e => e.Id == id)
@@ -29,6 +29,20 @@ namespace CAM.Infrastructure.Data.Repositories
                 result = await queryable.AsNoTracking().FirstOrDefaultAsync();
             return result;
         }
+        public async Task<Part> GetByMfrsPnAsync(string partNum, bool inclTracking = true)
+        {
+            Part result;
+            var queryable = _applicationContext.Set<Part>()
+                .Where(e => e.MfrsPartNumber == partNum)
+                .Include(e => e.PartCategory);
+
+            if (inclTracking)
+                result = await queryable.FirstOrDefaultAsync();
+            else
+                result = await queryable.AsNoTracking().FirstOrDefaultAsync();
+            return result;
+        }
+        
         public async Task<List<Part>> GetListAllAsync(bool inclTracking = true)
         {
             if (inclTracking)
@@ -76,7 +90,7 @@ namespace CAM.Infrastructure.Data.Repositories
         /// </summary> 
         public async Task<bool> CheckForExistingRecordAsync(string id)
         {
-            return await _applicationContext.Parts.AnyAsync(e => e.Id.ToLower() == id.ToLower()) ? true : false;
+            return await _applicationContext.Parts.AnyAsync(e => e.MfrsPartNumber.ToLower() == id.ToLower()) ? true : false;
         }
 
         public async Task AddAsync(Part part)
@@ -95,7 +109,7 @@ namespace CAM.Infrastructure.Data.Repositories
         public async Task DeleteAsync(Part part)
         {
             await _applicationContext.BeginTransaction();
-            _applicationContext.Parts.Remove(part);
+            part.SoftDelete();
             await _applicationContext.Commit();
         }
         private IQueryable<Part> GetQueryableBySearch(string search, string filter)
@@ -105,15 +119,15 @@ namespace CAM.Infrastructure.Data.Repositories
             {
                 queryable = _applicationContext.Set<Part>()
                     .Where(e => e.Name.ToLower().Contains(search.ToLower()) || e.Description.ToLower().Contains(search.ToLower()) ||
-                        e.Id.ToLower().Contains(search) || e.CataloguePartNumber.ToLower().Contains(search))
+                        e.MfrsPartNumber.ToLower().Contains(search) || e.CataloguePartNumber.ToLower().Contains(search))
                     .Include(e => e.PartCategory)
-                    .OrderBy(e => e.Id.Length);
+                    .OrderBy(e => e.MfrsPartNumber.Length);
             }
             else
             {
                 queryable = _applicationContext.Set<Part>()
                     .Include(e => e.PartCategory)
-                    .OrderBy(e => e.Id.Length);
+                    .OrderBy(e => e.MfrsPartNumber.Length);
             }
 
             if (!String.IsNullOrWhiteSpace(filter))

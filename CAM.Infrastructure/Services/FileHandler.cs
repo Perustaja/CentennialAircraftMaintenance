@@ -39,16 +39,16 @@ namespace CAM.Infrastructure.Services
                 _logger.LogError($"Unable to save new image and assign to part. The given IFormFile is null or has an invalid extension.");
                 return part;
             }
-            string imageSavePath = $"{Constants.PARTS_IMAGES_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
-            string imageThumbSavePath = $"{Constants.PARTS_THUMB_DIRECTORY}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            string imageSavePath = $"{Constants.PARTS_IMAGES_DIRECTORY}/{part.Id}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            string imageThumbSavePath = $"{Constants.PARTS_THUMB_DIRECTORY}/{part.Id}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
             if (!await TrySaveImageAndThumb(image, imageSavePath, imageThumbSavePath))
             {
                 File.Delete(imageSavePath);
                 File.Delete(imageThumbSavePath);
                 return part; // Error will be logged and part will remain unchanged
             }
-            var imagePath = $"{Constants.PARTS_IMAGES_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
-            var imageThumbPath = $"{Constants.PARTS_THUMB_CONTENT_PATH}/{part.Id.ToUpper()}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            var imagePath = $"{Constants.PARTS_IMAGES_CONTENT_PATH}/{part.Id}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
+            var imageThumbPath = $"{Constants.PARTS_THUMB_CONTENT_PATH}/{part.Id}{Path.GetExtension(image.FileName).ToLowerInvariant()}";
             part.ChangeImage(imagePath, imageThumbPath);
             return part;
         }

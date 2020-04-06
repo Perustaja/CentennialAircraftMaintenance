@@ -23,6 +23,10 @@ namespace CAM.Core.Entities
 
         [StringLength(20)]
         public string CertificationNum { get; private set; }
+        private Employee()
+        {
+            // Required by EF
+        }
         public Employee(string firstName, string lastName, string certNum)
         {
             FirstName = firstName;

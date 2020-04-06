@@ -9,10 +9,11 @@ namespace CAM.Web.ViewModels.Parts
     [AutoMap(typeof(Part), ReverseMap = true)]
     public class PartsEditViewModel
     {
+        public int Id { get; set; }
         [Display(Name = "Manufacturer's Part #")]
         [Required(AllowEmptyStrings = false)]
         [StringLength(50)]
-        public string Id { get; set; }
+        public string MfrsPartNumber { get; set; }
 
         // PartCategory FK
         [Display(Name = "Category")]

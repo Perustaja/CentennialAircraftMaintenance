@@ -4,7 +4,6 @@ using AutoMapper;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Core.Entities;
 using CAM.Web.ViewModels.Parts;
-using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
 using System;
 using Microsoft.Extensions.Logging;
@@ -33,7 +32,7 @@ namespace CAM.Web.Controllers
 
         // details
         [HttpGet("{id}")]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
             // null id won't be encountered
             var part = await _partRepository.GetByIdAsync(id, false);
@@ -48,13 +47,8 @@ namespace CAM.Web.Controllers
 
         // edit GET
         [HttpGet("edit")]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                return new BadRequestResult();
-            }
-
             var part = await _partRepository.GetByIdAsync(id, false);
             if (part == null)
             {
@@ -86,14 +80,8 @@ namespace CAM.Web.Controllers
             // if a new image was provided, try to save it and get the filepath.
             try
             {
-                part.PartCategoryId = vm.PartCategoryId;
-                part.CataloguePartNumber = vm.CataloguePartNumber;
-                part.Name = vm.Name;
-                part.Description = vm.Description;
-                part.PriceIn = vm.PriceIn;
-                part.PriceOut = vm.PriceOut;
-                part.Vendor = vm.Vendor;
-                part.MinimumStock = vm.MinimumStock;
+                part.EditPart(vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber, 
+                vm.Name, vm.Description, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
                 part = await _fileHandler.SetPartImage(part, vm.Image);
 
                 await _partRepository.SaveChangesAsync();
@@ -114,12 +102,8 @@ namespace CAM.Web.Controllers
         // delete (handled by modal)
         [HttpPost("delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (String.IsNullOrEmpty(id))
-            {
-                return new BadRequestResult();
-            }
             var part = await _partRepository.GetByIdAsync(id);
             if (part == null)
             {
@@ -129,7 +113,7 @@ namespace CAM.Web.Controllers
             try
             {
                 await _partRepository.DeleteAsync(part);
-                StatusMessage = $"Part \"{part.Id}\" was successfully deleted.";
+                StatusMessage = $"Part \"{part.MfrsPartNumber}\" was successfully deleted.";
                 Success = true;
             }
             catch (Exception)
@@ -151,22 +135,24 @@ namespace CAM.Web.Controllers
             {
                 return BadRequest("The image specified does not follow guidelines. Please ensure the file has a valid extension and size.");
             }
-            if (await _partRepository.CheckForExistingRecordAsync(vm.Id))
+            if (await _partRepository.CheckForExistingRecordAsync(vm.MfrsPartNumber))
             {
                 return BadRequest("A part already exists with this manufacturer's part number.");
             }
             try
             {
-                var part = new Part(vm.Id, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
+                var part = new Part(vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
                 vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock);
-                part = await _fileHandler.SetPartImage(part, vm.Image);
                 
                 await _partRepository.AddAsync(part);
-                return CreatedAtAction("Parts", vm.Id);
+                part = await _fileHandler.SetPartImage(part, vm.Image);
+                await _partRepository.SaveChangesAsync();
+
+                return CreatedAtAction("Parts", vm.MfrsPartNumber);
             }
             catch (Exception)
             {
-                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {vm.Id}.");
+                _logger.LogCritical($"{DateTime.Now}: Exception when trying to save new part {vm.MfrsPartNumber}.");
             }
             return BadRequest("Unable to add the specified part. Please try again and contact site administration if the problem persists.");
         }

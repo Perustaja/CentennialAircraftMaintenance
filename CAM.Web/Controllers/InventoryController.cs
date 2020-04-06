@@ -76,7 +76,7 @@ namespace CAM.Web.Controllers
         {
             if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
             {
-                var part = await _partRepository.GetByIdAsync(vm.InputPartNumber, false);
+                var part = await _partRepository.GetByMfrsPnAsync(vm.InputPartNumber, false);
                 if (part != null)
                 {
                     var mappedVm = _mapper.Map<InventoryReceiveItemViewModel>(part);
@@ -108,7 +108,7 @@ namespace CAM.Web.Controllers
         {
             if (!String.IsNullOrWhiteSpace(id) && await _partRepository.CheckForExistingRecordAsync(id))
             {
-                return Json($"A part already exists with the part number {id}.");
+                return Json($"A part already exists with the manufacturer's part number {id}.");
             }
             return Json(true);
         }

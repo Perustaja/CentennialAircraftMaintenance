@@ -7,7 +7,8 @@ namespace CAM.Core.Interfaces.Repositories
 {
     public interface IPartRepository
     {
-        Task<Part> GetByIdAsync(string id, bool inclTracking = true);
+        Task<Part> GetByIdAsync(int id, bool inclTracking = true);
+        Task<Part> GetByMfrsPnAsync(string partNum, bool inclTracking = true);
         Task<List<Part>> GetListAllAsync(bool inclTracking = true);
         Task<PaginatedList<Part>> GetBySearchParamsAsync(string search, string filter, int page, int ipp, bool inclTracking = true);
         Task<List<Part>> GetByApiSearchValues(string search);

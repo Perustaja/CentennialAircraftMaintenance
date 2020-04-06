@@ -61,6 +61,8 @@ namespace CAM.Infrastructure.Data
                 .HasOne(bc => bc.DiscrepancyTemplate)
                 .WithMany(c => c.WorkOrderTemplateDiscrepancyTemplates)
                 .HasForeignKey(bc => bc.DiscrepancyTemplateId);
+            // Part soft delete filter
+            modelBuilder.Entity<Part>().HasQueryFilter(p => !p.IsDeleted);
         }
 
         private IDbContextTransaction _transaction;

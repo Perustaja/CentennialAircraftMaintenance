@@ -60,7 +60,7 @@ function partsAutoComplete(inputElementId) {
                     // create spans and append them to the li
                     var partNumSpan = document.createElement("span");
                     partNumSpan.setAttribute("class", "list-item-header")
-                    partNumSpan.innerHTML = `Part Number: ${json[i]["id"]} <br>`;
+                    partNumSpan.innerHTML = `Part Number: ${json[i]["mfrsPartNumber"]} <br>`;
                     var descSpan = document.createElement("span");
                     descSpan.setAttribute("class", "list-item-desc")
                     descSpan.innerText = `${json[i]["name"]}`;
@@ -69,7 +69,7 @@ function partsAutoComplete(inputElementId) {
                     liEle.setAttribute("style", `z-index: ${i};`)
 
                     liEle.addEventListener("click", function (e) {
-                        input.value = json[i]["id"];
+                        input.value = json[i]["mfrsPartNumber"];
                         closeAllLists();
                         // the focus and blur is to trigger model validation after clicking the div
                         input.focus();

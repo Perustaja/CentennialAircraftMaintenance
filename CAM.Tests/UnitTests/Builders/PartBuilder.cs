@@ -27,7 +27,7 @@ namespace CAM.Tests.Builders
         {
             return new PartsCreateViewModel()
             {
-                Id = "test",
+                MfrsPartNumber = "test",
                 PartCategoryId = 1,
                 CataloguePartNumber = "test",
                 Name = "test",

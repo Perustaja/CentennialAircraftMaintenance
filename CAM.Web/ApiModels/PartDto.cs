@@ -1,9 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using CAM.Core.SharedKernel;
 using CAM.Core.Entities;
-using CAM.Core.Entities.DiscrepancyAggregate;
 using AutoMapper;
 
 namespace CAM.Web.ApiModels
@@ -14,8 +9,9 @@ namespace CAM.Web.ApiModels
     [AutoMap(typeof(Part), ReverseMap = true)]
     public class PartDto
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         // Main
+        public string MfrsPartNumber { get; set; }
         public string CataloguePartNumber { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

@@ -5,7 +5,6 @@ using NPOI.XSSF.UserModel;
 using CAM.Core.Interfaces;
 using CAM.Core.Entities;
 using CAM.Infrastructure.Services.DocGen.Spreadsheets.Extensions;
-using CAM.Core.Entities.DiscrepancyAggregate;
 
 namespace CAM.Infrastructure.Services
 {
@@ -14,7 +13,7 @@ namespace CAM.Infrastructure.Services
         ///<summary>
         /// Generates the documents and spreadsheets necessary after being passed a WorkOrder.
         ///</summary>
-        public void GenerateWorkOrder(WorkOrder workOrder, List<Discrepancy> discreps)
+        public void GenerateWorkOrder(WorkOrder workOrder)
         {
             // Initialize with path and filestream
             var newFile = $"~/Documents/WorkOrder{workOrder.Id}.xlsx";
@@ -22,7 +21,7 @@ namespace CAM.Infrastructure.Services
             using (var fs = new FileStream(newFile, FileMode.Create, FileAccess.Write))
             {
                 IWorkbook workbook = new XSSFWorkbook();
-                workbook.CreateDiscrepancySheets(discreps);
+                workbook.CreateDiscrepancySheets(workOrder.Discrepancies);
 
                 workbook.Write(fs);
             }

@@ -7,7 +7,7 @@ namespace CAM.Core.Entities
     public class DiscrepancyTemplatePart
     {
         public int DiscrepancyTemplateId { get; private set; }
-        public string PartId { get; private set; }
+        public int PartId { get; private set; }
         public int Qty { get; private set; }
         public DiscrepancyTemplate DiscrepancyTemplate { get; private set; }
         public Part Part { get; private set; }
@@ -15,7 +15,7 @@ namespace CAM.Core.Entities
         {
             // Required by EF  
         }
-        public DiscrepancyTemplatePart(int discrepTempId, string partId, int qty)
+        public DiscrepancyTemplatePart(int discrepTempId, int partId, int qty)
         {
             DiscrepancyTemplateId = discrepTempId;
             PartId = partId;

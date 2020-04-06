@@ -18,7 +18,7 @@ namespace CAM.Core.Entities
         [StringLength(50, MinimumLength = 4)]
         public string MfrsPartNumber { get; private set; }
         [Display(Name = "IPC Part #")]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 4)]
         public string CataloguePartNumber { get; private set; }
         [Required]
         [StringLength(40)]
@@ -35,6 +35,7 @@ namespace CAM.Core.Entities
         [StringLength(30)]
         public string Vendor { get; private set; }
         public int? MinimumStock { get; private set; }
+        public bool IsDeleted { get; private set; }
         // Category 
         public PartCategory PartCategory { get; private set; }
         // Required by EF for join table creation, will not be accessed
@@ -69,8 +70,6 @@ namespace CAM.Core.Entities
             CataloguePartNumber = cataloguePartNumber ?? mfrPartNumber;
             Name = name;
             Description = description;
-            // Figure out setting of image
-            CurrentStock = 0;
             PriceIn = priceIn;
             PriceOut = priceOut ?? PriceIn * Constants.PRICE_MARKUP;
             Vendor = vendor;
@@ -94,6 +93,7 @@ namespace CAM.Core.Entities
             ImagePath = imagePath;
             ImageThumbPath = imageThumbPath;
         }
+        public void SoftDelete() => IsDeleted = true;
         private void GuardAgainstNegative(int arg)
         {
             if (arg < 0)

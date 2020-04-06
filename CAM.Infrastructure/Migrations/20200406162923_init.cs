@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAM.Infrastructure.Migrations
 {
-    public partial class dev : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,20 +36,6 @@ namespace CAM.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SquawkStatuses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    IsOpen = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SquawkStatuses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Times",
                 columns: table => new
                 {
@@ -71,36 +57,55 @@ namespace CAM.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkStatuses",
+                name: "WorkOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(maxLength: 15, nullable: true)
+                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
+                    Title = table.Column<string>(maxLength: 15, nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateFinalized = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
+                    WorkStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkStatuses", x => x.Id);
+                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkOrderTemplates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkOrderTemplates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Parts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(maxLength: 50, nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     PartCategoryId = table.Column<int>(nullable: false),
+                    MfrsPartNumber = table.Column<string>(maxLength: 50, nullable: true),
                     CataloguePartNumber = table.Column<string>(maxLength: 50, nullable: true),
                     Name = table.Column<string>(maxLength: 40, nullable: false),
                     Description = table.Column<string>(maxLength: 600, nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
                     ImageThumbPath = table.Column<string>(nullable: true),
                     CurrentStock = table.Column<int>(nullable: false),
-                    QtySoldToDate = table.Column<int>(nullable: false),
                     PriceIn = table.Column<decimal>(nullable: false),
                     PriceOut = table.Column<decimal>(nullable: true),
                     Vendor = table.Column<string>(maxLength: 30, nullable: false),
-                    IsDiscontinued = table.Column<bool>(nullable: false),
-                    MinimumStock = table.Column<int>(nullable: true)
+                    MinimumStock = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,59 +140,25 @@ namespace CAM.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkOrders",
+                name: "DiscrepancyTemplates",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    WorkStatusId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(maxLength: 15, nullable: false),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateFinalized = table.Column<DateTime>(nullable: true)
+                    WorkOrderTemplateId = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Resolution = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                    table.PrimaryKey("PK_DiscrepancyTemplates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkOrders_WorkStatuses_WorkStatusId",
-                        column: x => x.WorkStatusId,
-                        principalTable: "WorkStatuses",
+                        name: "FK_DiscrepancyTemplates_WorkOrderTemplates_WorkOrderTemplateId",
+                        column: x => x.WorkOrderTemplateId,
+                        principalTable: "WorkOrderTemplates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Squawks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    AircraftId = table.Column<string>(maxLength: 20, nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    Pilot = table.Column<string>(maxLength: 30, nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(maxLength: 1000, nullable: false),
-                    Resolution = table.Column<string>(maxLength: 1000, nullable: true),
-                    DateResolved = table.Column<DateTime>(nullable: true),
-                    ResolvedBy = table.Column<string>(maxLength: 30, nullable: true),
-                    IsGroundable = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Squawks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Squawks_Aircraft_AircraftId",
-                        column: x => x.AircraftId,
-                        principalTable: "Aircraft",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Squawks_SquawkStatuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "SquawkStatuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,15 +168,14 @@ namespace CAM.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AircraftId = table.Column<string>(nullable: true),
-                    WorkStatusId = table.Column<int>(nullable: false),
-                    WorkOrderId = table.Column<int>(nullable: true),
-                    SquawkId = table.Column<int>(nullable: true),
+                    WorkOrderId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 15, nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Resolution = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateFinalized = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true)
+                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
+                    WorkStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,11 +191,54 @@ namespace CAM.Infrastructure.Migrations
                         column: x => x.WorkOrderId,
                         principalTable: "WorkOrders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiscrepancyTemplateParts",
+                columns: table => new
+                {
+                    DiscrepancyTemplateId = table.Column<int>(nullable: false),
+                    PartId = table.Column<int>(nullable: false),
+                    Qty = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscrepancyTemplateParts", x => new { x.DiscrepancyTemplateId, x.PartId });
                     table.ForeignKey(
-                        name: "FK_Discrepancies_WorkStatuses_WorkStatusId",
-                        column: x => x.WorkStatusId,
-                        principalTable: "WorkStatuses",
+                        name: "FK_DiscrepancyTemplateParts_DiscrepancyTemplates_DiscrepancyTemplateId",
+                        column: x => x.DiscrepancyTemplateId,
+                        principalTable: "DiscrepancyTemplates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DiscrepancyTemplateParts_Parts_PartId",
+                        column: x => x.PartId,
+                        principalTable: "Parts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkOrderTemplateDiscrepancyTemplates",
+                columns: table => new
+                {
+                    WorkOrderTemplateId = table.Column<int>(nullable: false),
+                    DiscrepancyTemplateId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkOrderTemplateDiscrepancyTemplates", x => new { x.WorkOrderTemplateId, x.DiscrepancyTemplateId });
+                    table.ForeignKey(
+                        name: "FK_WorkOrderTemplateDiscrepancyTemplates_DiscrepancyTemplates_DiscrepancyTemplateId",
+                        column: x => x.DiscrepancyTemplateId,
+                        principalTable: "DiscrepancyTemplates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkOrderTemplateDiscrepancyTemplates_WorkOrderTemplates_WorkOrderTemplateId",
+                        column: x => x.WorkOrderTemplateId,
+                        principalTable: "WorkOrderTemplates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -235,7 +248,7 @@ namespace CAM.Infrastructure.Migrations
                 columns: table => new
                 {
                     DiscrepancyId = table.Column<int>(nullable: false),
-                    PartId = table.Column<string>(nullable: false),
+                    PartId = table.Column<int>(nullable: false),
                     Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -293,14 +306,19 @@ namespace CAM.Infrastructure.Migrations
                 column: "WorkOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discrepancies_WorkStatusId",
-                table: "Discrepancies",
-                column: "WorkStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DiscrepancyParts_PartId",
                 table: "DiscrepancyParts",
                 column: "PartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DiscrepancyTemplateParts_PartId",
+                table: "DiscrepancyTemplateParts",
+                column: "PartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DiscrepancyTemplates_WorkOrderTemplateId",
+                table: "DiscrepancyTemplates",
+                column: "WorkOrderTemplateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LaborRecords_DiscrepancyId",
@@ -318,19 +336,9 @@ namespace CAM.Infrastructure.Migrations
                 column: "PartCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Squawks_AircraftId",
-                table: "Squawks",
-                column: "AircraftId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Squawks_StatusId",
-                table: "Squawks",
-                column: "StatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkOrders_WorkStatusId",
-                table: "WorkOrders",
-                column: "WorkStatusId");
+                name: "IX_WorkOrderTemplateDiscrepancyTemplates_DiscrepancyTemplateId",
+                table: "WorkOrderTemplateDiscrepancyTemplates",
+                column: "DiscrepancyTemplateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -339,10 +347,13 @@ namespace CAM.Infrastructure.Migrations
                 name: "DiscrepancyParts");
 
             migrationBuilder.DropTable(
+                name: "DiscrepancyTemplateParts");
+
+            migrationBuilder.DropTable(
                 name: "LaborRecords");
 
             migrationBuilder.DropTable(
-                name: "Squawks");
+                name: "WorkOrderTemplateDiscrepancyTemplates");
 
             migrationBuilder.DropTable(
                 name: "Parts");
@@ -354,7 +365,7 @@ namespace CAM.Infrastructure.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "SquawkStatuses");
+                name: "DiscrepancyTemplates");
 
             migrationBuilder.DropTable(
                 name: "PartCategories");
@@ -366,10 +377,10 @@ namespace CAM.Infrastructure.Migrations
                 name: "WorkOrders");
 
             migrationBuilder.DropTable(
-                name: "Times");
+                name: "WorkOrderTemplates");
 
             migrationBuilder.DropTable(
-                name: "WorkStatuses");
+                name: "Times");
         }
     }
 }
