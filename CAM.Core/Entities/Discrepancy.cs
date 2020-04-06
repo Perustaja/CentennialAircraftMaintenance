@@ -1,11 +1,10 @@
-using System.Collections;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using CAM.Core.SharedKernel;
-using System.ComponentModel.DataAnnotations.Schema;
+using CAM.Core.Enums;
+using System.Linq;
 
-namespace CAM.Core.Entities.DiscrepancyAggregate
+namespace CAM.Core.Entities
 {
     /// <summary>
     /// Contains information used for maintenance documents and tracking purposes. 
@@ -15,8 +14,6 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         public int Id { get; private set; }
 
         public string AircraftId { get; private set; }
-
-        public int WorkStatusId { get; private set; }
 
         public int WorkOrderId { get; private set; }
         // Main
@@ -34,25 +31,37 @@ namespace CAM.Core.Entities.DiscrepancyAggregate
         [Display(Name = "Created by")]
         [StringLength(60)]
         public string CreatedBy { get; private set; }
+        public WorkStatus WorkStatus { get; private set; }
         // Navigation properties
         public Aircraft Aircraft { get; private set; }
         public List<LaborRecord> LaborRecords { get; private set; }
-        public WorkStatus WorkStatus { get; private set; }
         public List<DiscrepancyPart> DiscrepancyParts { get; private set; }
         private Discrepancy()
         {
             // Required by EF
         }
-        public Discrepancy(string aircraftId, int workOrderId, int workStatusId, string title,
-        string description, string createdBy)
+        public Discrepancy(string aircraftId, int workOrderId, string title, string description,
+        string createdBy)
         {
             AircraftId = aircraftId;
             WorkOrderId = workOrderId;
-            WorkStatusId = workStatusId;
             Title = title;
             Description = description;
-            CreatedBy = createdBy;
             DateCreated = DateTime.Today;
+            CreatedBy = createdBy;
+            WorkStatus = WorkStatus.Open;
+        }
+        public void ChangeTitle(string title) => Title = title;
+        public void ChangeDescription(string desc) => Description = desc;
+        public void ChangeResolution(string reso) => Resolution = reso;
+        public void SubmitForReview()
+        {
+            WorkStatus = WorkStatus.UnderReview;
+        }
+        public void ApproveAfterReview()
+        {
+            WorkStatus = WorkStatus.Approved;
+            DateFinalized = DateTime.Today;
         }
     }
 }

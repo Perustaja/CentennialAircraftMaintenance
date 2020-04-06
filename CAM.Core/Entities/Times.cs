@@ -1,7 +1,4 @@
-using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
@@ -35,7 +32,6 @@ namespace CAM.Core.Entities
         [Display(Name = "Engine 2 Total")]
         public decimal Engine2Total { get; set; }
         public int Cycles { get; set; }
-
         // Aircraft
         public Aircraft Aircraft { get; set; }
     }

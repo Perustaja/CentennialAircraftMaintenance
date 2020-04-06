@@ -67,9 +67,6 @@ namespace CAM.Web
 
             // Repositories
             services.AddScoped<IAircraftRepository, AircraftRepository>();
-            services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
-            services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
-            services.AddScoped<IWorkStatusRepository, WorkStatusRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
             services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();

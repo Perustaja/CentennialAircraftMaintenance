@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities 
 {

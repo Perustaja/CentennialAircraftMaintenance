@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Entities
 {
@@ -9,9 +7,18 @@ namespace CAM.Core.Entities
     /// </summary>
     public class PartCategory
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         [Required]
         [StringLength(30)]
-        public string Name { get; set; }
+        public string Name { get; private set; }
+        private PartCategory()
+        {
+            // Required by EF
+        }
+        public PartCategory(string name)
+        {
+            Name = name;
+        }
+        public void ChangeName(string name) => Name = name;
     }
 }
