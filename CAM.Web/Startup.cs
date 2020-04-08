@@ -19,11 +19,11 @@ using CAM.Infrastructure.Services.TimesScraper;
 using CAM.Core.Options;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using CAM.Core.Interfaces.Repositories;
 using CAM.Infrastructure.Data.Repositories;
 using CAM.Web.Mapping;
+using CAM.Core.Interfaces.Services;
+using CAM.Core.Services;
 
 namespace CAM.Web
 {
@@ -59,31 +59,26 @@ namespace CAM.Web
             },
             AppDomain.CurrentDomain.GetAssemblies());
 
-
             // Hangfire
             // NOTE: The Hangfire connection string ends with a ; in the json file. 
             // This is because of the SQLite extension checking for one. 
             services.AddHangfire(config => config.UseSQLiteStorage(Configuration.GetConnectionString("HangfireConnection")));
-
             // Repositories
             services.AddScoped<IAircraftRepository, AircraftRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
             services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();
-
+            // Services
+            services.AddScoped<IPartsService, PartsService>();
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets
-
             // Fsp login options
             services.Configure<FspScraperOptions>(Configuration);
-
             // TimesScraperJob
             services.AddSingleton<ITimesScraper, FspTimesScraper>();
-
             // DocumentGenerator
             services.AddScoped<IDocumentGenerator, DocumentGenerator>();
-
             // FileHandler
             services.AddScoped<IFileHandler, FileHandler>();
 

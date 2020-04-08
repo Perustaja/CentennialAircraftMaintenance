@@ -46,12 +46,12 @@ namespace CAM.Core.Entities
         {
             // Required by EF
         }
-        public Part(string mfrPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public Part(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
         {
-            MfrsPartNumber = mfrPartNumber;
+            MfrsPartNumber = mfrsPartNumber;
             PartCategoryId = partCategoryId;
-            CataloguePartNumber = cataloguePartNumber ?? mfrPartNumber;
+            CataloguePartNumber = cataloguePartNumber ?? mfrsPartNumber;
             Name = name;
             Description = description;
             ImagePath = Constants.DEFAULT_IMAGE_PATH;
@@ -62,12 +62,12 @@ namespace CAM.Core.Entities
             Vendor = vendor;
             MinimumStock = minimumStock ?? 0;
         }
-        public void EditPart(string mfrPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public void EditPart(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock)
         {
-            MfrsPartNumber = mfrPartNumber;
+            MfrsPartNumber = mfrsPartNumber;
             PartCategoryId = partCategoryId;
-            CataloguePartNumber = cataloguePartNumber ?? mfrPartNumber;
+            CataloguePartNumber = cataloguePartNumber ?? mfrsPartNumber;
             Name = name;
             Description = description;
             PriceIn = priceIn;

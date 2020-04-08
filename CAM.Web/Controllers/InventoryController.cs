@@ -2,27 +2,23 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AutoMapper;
-using CAM.Core.Interfaces.Repositories;
 using CAM.Web.ViewModels.Inventory;
-using Microsoft.Extensions.Logging;
-using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
 using CAM.Web.ViewModels.Shared;
 using CAM.Core.Entities;
+using CAM.Core.Interfaces.Services;
+using System.Linq;
 
 namespace CAM.Web.Controllers
 {
     public class InventoryController : Controller
     {
-        private readonly ILogger<InventoryController> _logger;
-        private readonly IPartRepository _partRepository;
+        private readonly IPartsService _partsService;
         private readonly IMapper _mapper;
         private readonly IPaginatedListMapper _pListMapper;
-        public InventoryController(ILogger<InventoryController> logger, IPartRepository partRepository,
-        IMapper mapper, IPaginatedListMapper pListMapper)
+        public InventoryController(IPartsService partsService, IMapper mapper, IPaginatedListMapper pListMapper)
         {
-            _logger = logger;
-            _partRepository = partRepository;
+            _partsService = partsService;
             _mapper = mapper;
             _pListMapper = pListMapper;
         }
@@ -39,7 +35,7 @@ namespace CAM.Web.Controllers
             ViewData["PageValue"] = page;
             ViewData["IppValue"] = ipp;
 
-            var parts = await _partRepository.GetBySearchParamsAsync(search, filter, page, ipp, false);
+            var parts = await _partsService.GetPaginatedPartsBySearchParams(search, filter, page, ipp);
 
             var viewModel = new InventoryIndexViewModel()
             {
@@ -60,23 +56,23 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnReceivePost(InventoryReceiveListViewModel vm)
         {
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return NotFound("test");
+                var ids = vm.ReceiveItems.Select(i => i.Id).ToList();
+                var qtys = vm.ReceiveItems.Select(i => i.Qty).ToList();
+                if (await _partsService.TryReceiveShipment(ids, qtys))
+                    return Ok();
             }
-            // validate EVERYTHING
-
-            return Ok();
+            return NotFound("There was an error handling your request. Please try again and if the problem persists, contact site administation.");
         }
 
         // Ajax
         [HttpPost]
         public async Task<IActionResult> OnAddToReceivingListPost(InventoryReceiveViewModel vm)
         {
-            if (vm != null && !String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
+            if (!String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
             {
-                var part = await _partRepository.GetByMfrsPnAsync(vm.InputPartNumber, false);
+                var part = await _partsService.GetPartOrDefaultByMfrsPartNumber(vm.InputPartNumber, false);
                 if (part != null)
                 {
                     var mappedVm = _mapper.Map<InventoryReceiveItemViewModel>(part);
@@ -96,7 +92,7 @@ namespace CAM.Web.Controllers
             {
                 return Json($"The part number cannot be empty.");
             }
-            else if (!await _partRepository.CheckForExistingRecordAsync(inputPartNumber))
+            else if (!await _partsService.PartExists(inputPartNumber))
             {
                 return Json($"The part {inputPartNumber} could not be found.");
             }
@@ -106,7 +102,7 @@ namespace CAM.Web.Controllers
         [AcceptVerbs("GET")]
         public async Task<IActionResult> VerifyPartNonExistent(string id)
         {
-            if (!String.IsNullOrWhiteSpace(id) && await _partRepository.CheckForExistingRecordAsync(id))
+            if (!String.IsNullOrWhiteSpace(id) && await _partsService.PartExists(id))
             {
                 return Json($"A part already exists with the manufacturer's part number {id}.");
             }

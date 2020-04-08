@@ -135,10 +135,6 @@ namespace CAM.Web.Controllers
             {
                 return BadRequest("The image specified does not follow guidelines. Please ensure the file has a valid extension and size.");
             }
-            if (await _partRepository.CheckForExistingRecordAsync(vm.MfrsPartNumber))
-            {
-                return BadRequest("A part already exists with this manufacturer's part number.");
-            }
             try
             {
                 var part = new Part(vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
-using CAM.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace CAM.Infrastructure.Data.Repositories
@@ -42,7 +41,7 @@ namespace CAM.Infrastructure.Data.Repositories
                 result = await queryable.AsNoTracking().FirstOrDefaultAsync();
             return result;
         }
-        
+
         public async Task<List<Part>> GetListAllAsync(bool inclTracking = true)
         {
             if (inclTracking)
@@ -58,19 +57,14 @@ namespace CAM.Infrastructure.Data.Repositories
         /// <summary>
         /// Returns a sorted and filtered PaginatedList of Parts ordered by their id length.
         /// </summary> 
-        public async Task<PaginatedList<Part>> GetBySearchParamsAsync(string search, string filter, 
-        int page, int ipp, bool inclTracking = true)
+        public IQueryable<Part> GetBySearchParamsAsync(string search, string filter,
+        int page, int ipp)
         {
             search = search ?? String.Empty;
             filter = filter ?? String.Empty;
-            PaginatedList<Part> result;
-            IQueryable<Part> queryable = GetQueryableBySearch(search, filter);
+            IQueryable<Part> queryable = GetQueryableBySearch(search, filter).AsNoTracking();
 
-            if (inclTracking)
-                result = await PaginatedList<Part>.CreateAsync(queryable, page, ipp);
-            else
-                result = await PaginatedList<Part>.CreateAsync(queryable.AsNoTracking(), page, ipp);
-            return result;
+            return queryable;
         }
         /// <summary>
         /// Gets by API search values ordered by their id length. Returns an empty list if argument is null.
@@ -79,7 +73,7 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             if (String.IsNullOrWhiteSpace(search))
                 return new List<Part>(); // Return an empty list
-            
+
             IQueryable<Part> queryable = GetQueryableBySearch(search, String.Empty);
 
             return await queryable.AsNoTracking().ToListAsync();
@@ -88,11 +82,14 @@ namespace CAM.Infrastructure.Data.Repositories
         /// <summary>
         /// Checks if a part with a matching id exists. Both strings are copied with ToLower() so it is not case-sensitive.
         /// </summary> 
-        public async Task<bool> CheckForExistingRecordAsync(string id)
+        public async Task<bool> CheckForExistingRecordByPnAsync(string mfrsPartNumber)
         {
-            return await _applicationContext.Parts.AnyAsync(e => e.MfrsPartNumber.ToLower() == id.ToLower()) ? true : false;
+            return await _applicationContext.Parts.AnyAsync(e => e.MfrsPartNumber.ToLower() == mfrsPartNumber.ToLower()) ? true : false;
         }
-
+        public async Task<bool> CheckForExistingRecordByIdAsync(int id)
+        {
+            return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
+        }
         public async Task AddAsync(Part part)
         {
             await _applicationContext.BeginTransaction();

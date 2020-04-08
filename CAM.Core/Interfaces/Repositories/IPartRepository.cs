@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CAM.Core.Entities;
-using CAM.Core.SharedKernel;
 
 namespace CAM.Core.Interfaces.Repositories
 {
@@ -10,9 +10,10 @@ namespace CAM.Core.Interfaces.Repositories
         Task<Part> GetByIdAsync(int id, bool inclTracking = true);
         Task<Part> GetByMfrsPnAsync(string partNum, bool inclTracking = true);
         Task<List<Part>> GetListAllAsync(bool inclTracking = true);
-        Task<PaginatedList<Part>> GetBySearchParamsAsync(string search, string filter, int page, int ipp, bool inclTracking = true);
+        IQueryable<Part> GetBySearchParamsAsync(string search, string filter, int page, int ipp);
         Task<List<Part>> GetByApiSearchValues(string search);
-        Task<bool> CheckForExistingRecordAsync(string id);
+        Task<bool> CheckForExistingRecordByPnAsync(string mfrsPartNumber);
+        Task<bool> CheckForExistingRecordByIdAsync(int id);
         Task AddAsync(Part part);
         Task DeleteAsync(Part part);
         Task SaveChangesAsync();

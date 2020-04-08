@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CAM.Core.Entities
 {
@@ -9,6 +10,7 @@ namespace CAM.Core.Entities
     {
         public int Id { get; private set; }
         public int? WorkOrderTemplateId { get; private set; }
+        [StringLength(15)]
         public string Title { get; private set; }
         public string Description { get; private set; }
         public string Resolution { get; private set; }
