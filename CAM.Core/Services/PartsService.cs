@@ -8,15 +8,18 @@ using Microsoft.AspNetCore.Http;
 using CAM.Core.SharedKernel;
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace CAM.Core.Services
 {
     public class PartsService : IPartsService
     {
+        private readonly ILogger<PartsService> _logger;
         private readonly IPartRepository _partRepository;
         private readonly IFileHandler _fileHandler;
-        public PartsService(IPartRepository repo, IFileHandler fileHandler)
+        public PartsService(ILogger<PartsService> logger, IPartRepository repo, IFileHandler fileHandler)
         {
+            _logger = logger;
             _partRepository = repo;
             _fileHandler = fileHandler;
         }

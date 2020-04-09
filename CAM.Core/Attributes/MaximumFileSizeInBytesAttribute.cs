@@ -1,17 +1,14 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using CAM.Core.SharedKernel;
 using Microsoft.AspNetCore.Http;
 
 namespace CAM.Core.Attributes
 {
-    /// <summary>
-    /// Validates based on a specified max value size in binary bytes.
-    /// </summary>
     public class MaxFileSizeInBytesAttribute : ValidationAttribute
     {
         protected readonly int _size;
+        /// <summary>
+        /// Validates based on a specified max value size in binary bytes.
+        /// </summary>
         public MaxFileSizeInBytesAttribute(int size)
         {
             _size = size;
