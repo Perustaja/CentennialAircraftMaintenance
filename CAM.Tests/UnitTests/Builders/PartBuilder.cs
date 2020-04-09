@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using CAM.Core.Entities;
 using CAM.Web.ViewModels.Parts;
-using Microsoft.AspNetCore.Http;
 
-namespace CAM.Tests.Builders
+namespace CAM.Tests.UnitTests.Builders
 {
     public class PartBuilder
     {

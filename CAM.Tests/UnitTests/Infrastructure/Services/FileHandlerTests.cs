@@ -1,16 +1,10 @@
 using Xunit;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using System.Text;
-using System;
-using CAM.Core.SharedKernel;
 using CAM.Core.Interfaces;
 using System.Threading.Tasks;
 using CAM.Core.Entities;
 using CAM.Infrastructure.Services;
 using Microsoft.Extensions.Logging.Abstractions;
-using CAM.Tests.Builders;
-using Microsoft.AspNetCore.Hosting;
+using CAM.Tests.UnitTests.Builders;
 
 namespace CAM.Tests.UnitTests.Infrastructure.Services
 {

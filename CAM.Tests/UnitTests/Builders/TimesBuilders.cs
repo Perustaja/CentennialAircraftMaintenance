@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CAM.Core.Entities;
 
-namespace CAM.Tests.Builders
+namespace CAM.Tests.UnitTests.Builders
 {
     public class TimesBuilders
     {

@@ -1,5 +1,5 @@
 using System;
-using CAM.Tests.Builders;
+using CAM.Tests.UnitTests.Builders;
 using Xunit;
 
 namespace CAM.Tests.UnitTests.Entities.PartTests

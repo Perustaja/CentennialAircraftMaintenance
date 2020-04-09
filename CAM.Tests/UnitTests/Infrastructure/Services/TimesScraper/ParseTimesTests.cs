@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using CAM.Core.Entities;
 using CAM.Infrastructure.Services.TimesScraper;
 using Xunit;
-using CAM.Tests.Builders;
+using CAM.Tests.UnitTests.Builders;
 using KellermanSoftware.CompareNetObjects;
 
-namespace CAM.Tests.UnitTests.Infrastructure.Services.TimesScraper.FspTimesParserTests
+namespace CAM.Tests.UnitTests.Infrastructure.Services.TimesScraper
 {
     public class ParseTimesTests
     {
