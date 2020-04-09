@@ -24,6 +24,7 @@ using CAM.Infrastructure.Data.Repositories;
 using CAM.Web.Mapping;
 using CAM.Core.Interfaces.Services;
 using CAM.Core.Services;
+using Serilog;
 
 namespace CAM.Web
 {
@@ -173,6 +174,7 @@ namespace CAM.Web
             app.UseCookiePolicy();
             app.UseSession();
             app.UseRouting();
+            app.UseSerilogRequestLogging();
 
             // Auth BEFORE ENDPOINTS
             app.UseAuthentication();
@@ -200,7 +202,6 @@ namespace CAM.Web
                     );
                     endpoints.MapRazorPages();
                 });
-
             // Hangfire job scheduling
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
             HangfireScheduler.ScheduleRecurringJobs();
