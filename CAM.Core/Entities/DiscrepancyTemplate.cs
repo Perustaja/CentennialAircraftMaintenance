@@ -12,7 +12,10 @@ namespace CAM.Core.Entities
         public int? WorkOrderTemplateId { get; private set; }
         [StringLength(15)]
         public string Title { get; private set; }
+        [Required]
+        [StringLength(75)]
         public string Description { get; private set; }
+        [StringLength(600)]
         public string Resolution { get; private set; }
         // Navigation Properties
         public WorkOrderTemplate WorkOrderTemplate { get; private set; }

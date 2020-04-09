@@ -18,7 +18,6 @@ namespace CAM.Core.Entities
         [StringLength(50)]
         public string LastName { get; private set; }
 
-        [StringLength(2)]
         public string Initials => $"{FirstName[0]}{LastName[0]}".ToUpper();
 
         [StringLength(20)]
@@ -37,7 +36,8 @@ namespace CAM.Core.Entities
         {
             FirstName = firstName;
             LastName = lastName;
-            CertificationNum = certNum ?? "N/A";
+            UpdateCertificationNumber(certNum);
         }
+        public void UpdateCertificationNumber(string certNum) => CertificationNum = certNum ?? "N/A";
     }
 }

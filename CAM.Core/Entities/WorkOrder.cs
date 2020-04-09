@@ -18,7 +18,7 @@ namespace CAM.Core.Entities
         [Display(Name = "Registration")]
         public string AircraftId { get; private set; }
         [Required]
-        [StringLength(15)]
+        [StringLength(40)]
         public string Title { get; private set; }
         [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
@@ -28,7 +28,7 @@ namespace CAM.Core.Entities
         [DataType(DataType.Date)]
         public DateTime? DateFinalized { get; private set; }
         [Display(Name = "Created by")]
-        [StringLength(60)]
+        [StringLength(20)]
         public string CreatedBy { get; private set; }
         public WorkStatus WorkStatus { get; private set; }
         // Navigation Properties

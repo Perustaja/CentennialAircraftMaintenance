@@ -28,12 +28,16 @@ namespace CAM.Core.Entities
         public string Description { get; private set; }
         public string ImagePath { get; private set; }
         public string ImageThumbPath { get; private set; }
+        [Range(0, 10000)]
         public int CurrentStock { get; private set; }
+        [Range(0, 100000)]
         public decimal PriceIn { get; private set; }
+        [Range(0, 200000)]
         public decimal? PriceOut { get; private set; }
         [Required]
         [StringLength(30)]
         public string Vendor { get; private set; }
+        [Range(0, 1000)]
         public int? MinimumStock { get; private set; }
         public bool IsDeleted { get; private set; }
         // Category 

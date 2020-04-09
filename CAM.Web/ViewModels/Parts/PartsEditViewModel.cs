@@ -34,9 +34,11 @@ namespace CAM.Web.ViewModels.Parts
 
         [Required(ErrorMessage = "The price must be a valid number.")]
         [Display(Name = "Price In")]
+        [Range(0.01d, 100000d)]
         public decimal PriceIn { get; set; }
 
         [Display(Name = "Price Out")]
+        [Range(0.01d, 200000d)]
         public decimal? PriceOut { get; set; }
 
         [Required(AllowEmptyStrings = false)]
@@ -44,6 +46,7 @@ namespace CAM.Web.ViewModels.Parts
         public string Vendor { get; set; }
 
         [Display(Name = "Minimum Stock Level")]
+        [Range(0, 1000)]
         public int? MinimumStock { get; set; }
 
         [IgnoreMap]

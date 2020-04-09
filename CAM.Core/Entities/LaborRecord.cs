@@ -14,6 +14,7 @@ namespace CAM.Core.Entities
         public int EmployeeId { get; private set; }
         // Main
         [Display(Name = "Labor(Hours)")]
+        [Range(0.1d, 99d)]
         public decimal LaborInHours { get; private set; }
         public Employee Employee { get; private set; }
         private LaborRecord()

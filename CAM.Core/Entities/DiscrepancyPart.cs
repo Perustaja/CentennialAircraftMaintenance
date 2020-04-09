@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CAM.Core.Entities
 {
     /// <summary>
@@ -7,6 +9,7 @@ namespace CAM.Core.Entities
     {
         public int DiscrepancyId { get; private set; }
         public int PartId { get; private set; }
+        [Range(0, 99)]
         public int Qty { get; private set; }
         public Discrepancy Discrepancy { get; private set; }
         public Part Part { get; private set; }

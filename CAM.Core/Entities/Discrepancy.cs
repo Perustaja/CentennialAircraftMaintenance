@@ -17,11 +17,14 @@ namespace CAM.Core.Entities
 
         public int WorkOrderId { get; private set; }
         // Main
-        [StringLength(15)]
+        [StringLength(40)]
         public string Title { get; private set; }
+        [Required]
+        [StringLength(75)]
+             
         public string Description { get; private set; }
+        [StringLength(600)]
         public string Resolution { get; private set; }
-
         [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
         public DateTime DateCreated { get; private set; }
@@ -29,7 +32,7 @@ namespace CAM.Core.Entities
         [DataType(DataType.Date)]
         public DateTime? DateFinalized { get; private set; }
         [Display(Name = "Created by")]
-        [StringLength(60)]
+        [StringLength(20)]
         public string CreatedBy { get; private set; }
         public WorkStatus WorkStatus { get; private set; }
         // Navigation properties
