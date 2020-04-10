@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using CAM.Core.Entities;
 using CAM.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CAM.Infrastructure.Data.Repositories
 {
     public class PartRepository : IPartRepository
     {
+        private readonly ILogger<PartRepository> _logger;
         private readonly ApplicationContext _applicationContext;
-        public PartRepository(ApplicationContext applicationContext)
+        public PartRepository(ILogger<PartRepository> logger, ApplicationContext applicationContext)
         {
+            _logger = logger;
             _applicationContext = applicationContext;
         }
 
@@ -92,22 +95,24 @@ namespace CAM.Infrastructure.Data.Repositories
         }
         public async Task AddAsync(Part part)
         {
+            _logger.LogInformation($"Attempting to save new part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
             await _applicationContext.BeginTransaction();
             await _applicationContext.AddAsync(part);
             await _applicationContext.Commit();
+            _logger.LogInformation($"Successfully saved new part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
         }
-
         public async Task SaveChangesAsync()
         {
             await _applicationContext.BeginTransaction();
             await _applicationContext.Commit();
         }
-
         public async Task DeleteAsync(Part part)
         {
+            _logger.LogInformation($"Attempting to soft delete part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
             await _applicationContext.BeginTransaction();
             part.SoftDelete();
             await _applicationContext.Commit();
+            _logger.LogInformation($"Successfully soft deleted part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
         }
         private IQueryable<Part> GetQueryableBySearch(string search, string filter)
         {

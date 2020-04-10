@@ -35,7 +35,7 @@
         </div>
         <form asp-controller="Inventory" asp-action="OnReceivePost" data-ajax="true" data-ajax-method="post" 
             data-ajax-confirm="Are you sure you want to submit this list?" data-ajax-failure="onListSubmitFail"
-            data-ajax-loading="#loading">
+            data-ajax-success="onListSubmitSuccess" data-ajax-loading="#loading">
             <div id="partsList" class="parts-list">
                 <div class="row part-container part-dummy" id="dummyText">
                     <div class="col-md-12">
@@ -106,11 +106,17 @@
 
         onAddFail = function (xhr) {
             showModal("ajaxFailModal", "Unable to add part", 
-            "The server was unable to add the specified part, please ensure you have an active internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.")
+            "There was an error retrieving the specified part, please ensure you have an active internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.")
         };
 
         onListSubmitFail = function (xhr) {
-            alert(`${xhr.status}: ${xhr.responseText}`);
+            showModal("ajaxFailModal", "Error submitting list",
+            "There was an error receiving the submitted list, please ensure you have an active internet connection and the part exists.<br /> <br /> If the issue persists, contact site administration.");
+        };
+        onListSubmitSuccess = function() {
+            alert("Your shipment has successfully been received. You will now be redirected back to the inventory page.");
+            window.location.replace(`@Url.ActionLink("Index", "Inventory")`);
+            return false;
         };
     </script>
 }

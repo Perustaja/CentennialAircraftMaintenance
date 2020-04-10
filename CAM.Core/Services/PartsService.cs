@@ -23,24 +23,24 @@ namespace CAM.Core.Services
             _partRepository = repo;
             _fileHandler = fileHandler;
         }
-        public async Task<PaginatedList<Part>> GetPaginatedPartsBySearchParams(string search, string filter, int page = 1, int ipp = 10)
+        public async Task<PaginatedList<Part>> GetPaginatedPartsBySearchParamsAsync(string search, string filter, int page = 1, int ipp = 10)
         {
             var queryable = _partRepository.GetBySearchParamsAsync(search, filter, page, ipp);
             return await PaginatedList<Part>.CreateAsync(queryable, page, ipp);
         }
-        public async Task<Part> GetPartOrDefaultByMfrsPartNumber(string mfrsPartNumber, bool inclTracking)
+        public async Task<Part> GetPartOrDefaultByMfrsPartNumberAsync(string mfrsPartNumber, bool inclTracking)
         {
             return await _partRepository.GetByMfrsPnAsync(mfrsPartNumber, inclTracking);
         }
-        public async Task<Part> GetPartOrDefaultById(int id, bool inclTracking)
+        public async Task<Part> GetPartOrDefaultByIdAsync(int id, bool inclTracking)
         {
             return await _partRepository.GetByIdAsync(id, inclTracking);
         }
-        public async Task<bool> PartExists(string mfrsPartNumber)
+        public async Task<bool> PartExistsAsync(string mfrsPartNumber)
         {
             return await _partRepository.CheckForExistingRecordByPnAsync(mfrsPartNumber);
         }
-        public async Task<bool> TryCreatePart(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public async Task<bool> TryCreatePartAsync(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image)
         {
             var part = new Part(mfrsPartNumber, partCategoryId, cataloguePartNumber, name, description,
@@ -48,22 +48,22 @@ namespace CAM.Core.Services
 
             try
             {
-                await _partRepository.AddAsync(part);
                 part = await _fileHandler.SetPartImage(part, image);
-                await _partRepository.SaveChangesAsync();
+                await _partRepository.AddAsync(part);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // log exception
+                _logger.LogCritical($"Unable to save new part. {e.Source}: {e.Message}");
                 return false;
             }
-
         }
-        public async Task<bool> TryEditPart(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public async Task<bool> TryEditPartAsync(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image)
         {
             var part = await _partRepository.GetByIdAsync(id);
+            if (part == null)
+                return false;
             part.EditPart(mfrsPartNumber, partCategoryId, cataloguePartNumber, name, description,
             priceIn, priceOut, vendor, minimumStock);
             part = await _fileHandler.SetPartImage(part, image);
@@ -73,27 +73,29 @@ namespace CAM.Core.Services
                 await _partRepository.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // log excep
+                _logger.LogCritical($"Unable to save changes to part Id:{part.Id}. {e.Source}: {e.Message}");
                 return false;
             }
         }
-        public async Task<bool> TryDeletePart(int id)
+        public async Task<bool> TryDeletePartAsync(int id)
         {
             var part = await _partRepository.GetByIdAsync(id);
+            if (part == null)
+                return false;
             try
             {
                 await _partRepository.DeleteAsync(part);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // log excep
+                _logger.LogCritical($"Unable to soft delete part Id:{part.Id}. {e.Source}: {e.Message}");
                 return false;
             }
         }
-        public async Task<bool> TryReceiveShipment(List<int> ids, List<int> qtys)
+        public async Task<bool> TryReceiveShipmentAsync(List<int> ids, List<int> qtys)
         {
             if (qtys.Any(q => q < 1))
                 return false;
@@ -114,11 +116,12 @@ namespace CAM.Core.Services
                 foreach (var kvp in partsAndQtys)
                     kvp.Key.AddStock(kvp.Value);
                 await _partRepository.SaveChangesAsync();
+                _logger.LogInformation($"Successfully received shipment with item count: {partsAndQtys.Count()}.");
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // log
+                _logger.LogCritical($"Exception occurred while trying to receive shipment. {e.Source} {e.Message}");
                 return false;
             }
         }
