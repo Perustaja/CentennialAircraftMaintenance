@@ -1,0 +1,92 @@
+@model CAM.Web.ViewModels.Discrepancies.DiscrepanciesDetailsViewModel
+@{
+    ViewData["Title"] = "Discrepancy";
+}
+<div class="discrepancy-grid">
+    <div class="header-status">
+        @Html.DisplayFor(m => m.WorkStatus)
+        <span class="text-muted pl-1">@Model.SinceCreationMsg</span>
+    </div>
+    <div class="header-info">
+        <span class="pl-2 text-muted">Work Order #: 11</span>
+        <span class="pl-2 text-muted">Discrepancy #: 12</span>
+        <span class="pl-2"><i class="fas fa-plane"></i> N11211</span>
+    </div>
+    <div class="title">
+        <span class="index">#11 - </span>
+        <span>Perform Engine Oil Change</span>
+    <hr />
+    </div>
+    <div class="title-ctrls">
+        <div class="d-flex flex-row justify-content-end">
+            <button type="button" class="btn btn-sm btn-light">Edit</button>
+        </div>
+    <hr />
+    </div>
+    <div class="description">
+        <div class="grid-panel">
+            <div class="panel-header">
+                <div class="header-text">
+                    <span>Description of issue or task</span>
+                </div>
+                <div>
+                    <a>Edit</a>
+                </div>
+            </div>
+            <div class="panel-text">
+                This is a lot of text that is going to go here.
+            </div>
+        </div>
+    </div>
+    <div class="resolution">
+        <div class="grid-panel">
+            <div class="panel-header">
+                <div class="header-text">
+                    <span>Corrective Action</span>
+                </div>
+                <div>
+                    <a>Edit</a>
+                </div>
+            </div>
+            <div class="panel-text">
+                This is a lot of text that is going to go here.
+            </div>
+        </div>
+    </div>
+    <div class="parts">
+        <div class="grid-panel">
+            <div class="panel-header">
+                <div class="header-text">
+                    <span>Parts</span>
+                </div>
+                <a href="#" id="addDiscrepPart"><i class="far fa-plus-square"></i> Add</a>
+            </div>
+            @await Html.PartialAsync("_DiscrepancyPartsPartial", Model.DiscrepancyPartViewModels)
+        </div>
+    </div>    
+    <div class="labor">
+        <div class="grid-panel">
+            <div class="panel-header">
+                <div class="header-text">
+                    <span>Labor Records</span>
+                </div>
+                <a><i class="far fa-plus-square"></i> Add</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modals *@
+@await Html.PartialAsync("_ModalDiscrepancyPartsAdd", new CAM.Web.ViewModels.Discrepancies.DiscrepanciesAddPartViewModel(){ DiscrepancyId = Model.Id }); 
+
+@section Scripts {
+    <script>
+        $(document).ready(partsAutoComplete("searchParts", "searchPartsId")); // Used for _ModalDiscrepancyPartsAdd
+
+        // Toggle addDiscrepPartModal
+        $(document).on("click", "#addDiscrepPart", function(e) {
+            e.preventDefault();
+            $("#addDiscrepPartModal").modal("show");
+        });
+    </script>
+}

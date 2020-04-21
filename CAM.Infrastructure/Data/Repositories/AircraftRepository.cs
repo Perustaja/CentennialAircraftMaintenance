@@ -15,7 +15,7 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             _applicationContext = applicationContext;
         }
-        public async Task<Aircraft> GetByIdAsync(string id, bool inclTracking = true)
+        public async Task<Aircraft> GetById(string id, bool inclTracking = true)
         {
             Aircraft result;
             var queryable = _applicationContext.Set<Aircraft>()
@@ -28,7 +28,7 @@ namespace CAM.Infrastructure.Data.Repositories
             return result;
         }
 
-        public async Task<List<Aircraft>> GetListAllAsync(bool inclTracking = true)
+        public async Task<List<Aircraft>> GetListAll(bool inclTracking = true)
         {
             if (inclTracking)
                 return await _applicationContext.Set<Aircraft>()
@@ -39,7 +39,7 @@ namespace CAM.Infrastructure.Data.Repositories
                     .ToListAsync();
         }
 
-        public async Task<List<Aircraft>> GetListAsync(string searchString, bool inclTracking = true)
+        public async Task<List<Aircraft>> GetList(string searchString, bool inclTracking = true)
         {
             List<Aircraft> result;
             var queryable = _applicationContext.Set<Aircraft>()

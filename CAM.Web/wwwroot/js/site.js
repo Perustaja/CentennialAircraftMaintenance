@@ -23,7 +23,7 @@ function showModal(modalId, titleText, bodyText) {
 }
 
 // Search autocomplete for parts API
-function partsAutoComplete(inputElementId) {
+function partsAutoComplete(inputElementId, hiddenIdInputEle) {
     var input = document.getElementById(inputElementId);
     if (input != null) {
         input.addEventListener("input", updateListFromApi)
@@ -70,6 +70,7 @@ function partsAutoComplete(inputElementId) {
 
                     liEle.addEventListener("click", function (e) {
                         input.value = json[i]["mfrsPartNumber"];
+                        document.getElementById(hiddenIdInputEle).value = json[i]["id"];
                         closeAllLists();
                         // the focus and blur is to trigger model validation after clicking the div
                         input.focus();

@@ -46,6 +46,7 @@ namespace CAM.Core.Entities
             WorkStatus = WorkStatus.Open;
         }
         public void ChangeTitle(string title) => Title = title;
+        public void Close() => WorkStatus = WorkStatus.Closed;
         public void SubmitForReview()
         {
             WorkStatus = WorkStatus.UnderReview;

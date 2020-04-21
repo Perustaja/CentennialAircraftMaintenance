@@ -57,7 +57,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendPasswordResetEmailAsync(Input.Email, 
+                await _emailSender.SendPasswordResetEmail(Input.Email, 
                 HtmlEncoder.Default.Encode(callbackUrl));
 
                 return RedirectToPage("./ForgotPasswordConfirmation");

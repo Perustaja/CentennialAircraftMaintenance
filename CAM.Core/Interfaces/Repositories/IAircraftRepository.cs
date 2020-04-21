@@ -6,10 +6,10 @@ namespace CAM.Core.Interfaces.Repositories
 {
     public interface IAircraftRepository
     {
-        Task<Aircraft> GetByIdAsync(string id, bool inclTracking = true);
+        Task<Aircraft> GetById(string id, bool inclTracking = true);
 
-        Task<List<Aircraft>> GetListAllAsync(bool inclTracking = true);
+        Task<List<Aircraft>> GetListAll(bool inclTracking = true);
 
-        Task<List<Aircraft>> GetListAsync(string searchString, bool inclTracking = true);
+        Task<List<Aircraft>> GetList(string searchString, bool inclTracking = true);
     }
 }

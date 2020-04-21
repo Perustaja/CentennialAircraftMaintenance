@@ -23,7 +23,7 @@ namespace CAM.Web.ViewComponents
                 Names = new List<string>()
             };
 
-            foreach (var cat in await _partCategoryRepository.GetListAllAsync())
+            foreach (var cat in await _partCategoryRepository.GetListAll())
             {
                 viewmodel.Ids.Add(cat.Id);
                 viewmodel.Names.Add(cat.Name);

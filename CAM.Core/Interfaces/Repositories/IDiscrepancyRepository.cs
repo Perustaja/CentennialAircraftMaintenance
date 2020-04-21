@@ -6,8 +6,10 @@ namespace CAM.Core.Interfaces.Repositories
 {
     public interface IDiscrepancyRepository
     {
-        Task<Discrepancy> GetByIdAsync(int id, bool inclTracking = true);
-        Task<List<Discrepancy>> GetListAllAsync(bool inclTracking = true);
-        Task<List<Discrepancy>> GetBySearchParamsAsync(string regNum, string status);
+        /// <param name="index">The one-based index.</param>
+        Task<Discrepancy> GetByWorkOrderAndIndexOrDefault(int wOrderId, int index, bool inclTracking = true);
+        Task<List<DiscrepancyPart>> GetDiscrepancyPartsById(int discrepId);
+        Task<bool> DiscrepancyExists(int discrepId);
+        Task AddDiscrepancyPart(int discrepId, int partId, int qty);
     }
 }

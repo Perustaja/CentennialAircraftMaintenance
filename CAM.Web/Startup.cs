@@ -68,9 +68,11 @@ namespace CAM.Web
             services.AddScoped<IAircraftRepository, AircraftRepository>();
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
-            services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();
+            services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
             // Services
+            services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();
             services.AddScoped<IPartsService, PartsService>();
+            services.AddScoped<IDiscrepancyService, DiscrepancyService>();
             // Email confirmation/password reset etc with options
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration); //SendGrid keys stored in usersecrets

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CAM.Core.Entities
@@ -16,6 +17,9 @@ namespace CAM.Core.Entities
         [Display(Name = "Labor(Hours)")]
         [Range(0.1d, 99d)]
         public decimal LaborInHours { get; private set; }
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
+        public DateTime DatePerformed { get; private set; }
         public Employee Employee { get; private set; }
         private LaborRecord()
         {
@@ -26,6 +30,7 @@ namespace CAM.Core.Entities
             DiscrepancyId = discrepId;
             EmployeeId = employeeId;
             LaborInHours = laborInHours;
+            DatePerformed = DateTime.Today;
         }
         public void ChangeLaborHours(decimal laborInHours) => LaborInHours = laborInHours;
     }

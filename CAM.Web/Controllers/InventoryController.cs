@@ -35,7 +35,7 @@ namespace CAM.Web.Controllers
             ViewData["PageValue"] = page;
             ViewData["IppValue"] = ipp;
 
-            var parts = await _partsService.GetPaginatedPartsBySearchParamsAsync(search, filter, page, ipp);
+            var parts = await _partsService.GetPaginatedPartsBySearchParams(search, filter, page, ipp);
 
             var viewModel = new InventoryIndexViewModel()
             {
@@ -60,7 +60,7 @@ namespace CAM.Web.Controllers
             {
                 var ids = vm.ReceiveItems.Select(i => i.Id).ToList();
                 var qtys = vm.ReceiveItems.Select(i => i.Qty).ToList();
-                if (await _partsService.TryReceiveShipmentAsync(ids, qtys))
+                if (await _partsService.TryReceiveShipment(ids, qtys))
                     return Ok();
             }
             return NotFound("There was an error handling your request. Please try again and if the problem persists, contact site administation.");
@@ -72,7 +72,7 @@ namespace CAM.Web.Controllers
         {
             if (!String.IsNullOrWhiteSpace(vm.InputPartNumber) && vm.InputQuantity > 0)
             {
-                var part = await _partsService.GetPartOrDefaultByMfrsPartNumberAsync(vm.InputPartNumber, false);
+                var part = await _partsService.GetPartOrDefaultById(vm.PartId, false);
                 if (part != null)
                 {
                     var mappedVm = _mapper.Map<InventoryReceiveItemViewModel>(part);
@@ -92,7 +92,7 @@ namespace CAM.Web.Controllers
             {
                 return Json($"The part number cannot be empty.");
             }
-            else if (!await _partsService.PartExistsAsync(inputPartNumber))
+            else if (!await _partsService.PartExists(inputPartNumber))
             {
                 return Json($"The part {inputPartNumber} could not be found.");
             }
@@ -102,7 +102,7 @@ namespace CAM.Web.Controllers
         [AcceptVerbs("GET")]
         public async Task<IActionResult> VerifyPartNonExistent(string id)
         {
-            if (!String.IsNullOrWhiteSpace(id) && await _partsService.PartExistsAsync(id))
+            if (!String.IsNullOrWhiteSpace(id) && await _partsService.PartExists(id))
             {
                 return Json($"A part already exists with the manufacturer's part number {id}.");
             }

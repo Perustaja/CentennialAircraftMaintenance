@@ -15,7 +15,7 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             _applicationContext = applicationContext;
         }
-        public async Task<List<PartCategory>> GetListAllAsync()
+        public async Task<List<PartCategory>> GetListAll()
         {
             return await _applicationContext.Set<PartCategory>().ToListAsync();
         }

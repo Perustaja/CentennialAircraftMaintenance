@@ -57,6 +57,7 @@ namespace CAM.Core.Entities
         public void ChangeTitle(string title) => Title = title;
         public void ChangeDescription(string desc) => Description = desc;
         public void ChangeResolution(string reso) => Resolution = reso;
+        public void Close() => WorkStatus = WorkStatus.Closed;
         public void SubmitForReview()
         {
             WorkStatus = WorkStatus.UnderReview;

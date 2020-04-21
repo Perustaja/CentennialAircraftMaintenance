@@ -63,10 +63,10 @@ namespace CAM.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AircraftId = table.Column<string>(maxLength: 20, nullable: false),
-                    Title = table.Column<string>(maxLength: 15, nullable: false),
+                    Title = table.Column<string>(maxLength: 40, nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateFinalized = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     WorkStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -80,7 +80,7 @@ namespace CAM.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,9 +146,9 @@ namespace CAM.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     WorkOrderTemplateId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Resolution = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(maxLength: 15, nullable: true),
+                    Description = table.Column<string>(maxLength: 75, nullable: false),
+                    Resolution = table.Column<string>(maxLength: 600, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -169,12 +169,12 @@ namespace CAM.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     AircraftId = table.Column<string>(nullable: true),
                     WorkOrderId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(maxLength: 15, nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Resolution = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 40, nullable: true),
+                    Description = table.Column<string>(maxLength: 75, nullable: false),
+                    Resolution = table.Column<string>(maxLength: 600, nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateFinalized = table.Column<DateTime>(nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 60, nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     WorkStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -276,7 +276,8 @@ namespace CAM.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DiscrepancyId = table.Column<int>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: false),
-                    LaborInHours = table.Column<decimal>(nullable: false)
+                    LaborInHours = table.Column<decimal>(nullable: false),
+                    DatePerformed = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

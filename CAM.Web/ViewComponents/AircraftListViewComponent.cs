@@ -22,7 +22,7 @@ namespace CAM.Web.ViewComponents
                 Selected = new List<bool>()
             };
 
-            foreach (var aircraft in await _aircraftRepository.GetListAllAsync(false))
+            foreach (var aircraft in await _aircraftRepository.GetListAll(false))
             {
                 aircraftListViewModel.Ids.Add(aircraft.Id);
                 aircraftListViewModel.Selected.Add(aircraft.Id == selected);

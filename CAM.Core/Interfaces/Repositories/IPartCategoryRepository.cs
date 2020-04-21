@@ -6,6 +6,6 @@ namespace CAM.Core.Interfaces.Repositories
 {
     public interface IPartCategoryRepository
     {
-        Task<List<PartCategory>> GetListAllAsync();
+        Task<List<PartCategory>> GetListAll();
     }
 }

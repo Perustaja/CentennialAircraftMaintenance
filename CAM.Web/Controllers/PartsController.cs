@@ -26,7 +26,7 @@ namespace CAM.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var part = await _partsService.GetPartOrDefaultByIdAsync(id, false);
+            var part = await _partsService.GetPartOrDefaultById(id, false);
             if (part == null)
             {
                 return new BadRequestResult();
@@ -40,7 +40,7 @@ namespace CAM.Web.Controllers
         [HttpGet("edit")]
         public async Task<IActionResult> Edit(int id)
         {
-            var part = await _partsService.GetPartOrDefaultByIdAsync(id, false);
+            var part = await _partsService.GetPartOrDefaultById(id, false);
             if (part == null)
             {
                 StatusMessage = "Unable to locate a matching part.";
@@ -61,7 +61,7 @@ namespace CAM.Web.Controllers
             {
                 return View();
             }
-            var editSuccessful = (await _partsService.TryEditPartAsync(vm.Id, vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber,
+            var editSuccessful = (await _partsService.TryEditPart(vm.Id, vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber,
             vm.Name, vm.Description, vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock, vm.Image));
 
             if (editSuccessful)
@@ -82,7 +82,7 @@ namespace CAM.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await _partsService.TryDeletePartAsync(id))
+            if (await _partsService.TryDeletePart(id))
             {
                 StatusMessage = $"Part was successfully deleted.";
                 Success = true;
@@ -104,7 +104,7 @@ namespace CAM.Web.Controllers
             {
                 return BadRequest("The image specified does not follow guidelines. Please ensure the file has a valid extension and size.");
             }
-            var createSuccessful = await _partsService.TryCreatePartAsync(vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
+            var createSuccessful = await _partsService.TryCreatePart(vm.MfrsPartNumber, vm.PartCategoryId, vm.CataloguePartNumber, vm.Name, vm.Description,
             vm.PriceIn, vm.PriceOut, vm.Vendor, vm.MinimumStock, vm.Image);
 
             if (createSuccessful)

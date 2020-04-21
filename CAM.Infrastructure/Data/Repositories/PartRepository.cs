@@ -19,7 +19,7 @@ namespace CAM.Infrastructure.Data.Repositories
             _applicationContext = applicationContext;
         }
 
-        public async Task<Part> GetByIdAsync(int id, bool inclTracking = true)
+        public async Task<Part> GetByIdOrDefault(int id, bool inclTracking = true)
         {
             Part result;
             var queryable = _applicationContext.Set<Part>().Where(e => e.Id == id)
@@ -31,7 +31,7 @@ namespace CAM.Infrastructure.Data.Repositories
                 result = await queryable.AsNoTracking().FirstOrDefaultAsync();
             return result;
         }
-        public async Task<Part> GetByMfrsPnAsync(string partNum, bool inclTracking = true)
+        public async Task<Part> GetByMfrsPnOrDefault(string partNum, bool inclTracking = true)
         {
             Part result;
             var queryable = _applicationContext.Set<Part>()
@@ -45,7 +45,7 @@ namespace CAM.Infrastructure.Data.Repositories
             return result;
         }
 
-        public async Task<List<Part>> GetListAllAsync(bool inclTracking = true)
+        public async Task<List<Part>> GetListAll(bool inclTracking = true)
         {
             if (inclTracking)
                 return await _applicationContext.Set<Part>()
@@ -60,7 +60,7 @@ namespace CAM.Infrastructure.Data.Repositories
         /// <summary>
         /// Returns a sorted and filtered PaginatedList of Parts ordered by their id length.
         /// </summary> 
-        public IQueryable<Part> GetBySearchParamsAsync(string search, string filter,
+        public IQueryable<Part> GetBySearchParams(string search, string filter,
         int page, int ipp)
         {
             search = search ?? String.Empty;
@@ -85,15 +85,15 @@ namespace CAM.Infrastructure.Data.Repositories
         /// <summary>
         /// Checks if a part with a matching id exists. Both strings are copied with ToLower() so it is not case-sensitive.
         /// </summary> 
-        public async Task<bool> CheckForExistingRecordByPnAsync(string mfrsPartNumber)
+        public async Task<bool> PartExistsByPartNumber(string mfrsPartNumber)
         {
             return await _applicationContext.Parts.AnyAsync(e => e.MfrsPartNumber.ToLower() == mfrsPartNumber.ToLower()) ? true : false;
         }
-        public async Task<bool> CheckForExistingRecordByIdAsync(int id)
+        public async Task<bool> PartExistsById(int id)
         {
             return await _applicationContext.Parts.AnyAsync(e => e.Id == id) ? true : false;
         }
-        public async Task AddAsync(Part part)
+        public async Task Add(Part part)
         {
             _logger.LogInformation($"Attempting to save new part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
             await _applicationContext.BeginTransaction();
@@ -101,12 +101,12 @@ namespace CAM.Infrastructure.Data.Repositories
             await _applicationContext.Commit();
             _logger.LogInformation($"Successfully saved new part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
         }
-        public async Task SaveChangesAsync()
+        public async Task SaveChanges()
         {
             await _applicationContext.BeginTransaction();
             await _applicationContext.Commit();
         }
-        public async Task DeleteAsync(Part part)
+        public async Task Delete(Part part)
         {
             _logger.LogInformation($"Attempting to soft delete part Id:{part.Id} Manufacturer's #:{part.MfrsPartNumber}.");
             await _applicationContext.BeginTransaction();

@@ -23,24 +23,24 @@ namespace CAM.Core.Services
             _partRepository = repo;
             _fileHandler = fileHandler;
         }
-        public async Task<PaginatedList<Part>> GetPaginatedPartsBySearchParamsAsync(string search, string filter, int page = 1, int ipp = 10)
+        public async Task<PaginatedList<Part>> GetPaginatedPartsBySearchParams(string search, string filter, int page = 1, int ipp = 10)
         {
-            var queryable = _partRepository.GetBySearchParamsAsync(search, filter, page, ipp);
+            var queryable = _partRepository.GetBySearchParams(search, filter, page, ipp);
             return await PaginatedList<Part>.CreateAsync(queryable, page, ipp);
         }
-        public async Task<Part> GetPartOrDefaultByMfrsPartNumberAsync(string mfrsPartNumber, bool inclTracking)
+        public async Task<Part> GetPartOrDefaultByMfrsPartNumber(string mfrsPartNumber, bool inclTracking)
         {
-            return await _partRepository.GetByMfrsPnAsync(mfrsPartNumber, inclTracking);
+            return await _partRepository.GetByMfrsPnOrDefault(mfrsPartNumber, inclTracking);
         }
-        public async Task<Part> GetPartOrDefaultByIdAsync(int id, bool inclTracking)
+        public async Task<Part> GetPartOrDefaultById(int id, bool inclTracking)
         {
-            return await _partRepository.GetByIdAsync(id, inclTracking);
+            return await _partRepository.GetByIdOrDefault(id, inclTracking);
         }
-        public async Task<bool> PartExistsAsync(string mfrsPartNumber)
+        public async Task<bool> PartExists(string mfrsPartNumber)
         {
-            return await _partRepository.CheckForExistingRecordByPnAsync(mfrsPartNumber);
+            return await _partRepository.PartExistsByPartNumber(mfrsPartNumber);
         }
-        public async Task<bool> TryCreatePartAsync(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public async Task<bool> TryCreatePart(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image)
         {
             var part = new Part(mfrsPartNumber, partCategoryId, cataloguePartNumber, name, description,
@@ -48,8 +48,9 @@ namespace CAM.Core.Services
 
             try
             {
+                await _partRepository.Add(part);
                 part = await _fileHandler.SetPartImage(part, image);
-                await _partRepository.AddAsync(part);
+                await _partRepository.SaveChanges();
                 return true;
             }
             catch (Exception e)
@@ -58,10 +59,10 @@ namespace CAM.Core.Services
                 return false;
             }
         }
-        public async Task<bool> TryEditPartAsync(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        public async Task<bool> TryEditPart(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image)
         {
-            var part = await _partRepository.GetByIdAsync(id);
+            var part = await _partRepository.GetByIdOrDefault(id);
             if (part == null)
                 return false;
             part.EditPart(mfrsPartNumber, partCategoryId, cataloguePartNumber, name, description,
@@ -70,7 +71,7 @@ namespace CAM.Core.Services
 
             try
             {
-                await _partRepository.SaveChangesAsync();
+                await _partRepository.SaveChanges();
                 return true;
             }
             catch (Exception e)
@@ -79,14 +80,15 @@ namespace CAM.Core.Services
                 return false;
             }
         }
-        public async Task<bool> TryDeletePartAsync(int id)
+        public async Task<bool> TryDeletePart(int id)
         {
-            var part = await _partRepository.GetByIdAsync(id);
+            var part = await _partRepository.GetByIdOrDefault(id);
             if (part == null)
                 return false;
             try
             {
-                await _partRepository.DeleteAsync(part);
+                await _partRepository.Delete(part);
+                _logger.LogInformation($"Soft deleted Part ID: {id}");
                 return true;
             }
             catch (Exception e)
@@ -95,18 +97,18 @@ namespace CAM.Core.Services
                 return false;
             }
         }
-        public async Task<bool> TryReceiveShipmentAsync(List<int> ids, List<int> qtys)
+        public async Task<bool> TryReceiveShipment(List<int> ids, List<int> qtys)
         {
             if (qtys.Any(q => q < 1))
                 return false;
             foreach (var i in ids)
             {
-                if (!await _partRepository.CheckForExistingRecordByIdAsync(i))
+                if (!await _partRepository.PartExistsById(i))
                     return false;
             }
             var tasksAndQtys = new List<KeyValuePair<Task<Part>, int>>();
             for (int i = 0; i < ids.Count; i++)
-                tasksAndQtys.Add(new KeyValuePair<Task<Part>, int>(_partRepository.GetByIdAsync(ids[i]), qtys[i]));
+                tasksAndQtys.Add(new KeyValuePair<Task<Part>, int>(_partRepository.GetByIdOrDefault(ids[i]), qtys[i]));
             
             var partsAndQtys = await Task
                 .WhenAll(tasksAndQtys.Select(async kvp => new KeyValuePair<Part, int>(await kvp.Key, kvp.Value))
@@ -115,7 +117,7 @@ namespace CAM.Core.Services
             {
                 foreach (var kvp in partsAndQtys)
                     kvp.Key.AddStock(kvp.Value);
-                await _partRepository.SaveChangesAsync();
+                await _partRepository.SaveChanges();
                 _logger.LogInformation($"Successfully received shipment with item count: {partsAndQtys.Count()}.");
                 return true;
             }

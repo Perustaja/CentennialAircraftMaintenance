@@ -24,11 +24,11 @@ namespace CAM.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchReg))
             {
-                aircraft = await _aircraftRepository.GetListAsync(searchReg.ToUpper());
+                aircraft = await _aircraftRepository.GetList(searchReg.ToUpper());
             }
             else
             {
-                aircraft = await _aircraftRepository.GetListAllAsync();
+                aircraft = await _aircraftRepository.GetListAll();
             }
             return View(aircraft);
         }
@@ -37,7 +37,7 @@ namespace CAM.Web.Controllers
         {
             if (id == null) {return NotFound();}
 
-            var aircraft = await _aircraftRepository.GetByIdAsync(id);
+            var aircraft = await _aircraftRepository.GetById(id);
 
             if (aircraft == null) {return NotFound();}
             return View(aircraft);
@@ -47,7 +47,7 @@ namespace CAM.Web.Controllers
         {
             if (id == null) {return NotFound();}
 
-            var aircraft = await _aircraftRepository.GetByIdAsync(id);
+            var aircraft = await _aircraftRepository.GetById(id);
 
             if (aircraft == null) {return NotFound();}
             return View(aircraft);

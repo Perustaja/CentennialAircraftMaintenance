@@ -53,7 +53,7 @@ namespace CAM.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(60);
+                        .HasMaxLength(20);
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
@@ -62,14 +62,17 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(75);
 
                     b.Property<string>("Resolution")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(600);
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(15);
+                        .HasMaxLength(40);
 
                     b.Property<int>("WorkOrderId")
                         .HasColumnType("INTEGER");
@@ -111,13 +114,17 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(75);
 
                     b.Property<string>("Resolution")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(600);
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(15);
 
                     b.Property<int?>("WorkOrderTemplateId")
                         .HasColumnType("INTEGER");
@@ -177,6 +184,9 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DatePerformed")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DiscrepancyId")
                         .HasColumnType("INTEGER");
@@ -326,7 +336,7 @@ namespace CAM.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("TEXT")
-                        .HasMaxLength(60);
+                        .HasMaxLength(20);
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
@@ -337,7 +347,7 @@ namespace CAM.Infrastructure.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasMaxLength(15);
+                        .HasMaxLength(40);
 
                     b.Property<int>("WorkStatus")
                         .HasColumnType("INTEGER");
@@ -354,7 +364,9 @@ namespace CAM.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 

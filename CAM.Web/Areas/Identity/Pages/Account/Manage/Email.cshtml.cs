@@ -100,7 +100,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account.Manage
                     values: new { userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendConfirmationEmailAsync(Input.NewEmail,HtmlEncoder.Default.Encode(callbackUrl));
+                await _emailSender.SendConfirmationEmail(Input.NewEmail,HtmlEncoder.Default.Encode(callbackUrl));
 
                 StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();
@@ -134,7 +134,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account.Manage
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
                 
-            await _emailSender.SendConfirmationEmailAsync(email, HtmlEncoder.Default.Encode(callbackUrl));
+            await _emailSender.SendConfirmationEmail(email, HtmlEncoder.Default.Encode(callbackUrl));
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();

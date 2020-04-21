@@ -5,8 +5,8 @@ namespace CAM.Core.Interfaces
 
     public interface IEmailSender
     {
-        Task SendEmailAsync(string email, string subject, string message);
-        Task SendConfirmationEmailAsync(string email, string confirmationUrl);
-        Task SendPasswordResetEmailAsync(string email, string passResetUrl);
+        Task SendEmail(string email, string subject, string message);
+        Task SendConfirmationEmail(string email, string confirmationUrl);
+        Task SendPasswordResetEmail(string email, string passResetUrl);
     }
 }

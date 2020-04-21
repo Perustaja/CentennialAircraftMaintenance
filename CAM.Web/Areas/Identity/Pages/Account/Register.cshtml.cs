@@ -97,7 +97,7 @@ namespace CAM.Web.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
                     
-                    await _emailSender.SendConfirmationEmailAsync(Input.Email, HtmlEncoder.Default.Encode(callbackUrl)); 
+                    await _emailSender.SendConfirmationEmail(Input.Email, HtmlEncoder.Default.Encode(callbackUrl)); 
                     _logger.LogInformation($"{DateTime.Now}: Confirmation email sent to {user.Email}.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

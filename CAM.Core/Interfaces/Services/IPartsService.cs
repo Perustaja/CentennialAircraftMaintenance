@@ -13,16 +13,16 @@ namespace CAM.Core.Interfaces.Services
     /// </summary>
     public interface IPartsService
     {
-        Task<PaginatedList<Part>> GetPaginatedPartsBySearchParamsAsync(string search, string filter, int page = 1, int ipp = 10);
-        Task<Part> GetPartOrDefaultByMfrsPartNumberAsync(string mfrsPartNumber, bool inclTracking);
-        Task<Part> GetPartOrDefaultByIdAsync(int id, bool inclTracking);
-        Task<bool> PartExistsAsync(string mfrsPartNumber);
-        Task<bool> TryCreatePartAsync(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        Task<PaginatedList<Part>> GetPaginatedPartsBySearchParams(string search, string filter, int page = 1, int ipp = 10);
+        Task<Part> GetPartOrDefaultByMfrsPartNumber(string mfrsPartNumber, bool inclTracking);
+        Task<Part> GetPartOrDefaultById(int id, bool inclTracking);
+        Task<bool> PartExists(string mfrsPartNumber);
+        Task<bool> TryCreatePart(string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image);
-        Task<bool> TryEditPartAsync(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
+        Task<bool> TryEditPart(int id, string mfrsPartNumber, int partCategoryId, string cataloguePartNumber, string name, string description,
         decimal priceIn, decimal? priceOut, string vendor, int? minimumStock, IFormFile image);
-        Task<bool> TryDeletePartAsync(int id);
+        Task<bool> TryDeletePart(int id);
         /// <param name="qtysAndIds">A Dictionary with key quanity and value id</param>
-        Task<bool> TryReceiveShipmentAsync(List<int> Ids, List<int> Qtys);
+        Task<bool> TryReceiveShipment(List<int> Ids, List<int> Qtys);
     }
 }

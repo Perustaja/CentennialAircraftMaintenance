@@ -20,15 +20,15 @@ namespace CAM.Infrastructure.Services
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
 
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmail(string email, string subject, string message)
         {
             return Execute(Options.SendGridKey, subject, message, email);
         }
-        public Task SendConfirmationEmailAsync(string email, string confirmationUrl)
+        public Task SendConfirmationEmail(string email, string confirmationUrl)
         {
             return ExecuteConfirmation(Options.SendGridKey, email, confirmationUrl);
         }
-        public Task SendPasswordResetEmailAsync(string email, string passResetUrl)
+        public Task SendPasswordResetEmail(string email, string passResetUrl)
         {
             return ExecutePasswordReset(Options.SendGridKey, email, passResetUrl);
         }
