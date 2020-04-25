@@ -69,6 +69,7 @@ namespace CAM.Web
             services.AddScoped<IPartRepository, PartRepository>();
             services.AddScoped<IPartCategoryRepository, PartCategoryRepository>();
             services.AddScoped<IDiscrepancyRepository, DiscrepancyRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             // Services
             services.AddScoped<IPaginatedListMapper, PaginatedListMapper>();
             services.AddScoped<IPartsService, PartsService>();

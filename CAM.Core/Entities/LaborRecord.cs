@@ -25,13 +25,14 @@ namespace CAM.Core.Entities
         {
             // Required by EF
         }
-        public LaborRecord(int discrepId, int employeeId, decimal laborInHours)
+        public LaborRecord(int discrepId, int employeeId, decimal laborInHours, DateTime date)
         {
             DiscrepancyId = discrepId;
             EmployeeId = employeeId;
             LaborInHours = laborInHours;
-            DatePerformed = DateTime.Today;
+            DatePerformed = date.Date;
         }
         public void ChangeLaborHours(decimal laborInHours) => LaborInHours = laborInHours;
+        public void AddLaborHours(decimal laborInHours) => LaborInHours += laborInHours;
     }
 }

@@ -34,7 +34,7 @@ namespace CAM.Web.Controllers
         [HttpPost("/onaddpart")]
         public async Task<IActionResult> OnAddPart(DiscrepanciesAddPartViewModel vm)
         {
-            if (vm != null)
+            if (vm != null && ModelState.IsValid)
             {
                 if (await _discrepService.TryAddPart(vm.DiscrepancyId, vm.PartId, vm.InputQuantity))
                 {
@@ -52,7 +52,22 @@ namespace CAM.Web.Controllers
                     return PartialView("_DiscrepancyPartsPartial", viewModels);
                 }
             }
-            return NotFound();
+            return NotFound("Unable to locate either the part or discrepancy requested.");
+        }
+        // Ajax
+        [HttpPost("/onaddlabor")]
+        public async Task<IActionResult> OnAddLabor(DiscrepanciesAddLaborViewModel vm)
+        {
+            if (vm != null && ModelState.IsValid)
+            {
+                if (await _discrepService.TryAddLabor(vm.DiscrepancyId, vm.EmployeeId, vm.LaborInHours, vm.DatePerformed))
+                {
+                    var updatedRecords = await _discrepService.GetLaborRecordsById(vm.DiscrepancyId);
+                    var viewModels = _mapper.Map<List<LaborRecordViewModel>>(updatedRecords);
+                    return PartialView("_DiscrepancyPartsPartial", viewModels);
+                }
+            }
+            return NotFound("Unable to add the requested labor record.");
         }
     }
 }

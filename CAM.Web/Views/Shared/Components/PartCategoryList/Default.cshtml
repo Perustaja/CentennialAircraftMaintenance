@@ -1,5 +1,5 @@
 @model CAM.Web.ViewModels.Shared.PartCategoryListViewModel
-    @for (int i = 0; i < Model.Ids.Count; i++)
-    {
-        <option value="@Model.Ids[i]">@(Html.DisplayFor(m => m.Names[i]))</option>
-    }
+@for (int i = 0; i < Model.Ids.Count; i++)
+{
+    <option value="@Model.Ids[i]">@(Html.DisplayFor(m => m.Names[i]))</option>
+}

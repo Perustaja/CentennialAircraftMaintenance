@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CAM.Core.Entities
@@ -18,7 +19,7 @@ namespace CAM.Core.Entities
         [StringLength(50)]
         public string LastName { get; private set; }
 
-        public string Initials => $"{FirstName[0]}{LastName[0]}".ToUpper();
+        public string Initials => $"{Char.ToUpper(FirstName[0])}{LastName}";
 
         [StringLength(20)]
         public string CertificationNum { get; private set; }
