@@ -159,3 +159,11 @@ $(function () {
         });
     });
 });
+
+// Modal trigger helper
+function ToggleModalOnClick(btnId, modalId) {
+    $(document).on("click", btnId, function(e) {
+        e.preventDefault();
+        $(modalId).modal("show");
+    });
+}

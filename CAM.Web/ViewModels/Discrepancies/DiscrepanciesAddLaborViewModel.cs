@@ -7,6 +7,7 @@ namespace CAM.Web.ViewModels.Discrepancies
     public class DiscrepanciesAddLaborViewModel
     {
         public int DiscrepancyId { get; set; }
+        [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
         [Display(Name = "Labor(Hours)")]
         [Range(0.1d, 99d, ErrorMessage = "Must be greater than 1.")]

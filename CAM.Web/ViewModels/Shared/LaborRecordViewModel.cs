@@ -16,7 +16,5 @@ namespace CAM.Web.ViewModels.Shared
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         public DateTime DatePerformed { get; set; }
-        [SourceMember(nameof(Employee.Initials))]
-        public string Initials { get; set; }
     }
 }

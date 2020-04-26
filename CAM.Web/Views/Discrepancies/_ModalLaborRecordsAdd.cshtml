@@ -9,29 +9,40 @@
             </div>
             @* body *@
             <div class="modal-body">
-                <span class="mr-2" style="display: inline-block">
+                <div class="pr-5 pl-5">
                     @* form *@
                     <form data-ajax="true" data-ajax-url=@Url.Action("onaddlabor", "Discrepancies") data-ajax-method="post"
                     data-ajax-update="#labor-basket" data-ajax-failure="onAddLaborFailure">
-                        <div class="row">
-                            <span asp-validation-for="DatePerformed" class="text-danger col-md-6"></span>
-                            <span asp-validation-for="LaborInHours" class="text-danger col-md-3"></span>
-                        </div> 
-                        <div class="form-row justify-content-center pt-3">
-                            @Html.HiddenFor(m => m.DiscrepancyId)
-                            <div class="form-group autocomplete col-md-6">
-                                <input asp-for="DatePerformed" type="date" class="form-control" autocomplete="off" />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <input asp-for="LaborInHours" class="form-control" min="0.1" value="1" />
-                            </div>
-                            <div class="btn-toolbar pl-2 mb-5" style="display: block;">
-                                <button type="submit" class="btn btn-secondary"><i class="far fa-plus-square"></i> Add to labor</button>
-                                <button class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                        @Html.HiddenFor(m => m.DiscrepancyId)
+                        <div class="form-group row">
+                            <label asp-for="EmployeeId" class="col-md-4 col-form-label"></label>
+                            <div class="col-md-8">
+                                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                <select asp-for="EmployeeId" class="form-control">
+                                    @await Component.InvokeAsync("EmployeeList")
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label asp-for="DatePerformed" class="col-md-4 col-form-label"></label>
+                            <div class="col-md-8">
+                                <span asp-validation-for="DatePerformed" class="text-danger"></span>
+                                <input asp-for="DatePerformed" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="LaborInHours" class="col-md-4 col-form-label"></label>
+                            <div class="col-md-8">
+                                <span asp-validation-for="LaborInHours" class="text-danger"></span>
+                                <input asp-for="LaborInHours" class="form-control" min="0.1"/>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar pl-2 mb-5" style="display: block;">
+                            <button type="submit" class="btn btn-secondary"><i class="far fa-plus-square"></i> Add to labor</button>
+                            <button class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                        </div>
                     </form>
-                </span>
+                </div>
             </div>
         </div>
     </div>

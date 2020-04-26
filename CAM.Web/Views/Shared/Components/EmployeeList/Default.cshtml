@@ -1,5 +1,5 @@
 @model List<CAM.Web.ViewModels.Shared.EmployeeViewModel>
 @foreach (var m in Model)
 {
-    <option value="@m.Id">@Html.Display(m.FirstName) @Html.Display(m.LastName))</option>
+    <option value="@m.Id">@m.Initials</option>
 }

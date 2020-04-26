@@ -70,23 +70,23 @@
                 <div class="header-text">
                     <span>Labor Records</span>
                 </div>
-                <a><i class="far fa-plus-square"></i> Add</a>
+                <a href="#" id="addLaborRecord"><i class="far fa-plus-square"></i> Add</a>
             </div>
+            @await Html.PartialAsync("_LaborRecordsPartial", Model.LaborRecordViewModels)
         </div>
     </div>
 </div>
 
 @* Modals *@
-@await Html.PartialAsync("_ModalDiscrepancyPartsAdd", new CAM.Web.ViewModels.Discrepancies.DiscrepanciesAddPartViewModel(){ DiscrepancyId = Model.Id }); 
+@await Html.PartialAsync("_ModalDiscrepancyPartsAdd", new CAM.Web.ViewModels.Discrepancies.DiscrepanciesAddPartViewModel(){ DiscrepancyId = Model.Id })
+@await Html.PartialAsync("_ModalLaborRecordsAdd", new CAM.Web.ViewModels.Discrepancies.DiscrepanciesAddLaborViewModel(){ DiscrepancyId = Model.Id })
 
 @section Scripts {
     <script>
         $(document).ready(partsAutoComplete("searchParts", "searchPartsId")); // Used for _ModalDiscrepancyPartsAdd
 
-        // Toggle addDiscrepPartModal
-        $(document).on("click", "#addDiscrepPart", function(e) {
-            e.preventDefault();
-            $("#addDiscrepPartModal").modal("show");
-        });
+        // Toggle modals
+        ToggleModalOnClick("#addDiscrepPart", "#addDiscrepPartModal");
+        ToggleModalOnClick("#addLaborRecord", "#addLaborRecordModal");
     </script>
 }

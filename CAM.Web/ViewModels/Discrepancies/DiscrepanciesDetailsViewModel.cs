@@ -35,6 +35,8 @@ namespace CAM.Web.ViewModels.Discrepancies
         public WorkStatus WorkStatus { get; private set; }
         [SourceMember(nameof(Discrepancy.DiscrepancyParts))]
         public List<DiscrepancyPartViewModel> DiscrepancyPartViewModels { get; set; }
+        [SourceMember(nameof(Discrepancy.LaborRecords))]
+        public List<LaborRecordViewModel> LaborRecordViewModels { get; set; }
         public string SinceCreationMsg => $"Created {(DateTime.Today - DateCreated).Days} days ago by {CreatedBy}";
     }
 }

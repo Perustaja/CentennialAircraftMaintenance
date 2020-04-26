@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace CAM.Web.ViewComponents
 {
     public class EmployeeListViewComponent : ViewComponent
