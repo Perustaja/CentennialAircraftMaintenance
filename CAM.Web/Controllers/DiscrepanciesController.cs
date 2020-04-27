@@ -38,17 +38,8 @@ namespace CAM.Web.Controllers
             {
                 if (await _discrepService.TryAddPart(vm.DiscrepancyId, vm.PartId, vm.InputQuantity))
                 {
-                    var viewModels = new List<DiscrepancyPartViewModel>();
                     var updatedParts = await _discrepService.GetDiscrepancyPartsById(vm.DiscrepancyId);
-                    updatedParts.ForEach(dp => viewModels.Add(new DiscrepancyPartViewModel()
-                    {
-                        PartId = dp.PartId,
-                        DiscrepancyId = dp.DiscrepancyId,
-                        MfrsPartNumber = dp.Part.MfrsPartNumber,
-                        Name = dp.Part.Name,
-                        ImageThumbPath = dp.Part.ImageThumbPath,
-                        Qty = dp.Qty
-                    }));
+                    var viewModels = _mapper.Map<DiscrepancyPartViewModel>(updatedParts);
                     return PartialView("_DiscrepancyPartsPartial", viewModels);
                 }
             }
@@ -62,9 +53,9 @@ namespace CAM.Web.Controllers
             {
                 if (await _discrepService.TryAddLabor(vm.DiscrepancyId, vm.EmployeeId, vm.LaborInHours, vm.DatePerformed))
                 {
-                    var updatedRecords = await _discrepService.GetLaborRecordsById(vm.DiscrepancyId);
+                    var updatedRecords = await _discrepService.GetLaborRecordsById(vm.DiscrepancyId, false);
                     var viewModels = _mapper.Map<List<LaborRecordViewModel>>(updatedRecords);
-                    return PartialView("_DiscrepancyPartsPartial", viewModels);
+                    return PartialView("_LaborRecordsPartial", viewModels);
                 }
             }
             return NotFound("Unable to add the requested labor record.");

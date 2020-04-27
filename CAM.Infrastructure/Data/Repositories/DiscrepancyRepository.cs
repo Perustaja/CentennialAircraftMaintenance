@@ -23,6 +23,7 @@ namespace CAM.Infrastructure.Data.Repositories
             var queryable = _applicationContext.Discrepancies
                 .Where(e => e.WorkOrderId == wOrderId)
                 .Include(e => e.LaborRecords)
+                    .ThenInclude(e => e.Employee)
                 .Include(e => e.DiscrepancyParts)
                     .ThenInclude(e => e.Part);
             if (inclTracking)

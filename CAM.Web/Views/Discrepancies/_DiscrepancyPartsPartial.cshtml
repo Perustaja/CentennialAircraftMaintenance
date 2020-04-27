@@ -1,23 +1,22 @@
 @model List<CAM.Web.ViewModels.Shared.DiscrepancyPartViewModel>
-<div id="parts-basket">
+<div id="parts-basket" class="v-scroll">
     @foreach (var m in Model)
     {
         <div class="d-flex justify-content-center">
             @* Image *@
-            <div class="part-img">
-                <img src="@Url.Content(m.ImageThumbPath)" draggable="false">
+            <div class="img-sm">
+                <img src="@Url.Content(m.PartViewModel.ImageThumbPath)" draggable="false">
             </div>
             @* PN *@
-            <div>
+            <div class="d-flex justify-content-center align-self-center">
+                <span>@m.PartViewModel.MfrsPartNumber</span>
             </div>
             @* Qty *@
-                @m.Qty
-            <div>
-                
+            <div class="d-flex justify-content-center align-self-center">
+                <input asp-for="@m.Qty" class="form-control" />
             </div>
             @* Controls *@
             <div>
-
             </div>
         </div>
     }

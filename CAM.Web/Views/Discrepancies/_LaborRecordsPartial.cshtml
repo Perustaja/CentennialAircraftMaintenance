@@ -1,8 +1,27 @@
 @model List<CAM.Web.ViewModels.Shared.LaborRecordViewModel>
-<div id="labor-basket">
+<div id="labor-basket" class="v-scroll">
     @foreach (var m in Model)
     {
         <div class="d-flex justify-content-center">
+            @* Date *@
+            <div class="d-flex justify-content-center align-self-center">
+                <span>@m.DatePerformed.Date.ToShortDateString()</span>
+            </div>
+            @* Initials *@
+            <div class="d-flex justify-content-center align-self-center">
+                <span>@m.EmployeeViewModel.Initials</span>
+            </div>
+            @* Cert *@
+            <div class="d-flex justify-content-center align-self-center">
+                <span>@m.EmployeeViewModel.CertificationNum</span>
+            </div>
+            @* Hours *@
+            <div class="d-flex justify-content-center align-self-center">
+                <input asp-for="@m.LaborInHours" class="form-control" />
+            </div>
+            @* Controls *@
+            <div>
+            </div>
         </div>
     }
 </div>

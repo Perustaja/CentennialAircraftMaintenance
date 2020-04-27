@@ -22,7 +22,5 @@ namespace CAM.Infrastructure.Data.Repositories
         {
             return await _applicationContext.Employees.AnyAsync(e => e.Id == employeeId);
         }
-
-
     }
 }

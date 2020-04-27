@@ -16,5 +16,7 @@ namespace CAM.Web.ViewModels.Shared
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         public DateTime DatePerformed { get; set; }
+        [SourceMember(nameof(LaborRecord.Employee))]
+        public EmployeeViewModel EmployeeViewModel { get; set; }
     }
 }

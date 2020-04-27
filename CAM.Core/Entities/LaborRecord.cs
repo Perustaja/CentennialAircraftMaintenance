@@ -32,7 +32,17 @@ namespace CAM.Core.Entities
             LaborInHours = laborInHours;
             DatePerformed = date.Date;
         }
-        public void ChangeLaborHours(decimal laborInHours) => LaborInHours = laborInHours;
-        public void AddLaborHours(decimal laborInHours) => LaborInHours += laborInHours;
+        public void ChangeLaborHours(decimal laborInHours)
+        {
+            if (laborInHours > 99m)
+                throw new ArgumentException("Hours cannot exceed 99.");
+            LaborInHours = laborInHours;
+        }
+        public void AddLaborHours(decimal laborInHours)
+        {
+            if (LaborInHours + laborInHours > 99m)
+                throw new ArgumentException("Hours cannot exceed 99.");
+            LaborInHours += laborInHours;
+        }
     }
 }
