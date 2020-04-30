@@ -23,57 +23,58 @@
         </div>
     <hr />
     </div>
-    <div class="description">
-        <div class="grid-panel">
-            <div class="panel-header">
-                <div class="header-text">
-                    <span>Description of issue or task</span>
-                </div>
-                <div>
-                    <a>Edit</a>
-                </div>
+    <div class="description grid-panel">
+        <div class="panel-header">
+            <div class="header-text">
+                <span>Description of issue or task</span>
             </div>
-            <div class="panel-text">
-                This is a lot of text that is going to go here.
+            <div>
+                <a>Edit</a>
             </div>
+        </div>
+        <div class="panel-text">
+            This is a lot of text that is going to go here.
         </div>
     </div>
-    <div class="resolution">
-        <div class="grid-panel">
-            <div class="panel-header">
-                <div class="header-text">
-                    <span>Corrective Action</span>
-                </div>
-                <div>
-                    <a>Edit</a>
-                </div>
+    <div class="resolution grid-panel">
+        <div class="panel-header">
+            <div class="header-text">
+                <span>Corrective Action</span>
             </div>
-            <div class="panel-text">
-                This is a lot of text that is going to go here.
+            <div>
+                <a>Edit</a>
             </div>
+        </div>
+        <div class="panel-text">
+            This is a lot of text that is going to go here.
         </div>
     </div>
-    <div class="parts">
-        <div class="grid-panel">
-            <div class="panel-header">
-                <div class="header-text">
-                    <span>Parts</span>
-                </div>
-                <a href="#" id="addDiscrepPart"><i class="far fa-plus-square"></i> Add</a>
+    <div class="parts grid-panel">
+        <div class="panel-header" style="padding: 11px;">
+            <div class="header-text">
+                <span>Parts</span>
             </div>
-            @await Html.PartialAsync("_DiscrepancyPartsPartial", Model.DiscrepancyPartViewModels)
+            <a href="#" id="addDiscrepPart"><i class="far fa-plus-square"></i> Add</a>
         </div>
+        <div class="row scrollable-header">
+            <div class="col-8">Part</div> 
+            <div class="col-2 pl-0">Qty</div> 
+        </div>
+    @await Html.PartialAsync("_DiscrepancyPartsPartial", Model.DiscrepancyPartViewModels)
     </div>    
-    <div class="labor">
-        <div class="grid-panel">
-            <div class="panel-header">
-                <div class="header-text">
-                    <span>Labor Records</span>
-                </div>
-                <a href="#" id="addLaborRecord"><i class="far fa-plus-square"></i> Add</a>
+    <div class="labor grid-panel">
+        <div class="panel-header" style="padding: 11px;">
+            <div class="header-text">
+                <span>Labor Records</span>
             </div>
-            @await Html.PartialAsync("_LaborRecordsPartial", Model.LaborRecordViewModels)
+            <a href="#" id="addLaborRecord"><i class="far fa-plus-square"></i> Add</a>
         </div>
+        <div class="row scrollable-header">
+            <div class="col-4">Date</div> 
+            <div class="col-4">Employee</div> 
+            <div class="col-4">Hours</div> 
+        </div>
+    @await Html.PartialAsync("_LaborRecordsPartial", Model.LaborRecordViewModels)
     </div>
 </div>
 

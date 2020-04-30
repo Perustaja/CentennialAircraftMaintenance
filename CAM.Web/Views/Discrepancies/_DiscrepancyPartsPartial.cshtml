@@ -1,23 +1,25 @@
 @model List<CAM.Web.ViewModels.Shared.DiscrepancyPartViewModel>
-<div id="parts-basket" class="v-scroll">
-    @foreach (var m in Model)
-    {
-        <div class="d-flex justify-content-center">
-            @* Image *@
-            <div class="img-sm">
-                <img src="@Url.Content(m.PartViewModel.ImageThumbPath)" draggable="false">
+<div id="parts-basket" class="scrollable-section">
+        @foreach (var m in Model)
+        {
+            <div class="row pb-1">
+                <div class="col-3 pl-0">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-sm">
+                            <img src="@Url.Content(m.PartViewModel.ImageThumbPath)" draggable="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5 pl-0 d-flex justify-content-center align-items-center">
+                    <span>@m.PartViewModel.MfrsPartNumber</span>
+                </div>
+                <div class="col-4 pl-0 pr-0 d-flex justify-content-center align-items-center">
+                    <input asp-for="@m.Qty" class="form-control basket-input" min="0" max="99" />
+                    <span class="d-block pl-2 pr-0 basket-ctrls">
+                        <a>update</a>
+                        <a>delete</a>
+                    </span>
+                </div>
             </div>
-            @* PN *@
-            <div class="d-flex justify-content-center align-self-center">
-                <span>@m.PartViewModel.MfrsPartNumber</span>
-            </div>
-            @* Qty *@
-            <div class="d-flex justify-content-center align-self-center">
-                <input asp-for="@m.Qty" class="form-control" />
-            </div>
-            @* Controls *@
-            <div>
-            </div>
-        </div>
-    }
+        }
 </div>

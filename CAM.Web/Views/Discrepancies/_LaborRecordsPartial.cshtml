@@ -1,27 +1,16 @@
 @model List<CAM.Web.ViewModels.Shared.LaborRecordViewModel>
-<div id="labor-basket" class="v-scroll">
-    @foreach (var m in Model)
-    {
-        <div class="d-flex justify-content-center">
-            @* Date *@
-            <div class="d-flex justify-content-center align-self-center">
-                <span>@m.DatePerformed.Date.ToShortDateString()</span>
-            </div>
-            @* Initials *@
-            <div class="d-flex justify-content-center align-self-center">
-                <span>@m.EmployeeViewModel.Initials</span>
-            </div>
-            @* Cert *@
-            <div class="d-flex justify-content-center align-self-center">
-                <span>@m.EmployeeViewModel.CertificationNum</span>
-            </div>
-            @* Hours *@
-            <div class="d-flex justify-content-center align-self-center">
-                <input asp-for="@m.LaborInHours" class="form-control" />
-            </div>
-            @* Controls *@
-            <div>
-            </div>
+<div id="labor-basket" class="scrollable-section">
+    @foreach (var m in Model) {
+        <div class="row p-1">
+            <div class="col-4 d-flex justify-content-left align-items-center">@m.DatePerformed.ToShortDateString()</div> 
+            <div class="col-4 pl-0 d-flex justify-content-center align-items-center">@m.EmployeeViewModel.Initials</div> 
+            <div class="col-4 pl-0 pr-0 d-flex justify-content-center align-items-center">
+                <input class="form-control basket-input" value="@m.LaborInHours" />
+                <span class="d-block pl-2 pr-0 basket-ctrls">
+                    <a>update</a>
+                    <a>delete</a>
+                </span>
+            </div> 
         </div>
     }
 </div>
